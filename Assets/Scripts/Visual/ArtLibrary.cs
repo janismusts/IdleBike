@@ -12,9 +12,7 @@ namespace IdleBike
     /// </summary>
     public static class ArtLibrary
     {
-        const int RiderFrameW = 128, RiderFrameH = 96, RiderFrames = 8;
-        const int TrailFrameW = 96, TrailFrameH = 48;
-        const int UiIconSize = 32, BikeIconSize = 64;
+        const int RiderFrames = 8;
 
         static readonly Dictionary<string, Texture2D> TexCache = new Dictionary<string, Texture2D>();
         static readonly Dictionary<string, Sprite[]> FrameCache = new Dictionary<string, Sprite[]>();
@@ -30,6 +28,89 @@ namespace IdleBike
             return t;
         }
 
+        // ---------- authored slices ----------
+        // Sheets are sliced in the Sprite Editor; those slices are the authority.
+        // For animation frames we keep sheet-space alignment (pivot at a fixed point of
+        // the frame's cell) so helmet overlays land exactly where the art has them.
+
+        static readonly Dictionary<string, Sprite[]> RawSlices = new Dictionary<string, Sprite[]>();
+
+        static Sprite[] SlicesOf(string path)
+        {
+            if (RawSlices.TryGetValue(path, out var s)) return s;
+            var all = Resources.LoadAll<Sprite>(path);
+            if (all != null && all.Length > 0)
+                System.Array.Sort(all, (a, b) => a.rect.x.CompareTo(b.rect.x));
+            else
+                all = null;
+            RawSlices[path] = all;
+            return all;
+        }
+
+        /// <summary>Union rect of authored slices per frame cell; null cell => full cell rect.</summary>
+        static Sprite[] SheetFrames(string path, int frameCount, float cellPivotX, float ppu, Texture2D texOverride)
+        {
+            var slices = SlicesOf(path);
+            if (slices == null) return null;
+            var tex = texOverride != null ? texOverride : slices[0].texture;
+            float cellW = (float)tex.width / frameCount;
+
+            var cells = new Rect?[frameCount];
+            foreach (var s in slices)
+            {
+                int ci = Mathf.Clamp((int)(s.rect.center.x / cellW), 0, frameCount - 1);
+                cells[ci] = cells[ci].HasValue ? Union(cells[ci].Value, s.rect) : s.rect;
+            }
+
+            var frames = new Sprite[frameCount];
+            for (int i = 0; i < frameCount; i++)
+            {
+                var rect = cells[i] ?? new Rect(i * cellW, 0f, cellW, tex.height);
+                // pivot at a fixed sheet-space point of this cell (ground line, cellPivotX across)
+                float px = i * cellW + cellW * cellPivotX;
+                var pivot = new Vector2((px - rect.x) / rect.width, (0f - rect.y) / rect.height);
+                frames[i] = Sprite.Create(tex, rect, pivot, ppu);
+            }
+            return frames;
+        }
+
+        static Rect Union(Rect a, Rect b) =>
+            Rect.MinMaxRect(Mathf.Min(a.xMin, b.xMin), Mathf.Min(a.yMin, b.yMin),
+                Mathf.Max(a.xMax, b.xMax), Mathf.Max(a.yMax, b.yMax));
+
+        /// <summary>Cluster authored slices into icons: slices whose x-ranges (nearly) touch merge.</summary>
+        static Rect[] IconRects(string path, float mergeGap = 3f)
+        {
+            var slices = SlicesOf(path);
+            if (slices == null) return null;
+            var result = new List<Rect>();
+            Rect cur = slices[0].rect;
+            for (int i = 1; i < slices.Length; i++)
+            {
+                var r = slices[i].rect;
+                if (r.xMin <= cur.xMax + mergeGap) cur = Union(cur, r);
+                else { result.Add(cur); cur = r; }
+            }
+            result.Add(cur);
+            return result.ToArray();
+        }
+
+        static Sprite IconAt(string path, int index, string cacheKey)
+        {
+            if (SpriteCache.TryGetValue(cacheKey, out var cached)) return cached;
+            Sprite s = null;
+            var rects = IconRects(path);
+            if (rects != null && index >= 0 && index < rects.Length)
+            {
+                var tex = SlicesOf(path)[0].texture;
+                var rect = rects[index];
+                // ppu = max dimension => icon is ~1 world unit; UI Images ignore ppu anyway
+                s = Sprite.Create(tex, rect, new Vector2(0.5f, 0.5f), Mathf.Max(rect.width, rect.height));
+            }
+            SpriteCache[cacheKey] = s;
+            return s;
+        }
+
         // ---------- riders ----------
 
         /// <summary>8 riding frames for a bike tier with the jersey tinted; null if art missing.</summary>
@@ -40,12 +121,14 @@ namespace IdleBike
             string key = $"rider_{sheet}_{jersey.r}_{jersey.g}_{jersey.b}";
             if (FrameCache.TryGetValue(key, out var cached)) return cached;
 
-            var tex = Tex("Art/riding/" + sheet);
-            if (tex == null) { FrameCache[key] = null; return null; }
-
-            var tinted = TintWhite(tex, jersey);
-            var frames = SliceRow(tinted, RiderFrameW, RiderFrameH, RiderFrames,
-                new Vector2(0.5f, 0f), Tuning.Visual.riderArtPixelsPerUnit);
+            string path = "Art/riding/" + sheet;
+            var tex = Tex(path);
+            Sprite[] frames = null;
+            if (tex != null)
+            {
+                var tinted = TintWhite(tex, jersey);
+                frames = SheetFrames(path, RiderFrames, 0.5f, Tuning.Visual.riderArtPixelsPerUnit, tinted);
+            }
             FrameCache[key] = frames;
             return frames;
         }
@@ -55,21 +138,19 @@ namespace IdleBike
         {
             string key = "helmet_" + style;
             if (FrameCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/cosmetics/helmet-" + style);
-            var frames = tex == null ? null : SliceRow(tex, RiderFrameW, RiderFrameH, RiderFrames,
-                new Vector2(0.5f, 0f), Tuning.Visual.riderArtPixelsPerUnit);
+            var frames = SheetFrames("Art/cosmetics/helmet-" + style, RiderFrames, 0.5f,
+                Tuning.Visual.riderArtPixelsPerUnit, null);
             FrameCache[key] = frames;
             return frames;
         }
 
-        /// <summary>8 trail effect frames (pivot at bottom-right so it hangs behind the rear wheel).</summary>
+        /// <summary>8 trail effect frames (pivot at the cell's bottom-right so it hangs behind the rear wheel).</summary>
         public static Sprite[] TrailFrames8(string trail)
         {
             string key = "trail_" + trail;
             if (FrameCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/cosmetics/trail-" + trail);
-            var frames = tex == null ? null : SliceRow(tex, TrailFrameW, TrailFrameH, RiderFrames,
-                new Vector2(1f, 0f), Tuning.Visual.riderArtPixelsPerUnit);
+            var frames = SheetFrames("Art/cosmetics/trail-" + trail, RiderFrames, 1f,
+                Tuning.Visual.riderArtPixelsPerUnit, null);
             FrameCache[key] = frames;
             return frames;
         }
@@ -144,78 +225,25 @@ namespace IdleBike
             SpeakerOn = 6, SpeakerOff = 7, Vibration = 8, Play = 9, Close = 10,
         }
 
-        /// <summary>32x32 white UI icon (tint via Image.color); null if art missing.</summary>
-        public static Sprite Icon(UiIcon icon)
-        {
-            string key = "icon_" + (int)icon;
-            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/ui/ui-icons");
-            Sprite s = null;
-            if (tex != null && tex.width >= ((int)icon + 1) * UiIconSize)
-                s = Sprite.Create(tex, new Rect((int)icon * UiIconSize, 0, UiIconSize, UiIconSize),
-                    new Vector2(0.5f, 0.5f), UiIconSize);
-            SpriteCache[key] = s;
-            return s;
-        }
+        /// <summary>White UI icon (tint via Image.color), from authored slices; null if art missing.</summary>
+        public static Sprite Icon(UiIcon icon) =>
+            IconAt("Art/ui/ui-icons", (int)icon, "icon_" + (int)icon);
 
-        /// <summary>32x32 emote icon (index matches Emotes.All); null if art missing.</summary>
-        public static Sprite Emote(int index)
-        {
-            string key = "emote_" + index;
-            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/social/emotes");
-            Sprite s = null;
-            if (tex != null && tex.width >= (index + 1) * UiIconSize)
-                s = Sprite.Create(tex, new Rect(index * UiIconSize, 0, UiIconSize, UiIconSize),
-                    new Vector2(0.5f, 0.5f), UiIconSize);
-            SpriteCache[key] = s;
-            return s;
-        }
+        /// <summary>Emote icon (index matches Emotes.All), from authored slices; null if art missing.</summary>
+        public static Sprite Emote(int index) =>
+            IconAt("Art/social/emotes", index, "emote_" + index);
 
         public enum SocialIcon { Team = 0, Gift = 1, Smiley = 2, Send = 3 }
 
-        /// <summary>32x32 white social icon (tint via Image.color); null if art missing.</summary>
-        public static Sprite Social(SocialIcon icon)
-        {
-            string key = "social_" + (int)icon;
-            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/social/social-icons");
-            Sprite s = null;
-            if (tex != null && tex.width >= ((int)icon + 1) * UiIconSize)
-                s = Sprite.Create(tex, new Rect((int)icon * UiIconSize, 0, UiIconSize, UiIconSize),
-                    new Vector2(0.5f, 0.5f), UiIconSize);
-            SpriteCache[key] = s;
-            return s;
-        }
+        /// <summary>White social icon (tint via Image.color), from authored slices; null if art missing.</summary>
+        public static Sprite Social(SocialIcon icon) =>
+            IconAt("Art/social/social-icons", (int)icon, "social_" + (int)icon);
 
-        /// <summary>64x64 bike icon for a tier (garage/upgrade UI); null if art missing.</summary>
-        public static Sprite BikeIcon(int tierIndex)
-        {
-            string key = "bikeicon_" + tierIndex;
-            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/ui/bike-upgrade-icons");
-            Sprite s = null;
-            if (tex != null && tex.width >= (tierIndex + 1) * BikeIconSize)
-                s = Sprite.Create(tex, new Rect(tierIndex * BikeIconSize, 0, BikeIconSize, BikeIconSize),
-                    new Vector2(0.5f, 0.5f), BikeIconSize);
-            SpriteCache[key] = s;
-            return s;
-        }
+        /// <summary>Bike icon for a tier (garage/upgrade UI), from authored slices; null if art missing.</summary>
+        public static Sprite BikeIcon(int tierIndex) =>
+            IconAt("Art/ui/bike-upgrade-icons", tierIndex, "bikeicon_" + tierIndex);
 
         // ---------- helpers ----------
-
-        static Sprite[] SliceRow(Texture2D tex, int frameW, int frameH, int count, Vector2 pivot, float ppu)
-        {
-            int available = Mathf.Min(count, tex.width / frameW);
-            if (available <= 0) return null;
-            var frames = new Sprite[count];
-            for (int i = 0; i < count; i++)
-            {
-                int idx = Mathf.Min(i, available - 1);
-                frames[i] = Sprite.Create(tex, new Rect(idx * frameW, 0, frameW, frameH), pivot, ppu);
-            }
-            return frames;
-        }
 
         /// <summary>Copy the texture with near-white pixels multiplied by the tint (jersey coloring).</summary>
         static Texture2D TintWhite(Texture2D src, Color32 tint)

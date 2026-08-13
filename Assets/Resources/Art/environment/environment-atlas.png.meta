@@ -388,12 +388,12 @@ TextureImporter:
       name: environment-atlas_11
       rect:
         serializedVersion: 2
-        x: 138
+        x: 139
         y: 88
-        width: 65
+        width: 64
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
