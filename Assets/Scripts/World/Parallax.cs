@@ -50,7 +50,8 @@ namespace IdleBike
             // Far mountains
             var mountains = NewLayer("Mountains", 0.08f, 320f);
             for (int i = 0; i < 5; i++)
-                mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, 0.4f, -40, 2.2f + Rand(i, 1) * 1.5f,
+                mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, 0.4f, -40,
+                    Mathf.Lerp(Tuning.Visual.mountainScaleMin, Tuning.Visual.mountainScaleMax, Rand(i, 1)),
                     new Color(1f, 1f, 1f, 0.9f));
 
             // Clouds

@@ -23,6 +23,11 @@ namespace IdleBike
                 Debug.LogWarning($"[IdleBike] Failed to load save, starting fresh: {e.Message}");
             }
             var fresh = new SaveData { lastSaveUnix = NowUnix() };
+            if (Tuning.Audio != null)
+            {
+                fresh.musicVolume = Tuning.Audio.defaultMusicVolume;
+                fresh.sfxVolume = Tuning.Audio.defaultSfxVolume;
+            }
             fresh.ownedCosmetics.Add("jersey_red");
             fresh.ownedCosmetics.Add("helmet_white");
             return fresh;
@@ -55,7 +60,7 @@ namespace IdleBike
             fresh.ownedCosmetics.Add("jersey_red");
             fresh.ownedCosmetics.Add("helmet_white");
             GameState.Data = fresh;
-            GameState.SprintEnergy = GameConfig.SprintMax;
+            GameState.SprintEnergy = Tuning.Balance.sprintMax;
             GameState.BuffTimeLeft = 0f;
             GameState.CurrentSpeed = 0f;
             Save();

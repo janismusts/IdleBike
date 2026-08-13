@@ -26,7 +26,7 @@ namespace IdleBike
 
         // Transient (not saved)
         public static float CurrentSpeed;
-        public static float SprintEnergy = GameConfig.SprintMax;
+        public static float SprintEnergy = 100f; // set from Tuning.Balance.sprintMax on boot
         public static bool SprintHeld;
         public static bool IsSprinting;
         public static bool IsDrafting;

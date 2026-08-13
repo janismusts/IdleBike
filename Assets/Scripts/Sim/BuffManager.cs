@@ -22,18 +22,19 @@ namespace IdleBike
         public void Build(PlayerSim sim)
         {
             _sim = sim;
-            _timer = UnityEngine.Random.Range(GameConfig.BuffSpawnMinInterval, GameConfig.BuffSpawnMaxInterval) * 0.5f;
+            _timer = UnityEngine.Random.Range(Tuning.Balance.buffSpawnMinInterval, Tuning.Balance.buffSpawnMaxInterval) * 0.5f;
         }
 
         public void Tick(float dt)
         {
+            var b = Tuning.Balance;
             double playerDist = GameState.Data.totalDistance;
 
             _timer -= dt;
             if (_timer <= 0f && _pickups.Count < 2)
             {
-                Spawn(playerDist + UnityEngine.Random.Range(GameConfig.BuffSpawnAheadMin, GameConfig.BuffSpawnAheadMax));
-                _timer = UnityEngine.Random.Range(GameConfig.BuffSpawnMinInterval, GameConfig.BuffSpawnMaxInterval);
+                Spawn(playerDist + UnityEngine.Random.Range(b.buffSpawnAheadMin, b.buffSpawnAheadMax));
+                _timer = UnityEngine.Random.Range(b.buffSpawnMinInterval, b.buffSpawnMaxInterval);
             }
 
             for (int i = _pickups.Count - 1; i >= 0; i--)
@@ -49,7 +50,8 @@ namespace IdleBike
                     _pickups.RemoveAt(i);
                     continue;
                 }
-                p.Tr.localPosition = new Vector3(rel, 0.15f + Mathf.Sin(Time.time * 4f + i) * 0.12f, 0f);
+                p.Tr.localPosition = new Vector3(rel,
+                    0.15f + Mathf.Sin(Time.time * Tuning.Anim.buffBobFrequency + i) * Tuning.Anim.buffBobAmplitude, 0f);
             }
         }
 

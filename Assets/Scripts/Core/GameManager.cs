@@ -34,13 +34,14 @@ namespace IdleBike
 
         public void ComputeOffline()
         {
+            var b = Tuning.Balance;
             long now = SaveSystem.NowUnix();
             double away = now - GameState.Data.lastSaveUnix;
-            if (away < GameConfig.OfflineMinSeconds) return;
-            away = System.Math.Min(away, GameConfig.OfflineMaxSeconds);
-            float cruise = BikeDefs.CruiseSpeed(GameState.Data.bikeLevel) * (1f - GameConfig.DragPenalty);
+            if (away < b.offlineMinSeconds) return;
+            away = System.Math.Min(away, b.offlineMaxHours * 3600.0);
+            float cruise = BikeDefs.CruiseSpeed(GameState.Data.bikeLevel) * (1f - b.dragPenalty);
             OfflineSeconds = away;
-            OfflineMeters = cruise * away * GameConfig.OfflineRateFactor;
+            OfflineMeters = cruise * away * b.offlineRateFactor;
             OfflineCoins = OfflineMeters * BikeDefs.CoinsPerMeter(GameState.Data.bikeLevel);
         }
 

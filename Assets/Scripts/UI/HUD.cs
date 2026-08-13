@@ -127,7 +127,7 @@ namespace IdleBike
             _distanceText.text = NumberFormat.Distance(GameState.Data.totalDistance);
             _speedText.text = NumberFormat.Speed(GameState.CurrentSpeed);
             _coinsText.text = NumberFormat.Coins(GameState.Data.coins);
-            _sprintFill.fillAmount = GameState.SprintEnergy / GameConfig.SprintMax;
+            _sprintFill.fillAmount = GameState.SprintEnergy / Tuning.Balance.sprintMax;
             _sprintFill.color = GameState.IsSprinting
                 ? new Color(1f, 0.55f, 0.15f)
                 : new Color(0.95f, 0.8f, 0.2f);
@@ -135,7 +135,7 @@ namespace IdleBike
             _draftChipBg.gameObject.SetActive(GameState.IsDrafting);
             bool buffOn = GameState.BuffTimeLeft > 0f;
             _buffChipBg.gameObject.SetActive(buffOn);
-            if (buffOn) _buffChip.text = $"SPEED x{GameConfig.BuffMultiplier:0.0} {GameState.BuffTimeLeft:0}s";
+            if (buffOn) _buffChip.text = $"SPEED x{Tuning.Balance.buffMultiplier:0.0} {GameState.BuffTimeLeft:0}s";
 
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
         }

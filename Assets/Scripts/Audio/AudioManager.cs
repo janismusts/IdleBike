@@ -15,12 +15,12 @@ namespace IdleBike
             _music = gameObject.AddComponent<AudioSource>();
             _music.loop = true;
             _music.clip = ProceduralSfx.MusicLoop();
-            _music.volume = GameState.Data.musicVolume;
+            _music.volume = GameState.Data.musicVolume * Tuning.Audio.musicGain;
             _music.Play();
 
             _sfx = gameObject.AddComponent<AudioSource>();
             _sfx.loop = false;
-            _sfx.volume = GameState.Data.sfxVolume;
+            _sfx.volume = GameState.Data.sfxVolume * Tuning.Audio.sfxGain;
         }
 
         public float MusicVolume
@@ -29,7 +29,7 @@ namespace IdleBike
             set
             {
                 GameState.Data.musicVolume = Mathf.Clamp01(value);
-                if (_music != null) _music.volume = GameState.Data.musicVolume;
+                if (_music != null) _music.volume = GameState.Data.musicVolume * Tuning.Audio.musicGain;
             }
         }
 
@@ -39,7 +39,7 @@ namespace IdleBike
             set
             {
                 GameState.Data.sfxVolume = Mathf.Clamp01(value);
-                if (_sfx != null) _sfx.volume = GameState.Data.sfxVolume;
+                if (_sfx != null) _sfx.volume = GameState.Data.sfxVolume * Tuning.Audio.sfxGain;
             }
         }
 

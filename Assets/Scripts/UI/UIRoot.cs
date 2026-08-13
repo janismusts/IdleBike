@@ -46,7 +46,7 @@ namespace IdleBike
 
             // Fader on top of everything
             Fader = ScreenFader.Create(transform);
-            Fader.FadeIn(0.6f);
+            Fader.FadeIn(Tuning.Anim.startFadeDuration);
 
             if (Manager.OfflineCoins >= 1.0)
                 OpenPanel(_offlinePopup);
@@ -99,14 +99,15 @@ namespace IdleBike
         IEnumerator AnimateOpen(UIPanel panel)
         {
             panel.gameObject.SetActive(true);
-            const float dur = 0.16f;
+            float dur = Tuning.Anim.panelOpenDuration;
+            float startScale = Tuning.Anim.panelStartScale;
             float t = 0f;
             while (t < dur)
             {
                 t += Time.unscaledDeltaTime;
                 float k = Mathf.Clamp01(t / dur);
                 panel.Group.alpha = k;
-                panel.transform.localScale = Vector3.one * Mathf.Lerp(0.94f, 1f, k);
+                panel.transform.localScale = Vector3.one * Mathf.Lerp(startScale, 1f, k);
                 yield return null;
             }
             panel.Group.alpha = 1f;
@@ -115,14 +116,15 @@ namespace IdleBike
 
         IEnumerator AnimateClose(UIPanel panel)
         {
-            const float dur = 0.12f;
+            float dur = Tuning.Anim.panelCloseDuration;
+            float startScale = Tuning.Anim.panelStartScale;
             float t = 0f;
             while (t < dur)
             {
                 t += Time.unscaledDeltaTime;
                 float k = 1f - Mathf.Clamp01(t / dur);
                 panel.Group.alpha = k;
-                panel.transform.localScale = Vector3.one * Mathf.Lerp(0.94f, 1f, k);
+                panel.transform.localScale = Vector3.one * Mathf.Lerp(startScale, 1f, k);
                 yield return null;
             }
             panel.gameObject.SetActive(false);

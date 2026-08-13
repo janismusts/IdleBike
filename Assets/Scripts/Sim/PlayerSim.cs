@@ -9,40 +9,38 @@ namespace IdleBike
         public event Action SprintStarted;
         public event Action SprintEmptied;
 
-        bool _wasSprinting;
-
         public float CruiseSpeed => BikeDefs.CruiseSpeed(GameState.Data.bikeLevel);
 
         public void Tick(float dt)
         {
-            var s = GameState.Data;
-            float cruise = BikeDefs.CruiseSpeed(s.bikeLevel);
+            var b = Tuning.Balance;
+            float cruise = BikeDefs.CruiseSpeed(GameState.Data.bikeLevel);
 
             // Sprint energy
             bool wantSprint = GameState.SprintHeld;
             bool sprinting = GameState.IsSprinting;
             if (sprinting)
             {
-                GameState.SprintEnergy -= GameConfig.SprintDrainPerSec * dt;
+                GameState.SprintEnergy -= b.sprintDrainPerSec * dt;
                 if (GameState.SprintEnergy <= 0f || !wantSprint)
                 {
+                    bool emptied = GameState.SprintEnergy <= 0f;
                     GameState.SprintEnergy = Mathf.Max(0f, GameState.SprintEnergy);
                     sprinting = false;
-                    if (GameState.SprintEnergy <= 0f) SprintEmptied?.Invoke();
+                    if (emptied) SprintEmptied?.Invoke();
                 }
             }
             else
             {
-                float regen = GameConfig.SprintRegenPerSec + (GameState.IsDrafting ? GameConfig.SprintRegenDraftBonus : 0f);
-                GameState.SprintEnergy = Mathf.Min(GameConfig.SprintMax, GameState.SprintEnergy + regen * dt);
-                if (wantSprint && GameState.SprintEnergy >= GameConfig.SprintMinToStart)
+                float regen = b.sprintRegenPerSec + (GameState.IsDrafting ? b.sprintRegenDraftBonus : 0f);
+                GameState.SprintEnergy = Mathf.Min(b.sprintMax, GameState.SprintEnergy + regen * dt);
+                if (wantSprint && GameState.SprintEnergy >= b.sprintMinToStart)
                 {
                     sprinting = true;
                     SprintStarted?.Invoke();
                 }
             }
             GameState.IsSprinting = sprinting;
-            _wasSprinting = sprinting;
 
             // Buff timer
             if (GameState.BuffTimeLeft > 0f)
@@ -50,13 +48,13 @@ namespace IdleBike
 
             // Target speed
             float target = cruise;
-            if (!GameState.IsDrafting) target *= 1f - GameConfig.DragPenalty;
-            if (sprinting) target *= GameConfig.SprintMultiplier;
-            if (GameState.BuffTimeLeft > 0f) target *= GameConfig.BuffMultiplier;
+            if (!GameState.IsDrafting) target *= 1f - b.dragPenalty;
+            if (sprinting) target *= b.sprintMultiplier;
+            if (GameState.BuffTimeLeft > 0f) target *= b.buffMultiplier;
 
             // Smooth toward target
             float cur = GameState.CurrentSpeed;
-            float rate = target > cur ? GameConfig.Acceleration : GameConfig.Deceleration;
+            float rate = target > cur ? b.acceleration : b.deceleration;
             // scale accel with cruise so high-tier bikes don't take forever to reach speed
             rate *= Mathf.Max(1f, cruise * 0.15f);
             GameState.CurrentSpeed = Mathf.MoveTowards(cur, target, rate * dt);
@@ -64,7 +62,7 @@ namespace IdleBike
 
         public void PickUpBuff()
         {
-            GameState.BuffTimeLeft = GameConfig.BuffDuration;
+            GameState.BuffTimeLeft = Tuning.Balance.buffDuration;
         }
     }
 }

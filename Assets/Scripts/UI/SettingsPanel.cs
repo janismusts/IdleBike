@@ -70,7 +70,7 @@ namespace IdleBike
                 SaveSystem.ResetProgress();
                 AudioManager.I.MusicVolume = GameState.Data.musicVolume;
                 AudioManager.I.SfxVolume = GameState.Data.sfxVolume;
-            });
+            }, Tuning.Anim.flashFadeDuration);
         }
 
         public override void OnOpened()

@@ -52,17 +52,20 @@ namespace IdleBike
         /// <summary>Cruise speed (m/s) at a bike level, before drag/sprint/buffs.</summary>
         public static float CruiseSpeed(int level)
         {
-            return GameConfig.BaseSpeed * (1f + GameConfig.SpeedPerLevel * level) * TierForLevel(level).SpeedMult;
+            var b = Tuning.Balance;
+            return b.baseSpeed * (1f + b.speedPerLevel * level) * TierForLevel(level).SpeedMult;
         }
 
         public static double UpgradeCost(int level)
         {
-            return System.Math.Round(GameConfig.UpgradeBaseCost * System.Math.Pow(GameConfig.UpgradeCostGrowth, level));
+            var b = Tuning.Balance;
+            return System.Math.Round(b.upgradeBaseCost * System.Math.Pow(b.upgradeCostGrowth, level));
         }
 
         public static double CoinsPerMeter(int level)
         {
-            return GameConfig.CoinsPerMeter * (1.0 + GameConfig.CoinsPerMeterPerLevel * level);
+            var b = Tuning.Balance;
+            return b.coinsPerMeter * (1.0 + b.coinsPerMeterPerLevel * level);
         }
     }
 }

@@ -36,11 +36,12 @@ namespace IdleBike
         void Update()
         {
             if (_sr == null) return;
+            var a = Tuning.Anim;
             float spd = Mathf.Max(0f, AnimSpeed);
-            _pedalPhase += spd * 0.9f * Time.deltaTime;
-            _bobPhase += Time.deltaTime * (2f + spd * 0.25f);
+            _pedalPhase += spd * a.pedalRate * Time.deltaTime;
+            _bobPhase += Time.deltaTime * (a.bobBaseFrequency + spd * a.bobFrequencyPerSpeed);
             var lp = transform.localPosition;
-            transform.localPosition = new Vector3(lp.x, Mathf.Sin(_bobPhase) * 0.03f, lp.z);
+            transform.localPosition = new Vector3(lp.x, Mathf.Sin(_bobPhase) * a.bobAmplitude, lp.z);
             Refresh();
         }
 

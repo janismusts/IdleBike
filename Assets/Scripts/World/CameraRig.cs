@@ -10,10 +10,11 @@ namespace IdleBike
 
         public void Build()
         {
+            var v = Tuning.Visual;
             Cam = gameObject.AddComponent<Camera>();
             Cam.orthographic = true;
-            Cam.orthographicSize = GameConfig.CamMinSize;
-            Cam.backgroundColor = new Color(0.52f, 0.78f, 0.92f);
+            Cam.orthographicSize = v.camMinSize;
+            Cam.backgroundColor = v.skyColor;
             Cam.clearFlags = CameraClearFlags.SolidColor;
             Cam.nearClipPlane = -10f;
             Cam.farClipPlane = 100f;
@@ -23,15 +24,16 @@ namespace IdleBike
         void LateUpdate()
         {
             if (Cam == null || GameState.Data == null) return;
+            var v = Tuning.Visual;
             float targetSize = Mathf.Clamp(
-                GameConfig.CamMinSize + GameState.CurrentSpeed * GameConfig.CamSizePerSpeed,
-                GameConfig.CamMinSize, GameConfig.CamMaxSize);
-            float size = Mathf.SmoothDamp(Cam.orthographicSize, targetSize, ref _sizeVelocity, GameConfig.CamSmoothTime);
+                v.camMinSize + GameState.CurrentSpeed * v.camSizePerSpeed,
+                v.camMinSize, v.camMaxSize);
+            float size = Mathf.SmoothDamp(Cam.orthographicSize, targetSize, ref _sizeVelocity, v.camSmoothTime);
             Cam.orthographicSize = size;
 
-            // player at x=0; keep them ~35% from the left edge, road in lower third
+            // player at x=0; keep them left of center, road in the lower third
             float halfW = size * Cam.aspect;
-            transform.position = new Vector3(halfW * 0.3f, size * 0.32f, -10f);
+            transform.position = new Vector3(halfW * v.camXOffsetFactor, size * v.camYOffsetFactor, -10f);
         }
     }
 }

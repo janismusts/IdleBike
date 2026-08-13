@@ -16,7 +16,9 @@ namespace IdleBike
             if (_booted) return;
             _booted = true;
 
+            Tuning.Load();
             GameState.Data = SaveSystem.LoadOrCreate();
+            GameState.SprintEnergy = Tuning.Balance.sprintMax;
 
             Application.targetFrameRate = 60;
 #if UNITY_ANDROID || UNITY_IOS
