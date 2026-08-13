@@ -22,6 +22,7 @@ namespace IdleBike
         Coroutine _anim;
         UIPanel _animPanel;
         bool _animClosing;
+        RewardedAdOverlay _rewardedAd;
 
         public void Build(GameManager manager)
         {
@@ -55,6 +56,9 @@ namespace IdleBike
             _settingsPanel = NewPanel<SettingsPanel>("SettingsPanel");
             _offlinePopup = NewPanel<OfflinePopup>("OfflinePopup");
 
+            // Rewarded ad placeholder (above panels)
+            _rewardedAd = RewardedAdOverlay.Create(_canvas.transform);
+
             // Fader on top of everything
             Fader = ScreenFader.Create(transform);
             Fader.FadeIn(Tuning.Anim.startFadeDuration);
@@ -76,6 +80,8 @@ namespace IdleBike
         public void OpenShop() => TogglePanel(_shopPanel);
         public void OpenSkills() => TogglePanel(_skillsPanel);
         public void OpenSettings() => TogglePanel(_settingsPanel);
+
+        public void ShowRewardedAd(System.Action onReward) => _rewardedAd.Show(onReward);
 
         /// <summary>Open (or refresh) the offline earnings popup.</summary>
         public void ShowOfflinePopup()

@@ -1,0 +1,1664 @@
+fileFormatVersion: 2
+guid: 84cd7c1f9a2a55947acfaf707435575f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4343903076356970363
+    second: trail-sparkle_0
+  - first:
+      213: -1613680216844175929
+    second: trail-sparkle_1
+  - first:
+      213: -1377331725369751120
+    second: trail-sparkle_2
+  - first:
+      213: 3303003468928155175
+    second: trail-sparkle_3
+  - first:
+      213: 6839818075851077743
+    second: trail-sparkle_4
+  - first:
+      213: 9144457919135980721
+    second: trail-sparkle_5
+  - first:
+      213: -8456286510682556410
+    second: trail-sparkle_6
+  - first:
+      213: 705544484644891427
+    second: trail-sparkle_7
+  - first:
+      213: 4597594756792259456
+    second: trail-sparkle_8
+  - first:
+      213: 133548698065999330
+    second: trail-sparkle_9
+  - first:
+      213: -3804459969346539770
+    second: trail-sparkle_10
+  - first:
+      213: 6224101219035650579
+    second: trail-sparkle_11
+  - first:
+      213: -3568473994958061298
+    second: trail-sparkle_12
+  - first:
+      213: -3658961186257398045
+    second: trail-sparkle_13
+  - first:
+      213: 8739389790732239622
+    second: trail-sparkle_14
+  - first:
+      213: 2698732703382025415
+    second: trail-sparkle_15
+  - first:
+      213: -8761764668453892393
+    second: trail-sparkle_16
+  - first:
+      213: -2516758835178941605
+    second: trail-sparkle_17
+  - first:
+      213: 5091382245487861026
+    second: trail-sparkle_18
+  - first:
+      213: -2571019934043521669
+    second: trail-sparkle_19
+  - first:
+      213: 8026372147696270899
+    second: trail-sparkle_20
+  - first:
+      213: -6481731294605389710
+    second: trail-sparkle_21
+  - first:
+      213: -7052678951436458563
+    second: trail-sparkle_22
+  - first:
+      213: 3126001555632638296
+    second: trail-sparkle_23
+  - first:
+      213: 6164441236648946587
+    second: trail-sparkle_24
+  - first:
+      213: 1745777283777179632
+    second: trail-sparkle_25
+  - first:
+      213: -902029181360929423
+    second: trail-sparkle_26
+  - first:
+      213: 2434980942793923816
+    second: trail-sparkle_27
+  - first:
+      213: -5964391995001075765
+    second: trail-sparkle_28
+  - first:
+      213: 5727154819962611505
+    second: trail-sparkle_29
+  - first:
+      213: -2553231868198924468
+    second: trail-sparkle_30
+  - first:
+      213: 3664214911275570176
+    second: trail-sparkle_31
+  - first:
+      213: 5653476182793939869
+    second: trail-sparkle_32
+  - first:
+      213: 7477353473198227392
+    second: trail-sparkle_33
+  - first:
+      213: 747964712368033483
+    second: trail-sparkle_34
+  - first:
+      213: 8960111459056862844
+    second: trail-sparkle_35
+  - first:
+      213: -1869267121143574435
+    second: trail-sparkle_36
+  - first:
+      213: -5360555791076566855
+    second: trail-sparkle_37
+  - first:
+      213: 3417268803620261192
+    second: trail-sparkle_38
+  - first:
+      213: -8090876950705025241
+    second: trail-sparkle_39
+  - first:
+      213: 5678386111995030852
+    second: trail-sparkle_40
+  - first:
+      213: -8487917667979253503
+    second: trail-sparkle_41
+  - first:
+      213: 300350896733341483
+    second: trail-sparkle_42
+  - first:
+      213: 8288498773332888075
+    second: trail-sparkle_43
+  - first:
+      213: -2060357997102089933
+    second: trail-sparkle_44
+  - first:
+      213: 2246560251951972350
+    second: trail-sparkle_45
+  - first:
+      213: 8468711311752174986
+    second: trail-sparkle_46
+  - first:
+      213: 5540977237951240568
+    second: trail-sparkle_47
+  - first:
+      213: -4350808325181370138
+    second: trail-sparkle_48
+  - first:
+      213: -3825813857551958200
+    second: trail-sparkle_49
+  - first:
+      213: -4704247197614496855
+    second: trail-sparkle_50
+  - first:
+      213: 8284795874278090083
+    second: trail-sparkle_51
+  - first:
+      213: 219869044119356271
+    second: trail-sparkle_52
+  - first:
+      213: 8415738351866787154
+    second: trail-sparkle_53
+  - first:
+      213: 7191374875242722124
+    second: trail-sparkle_54
+  - first:
+      213: 6063293102573441458
+    second: trail-sparkle_55
+  - first:
+      213: 6155158628492959344
+    second: trail-sparkle_56
+  - first:
+      213: -170748966561830645
+    second: trail-sparkle_57
+  - first:
+      213: -4857759932469806908
+    second: trail-sparkle_58
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: trail-sparkle_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 23
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b77dbfc35d4a84c30800000000000000
+      internalID: 4343903076356970363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_1
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 32
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c57de5746e0b99e0800000000000000
+      internalID: -1613680216844175929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_2
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 17
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b9c57bd71cb2ece0800000000000000
+      internalID: -1377331725369751120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_3
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 34
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e7859a720a6dd20800000000000000
+      internalID: 3303003468928155175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_4
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 27
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6836631d4aebee50800000000000000
+      internalID: 6839818075851077743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_5
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 24
+        width: 33
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bc9b9d2704a7ee70800000000000000
+      internalID: 9144457919135980721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_6
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 13
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 608b6dbc83c35aa80800000000000000
+      internalID: -8456286510682556410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_7
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 31
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32bae7c78f89ac900800000000000000
+      internalID: 705544484644891427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_8
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 24
+        width: 26
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0831dcb7210fdcf30800000000000000
+      internalID: 4597594756792259456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_9
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 20
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e5907455d57ad100800000000000000
+      internalID: 133548698065999330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_10
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 31
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60fe7e490d7d33bc0800000000000000
+      internalID: -3804459969346539770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_11
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 29
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31a12bef413706650800000000000000
+      internalID: 6224101219035650579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_12
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 29
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e014e44eecb3a7ec0800000000000000
+      internalID: -3568473994958061298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_13
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 15
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e69f26ef22c83dc0800000000000000
+      internalID: -3658961186257398045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_14
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 17
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 603454e16bc884970800000000000000
+      internalID: 8739389790732239622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_15
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c4b0d06813d37520800000000000000
+      internalID: 2698732703382025415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_16
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 17
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7decc33b475f76680800000000000000
+      internalID: -8761764668453892393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_17
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 16
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5355db7c2da21dd0800000000000000
+      internalID: -2516758835178941605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_18
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 18
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22dd80e4d2938a640800000000000000
+      internalID: 5091382245487861026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_19
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 30
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7d33e8edf6e15cd0800000000000000
+      internalID: -2571019934043521669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_20
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 16
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33e768a51f6636f60800000000000000
+      internalID: 8026372147696270899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_21
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 17
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 270538faab34c06a0800000000000000
+      internalID: -6481731294605389710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_22
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 17
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db561c04cd9df1e90800000000000000
+      internalID: -7052678951436458563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_23
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 31
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8594dc24ad9c16b20800000000000000
+      internalID: 3126001555632638296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_24
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 32
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9bea35e4ae7c8550800000000000000
+      internalID: 6164441236648946587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_25
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 11
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ff2c78a03f3a3810800000000000000
+      internalID: 1745777283777179632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_26
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 15
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17502fb1d395b73f0800000000000000
+      internalID: -902029181360929423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_27
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 19
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ecd312344acac120800000000000000
+      internalID: 2434980942793923816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_28
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 6
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc707ccc4193a3da0800000000000000
+      internalID: -5964391995001075765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_29
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 17
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137a98907f0fa7f40800000000000000
+      internalID: 5727154819962611505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_30
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 17
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4fcbcab429119cd0800000000000000
+      internalID: -2553231868198924468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_31
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 16
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00415474c08e9d230800000000000000
+      internalID: 3664214911275570176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_32
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 17
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9b609582ae257e40800000000000000
+      internalID: 5653476182793939869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_33
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf730efd55e4c760800000000000000
+      internalID: 7477353473198227392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_34
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 9
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bce493961fd416a00800000000000000
+      internalID: 747964712368033483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_35
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 13
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76cdf836e5b85c70800000000000000
+      internalID: 8960111459056862844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_36
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 15
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d509be505770f06e0800000000000000
+      internalID: -1869267121143574435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_37
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 14
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b8d732d8ea7b95b0800000000000000
+      internalID: -5360555791076566855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_38
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 20
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84d4fc51fd39c6f20800000000000000
+      internalID: 3417268803620261192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_39
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 10
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72fc4d7d74e67bf80800000000000000
+      internalID: -8090876950705025241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_40
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 10
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44da9fe551eadce40800000000000000
+      internalID: 5678386111995030852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_41
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 19
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109a5551adbd43a80800000000000000
+      internalID: -8487917667979253503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_42
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 9
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b27c2cb9c8f0b2400800000000000000
+      internalID: 300350896733341483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_43
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 12
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a84c158b9a60370800000000000000
+      internalID: 8288498773332888075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_44
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 8
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 339389061532863e0800000000000000
+      internalID: -2060357997102089933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_45
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 13
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efffb1875a26d2f10800000000000000
+      internalID: 2246560251951972350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_46
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 13
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d1252a118e68570800000000000000
+      internalID: 8468711311752174986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_47
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 5
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 879db98c07185ec40800000000000000
+      internalID: 5540977237951240568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_48
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e090cb31e2de93c0800000000000000
+      internalID: -4350808325181370138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_49
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84f39db019af7eac0800000000000000
+      internalID: -3825813857551958200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_50
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 8
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3af82191827beb0800000000000000
+      internalID: -4704247197614496855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_51
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 9
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 365a7f2f3f189f270800000000000000
+      internalID: 8284795874278090083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_52
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 6
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f63c6df0bb12d0300800000000000000
+      internalID: 219869044119356271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_53
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 9
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 255b6a94175bac470800000000000000
+      internalID: 8415738351866787154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_54
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 6
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c43f285f855ecc360800000000000000
+      internalID: 7191374875242722124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_55
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 12
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b157fbb3f4252450800000000000000
+      internalID: 6063293102573441458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_56
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 11
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07ed08349248b6550800000000000000
+      internalID: 6155158628492959344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_57
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 8
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b09215638b061adf0800000000000000
+      internalID: -170748966561830645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail-sparkle_58
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 8
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8f2053415c59cb0800000000000000
+      internalID: -4857759932469806908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      trail-sparkle_0: 4343903076356970363
+      trail-sparkle_1: -1613680216844175929
+      trail-sparkle_10: -3804459969346539770
+      trail-sparkle_11: 6224101219035650579
+      trail-sparkle_12: -3568473994958061298
+      trail-sparkle_13: -3658961186257398045
+      trail-sparkle_14: 8739389790732239622
+      trail-sparkle_15: 2698732703382025415
+      trail-sparkle_16: -8761764668453892393
+      trail-sparkle_17: -2516758835178941605
+      trail-sparkle_18: 5091382245487861026
+      trail-sparkle_19: -2571019934043521669
+      trail-sparkle_2: -1377331725369751120
+      trail-sparkle_20: 8026372147696270899
+      trail-sparkle_21: -6481731294605389710
+      trail-sparkle_22: -7052678951436458563
+      trail-sparkle_23: 3126001555632638296
+      trail-sparkle_24: 6164441236648946587
+      trail-sparkle_25: 1745777283777179632
+      trail-sparkle_26: -902029181360929423
+      trail-sparkle_27: 2434980942793923816
+      trail-sparkle_28: -5964391995001075765
+      trail-sparkle_29: 5727154819962611505
+      trail-sparkle_3: 3303003468928155175
+      trail-sparkle_30: -2553231868198924468
+      trail-sparkle_31: 3664214911275570176
+      trail-sparkle_32: 5653476182793939869
+      trail-sparkle_33: 7477353473198227392
+      trail-sparkle_34: 747964712368033483
+      trail-sparkle_35: 8960111459056862844
+      trail-sparkle_36: -1869267121143574435
+      trail-sparkle_37: -5360555791076566855
+      trail-sparkle_38: 3417268803620261192
+      trail-sparkle_39: -8090876950705025241
+      trail-sparkle_4: 6839818075851077743
+      trail-sparkle_40: 5678386111995030852
+      trail-sparkle_41: -8487917667979253503
+      trail-sparkle_42: 300350896733341483
+      trail-sparkle_43: 8288498773332888075
+      trail-sparkle_44: -2060357997102089933
+      trail-sparkle_45: 2246560251951972350
+      trail-sparkle_46: 8468711311752174986
+      trail-sparkle_47: 5540977237951240568
+      trail-sparkle_48: -4350808325181370138
+      trail-sparkle_49: -3825813857551958200
+      trail-sparkle_5: 9144457919135980721
+      trail-sparkle_50: -4704247197614496855
+      trail-sparkle_51: 8284795874278090083
+      trail-sparkle_52: 219869044119356271
+      trail-sparkle_53: 8415738351866787154
+      trail-sparkle_54: 7191374875242722124
+      trail-sparkle_55: 6063293102573441458
+      trail-sparkle_56: 6155158628492959344
+      trail-sparkle_57: -170748966561830645
+      trail-sparkle_58: -4857759932469806908
+      trail-sparkle_6: -8456286510682556410
+      trail-sparkle_7: 705544484644891427
+      trail-sparkle_8: 4597594756792259456
+      trail-sparkle_9: 133548698065999330
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

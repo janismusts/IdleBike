@@ -55,6 +55,23 @@ namespace IdleBike
         public float buffMultiplier = 1.5f;
         public float buffDuration = 6f;
 
+        [Header("Terrain (hills)")]
+        [Tooltip("Length of one grade segment in meters")]
+        public float gradeSegmentLength = 250f;
+        [Range(0f, 1f)] public float uphillChance = 0.28f;
+        [Range(0f, 1f)] public float downhillChance = 0.16f;
+        [Tooltip("Max uphill grade (0.09 = 9%)")]
+        public float gradeUphillMax = 0.09f;
+        public float gradeDownhillMax = 0.06f;
+        [Tooltip("How fast the visible grade blends between segments (grade units per second)")]
+        public float gradeChangePerSec = 0.04f;
+        [Tooltip("Speed penalty per grade unit uphill (grade 0.09 * 4 = 36% slower)")]
+        public float uphillSlowFactor = 4f;
+        public float uphillMinSpeedMult = 0.45f;
+        [Tooltip("Speed bonus per grade unit downhill")]
+        public float downhillBoostFactor = 2.5f;
+        public float downhillMaxSpeedMult = 1.35f;
+
         [Header("Economy")]
         public double coinsPerMeter = 0.4;
         [Tooltip("+X% coins per bike level")]

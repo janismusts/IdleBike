@@ -17,7 +17,8 @@ namespace IdleBike
 
         public void Build()
         {
-            var tileSprite = PixelSprites.RoadTile();
+            var tileSprite = ArtLibrary.EnvRoad();
+            if (tileSprite == null) tileSprite = PixelSprites.RoadTile();
             _tileWidth = tileSprite.bounds.size.x;
             for (int i = 0; i < TileCount; i++)
             {

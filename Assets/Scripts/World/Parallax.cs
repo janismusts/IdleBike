@@ -26,6 +26,15 @@ namespace IdleBike
             _baseX.Add(x);
         }
 
+        /// <summary>Seamless horizontal strip: tiles laid edge to edge; sets SpanWidth to match.</summary>
+        public void AddStrip(Sprite sprite, float y, int sortingOrder, float scale, int count)
+        {
+            float w = sprite.bounds.size.x * scale;
+            SpanWidth = w * count;
+            for (int i = 0; i < count; i++)
+                AddProp(sprite, i * w - SpanWidth * 0.5f + w * 0.5f, y, sortingOrder, scale);
+        }
+
         public void Tick()
         {
             float scroll = (float)(GameState.Data.totalDistance * Factor % SpanWidth);
@@ -40,46 +49,86 @@ namespace IdleBike
         }
     }
 
-    /// <summary>Builds and ticks all background/foreground parallax layers.</summary>
+    /// <summary>
+    /// Builds and ticks all parallax layers. Sky layers (mountains, clouds, hills) stay
+    /// level on this object; the near tree line goes under the tilt node so it follows
+    /// the road grade.
+    /// </summary>
     public class ParallaxBackground : MonoBehaviour
     {
         readonly List<ParallaxLayer> _layers = new List<ParallaxLayer>();
 
-        public void Build()
+        public void Build(Transform tiltParent)
         {
+            var v = Tuning.Visual;
+
             // Far mountains
-            var mountains = NewLayer("Mountains", 0.08f, 320f);
-            for (int i = 0; i < 5; i++)
-                mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, 0.4f, -40,
-                    Mathf.Lerp(Tuning.Visual.mountainScaleMin, Tuning.Visual.mountainScaleMax, Rand(i, 1)),
-                    new Color(1f, 1f, 1f, 0.9f));
+            var mountains = NewLayer("Mountains", 0.08f, 320f, null);
+            var mountainArt = ArtLibrary.EnvMountains();
+            if (mountainArt != null)
+            {
+                mountains.AddStrip(mountainArt, 0.4f, -40, 2.2f, 6);
+            }
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                    mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, 0.4f, -40,
+                        Mathf.Lerp(v.mountainScaleMin, v.mountainScaleMax, Rand(i, 1)),
+                        new Color(1f, 1f, 1f, 0.9f));
+            }
 
             // Clouds
-            var clouds = NewLayer("Clouds", 0.05f, 300f);
+            var clouds = NewLayer("Clouds", 0.05f, 300f, null);
             for (int i = 0; i < 7; i++)
-                clouds.AddProp(PixelSprites.Cloud(i % 3), Rand(i, 2) * 300f - 150f, 5f + Rand(i, 3) * 6f, -50,
+            {
+                var cloudSprite = ArtLibrary.EnvCloud(i % 3);
+                if (cloudSprite == null) cloudSprite = PixelSprites.Cloud(i % 3);
+                clouds.AddProp(cloudSprite, Rand(i, 2) * 300f - 150f, 5f + Rand(i, 3) * 6f, -50,
                     1f + Rand(i, 4) * 1.4f);
+            }
 
-            // Hills
-            var hills = NewLayer("Hills", 0.25f, 260f);
-            for (int i = 0; i < 6; i++)
-                hills.AddProp(PixelSprites.Hill(), Rand(i, 5) * 260f - 130f, 0.15f, -30, 1.2f + Rand(i, 6) * 1.4f);
+            // Rolling hills
+            var hills = NewLayer("Hills", 0.25f, 260f, null);
+            var hillArt = ArtLibrary.EnvHills();
+            if (hillArt != null)
+            {
+                hills.AddStrip(hillArt, 0.15f, -30, 1.6f, 8);
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
+                    hills.AddProp(PixelSprites.Hill(), Rand(i, 5) * 260f - 130f, 0.15f, -30, 1.2f + Rand(i, 6) * 1.4f);
+            }
 
-            // Trees + bushes just behind the road
-            var trees = NewLayer("Trees", 1f, 200f);
+            // Trees + bushes just behind the road — tilted with the grade
+            var trees = NewLayer("Trees", 1f, 200f, tiltParent);
             for (int i = 0; i < 14; i++)
             {
+                if (i % 4 == 3)
+                {
+                    var flowers = ArtLibrary.EnvFlowers();
+                    if (flowers != null) { trees.AddProp(flowers, Rand(i, 10) * 200f - 100f, 0.05f, -8); continue; }
+                }
                 if (i % 3 == 2)
-                    trees.AddProp(PixelSprites.Bush(), Rand(i, 7) * 200f - 100f, 0.05f, -8);
+                {
+                    var bush = ArtLibrary.EnvBush(i);
+                    if (bush == null) bush = PixelSprites.Bush();
+                    trees.AddProp(bush, Rand(i, 7) * 200f - 100f, 0.05f, -8);
+                }
                 else
-                    trees.AddProp(PixelSprites.Tree(i % 3), Rand(i, 8) * 200f - 100f, 0.05f, -9, 0.9f + Rand(i, 9) * 0.6f);
+                {
+                    var tree = ArtLibrary.EnvTree(i % 3);
+                    float scale = tree != null ? 0.7f + Rand(i, 9) * 0.4f : 0.9f + Rand(i, 9) * 0.6f;
+                    if (tree == null) tree = PixelSprites.Tree(i % 3);
+                    trees.AddProp(tree, Rand(i, 8) * 200f - 100f, 0.05f, -9, scale);
+                }
             }
         }
 
-        ParallaxLayer NewLayer(string name, float factor, float span)
+        ParallaxLayer NewLayer(string name, float factor, float span, Transform parentOverride)
         {
             var go = new GameObject(name);
-            go.transform.SetParent(transform, false);
+            go.transform.SetParent(parentOverride != null ? parentOverride : transform, false);
             var layer = go.AddComponent<ParallaxLayer>();
             layer.Factor = factor;
             layer.SpanWidth = span;

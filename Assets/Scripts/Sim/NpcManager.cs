@@ -23,12 +23,16 @@ namespace IdleBike
         readonly List<Npc> _npcs = new List<Npc>();
         double _nextSpawnAt;
 
+        /// <summary>Set at boot; NPCs share the road grade with the player.</summary>
+        public TerrainSystem Terrain;
+
         static readonly string[] JerseyPool = { "jersey_red", "jersey_blue", "jersey_green", "jersey_gold", "jersey_night" };
-        static readonly string[] HelmetPool = { "helmet_white", "helmet_red", "helmet_aero" };
+        static readonly string[] HelmetPool = { "helmet_white", "helmet_red", "helmet_retro", "helmet_aero" };
+        static readonly string[] TrailPool = { "trail_none", "trail_none", "trail_none", "trail_sparkle", "trail_flame", "trail_rainbow" };
 
         static float EffectiveCruise()
         {
-            return BikeDefs.CruiseSpeed(GameState.Data.bikeLevel) * (1f - Tuning.Balance.dragPenalty);
+            return BikeDefs.CruiseSpeed(GameState.Data.bikeLevel) * (1f - SkillEffects.EffectiveDragPenalty);
         }
 
         public void Build()
@@ -50,7 +54,8 @@ namespace IdleBike
             }
 
             // pick the draft target: nearest NPC ahead within the window
-            float draftWindow = b.draftWindowBase + GameState.CurrentSpeed * b.draftWindowPerSpeed;
+            float draftWindow = (b.draftWindowBase + GameState.CurrentSpeed * b.draftWindowPerSpeed)
+                                * SkillEffects.DraftWindowMult;
             int draftIdx = -1;
             float bestRel = float.MaxValue;
             for (int i = 0; i < _npcs.Count; i++)
@@ -65,10 +70,11 @@ namespace IdleBike
             GameState.IsDrafting = draftIdx >= 0;
 
             // move + despawn
+            float terrainMult = Terrain != null ? Terrain.SpeedMultiplier(false) : 1f;
             for (int i = _npcs.Count - 1; i >= 0; i--)
             {
                 var n = _npcs[i];
-                float speed = n.Speed;
+                float speed = n.Speed * terrainMult;
                 if (i == draftIdx && n.PaceLeft > 0f)
                 {
                     // pace the player so the draft isn't a one-frame flicker
@@ -113,10 +119,13 @@ namespace IdleBike
             var vis = go.AddComponent<RiderVisual>();
             vis.Init(4); // behind the player (player sorts at 5)
 
-            var tier = BikeDefs.Tiers[Random.Range(0, BikeDefs.Tiers.Length)];
+            // ride bikes near the player's tier — looks right and keeps the tinted-sheet cache small
+            int playerTier = BikeDefs.TierIndexForLevel(GameState.Data.bikeLevel);
+            int tierIdx = Mathf.Clamp(playerTier + Random.Range(-2, 2), 0, BikeDefs.Tiers.Length - 1);
             var jersey = Cosmetics.Get(JerseyPool[Random.Range(0, JerseyPool.Length)]);
             var helmet = Cosmetics.Get(HelmetPool[Random.Range(0, HelmetPool.Length)]);
-            vis.ApplyLook(tier.Silhouette, tier.FrameColor, jersey.Color, helmet.Color);
+            var trail = Cosmetics.Get(TrailPool[Random.Range(0, TrailPool.Length)]);
+            vis.ApplyLook(tierIdx, jersey.Color, helmet, trail);
 
             _npcs.Add(new Npc
             {

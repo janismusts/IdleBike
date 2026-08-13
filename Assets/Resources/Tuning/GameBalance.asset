@@ -43,6 +43,16 @@ MonoBehaviour:
   buffSpawnAheadMax: 30
   buffMultiplier: 1.5
   buffDuration: 6
+  gradeSegmentLength: 250
+  uphillChance: 0.28
+  downhillChance: 0.16
+  gradeUphillMax: 0.09
+  gradeDownhillMax: 0.06
+  gradeChangePerSec: 0.04
+  uphillSlowFactor: 4
+  uphillMinSpeedMult: 0.45
+  downhillBoostFactor: 2.5
+  downhillMaxSpeedMult: 1.35
   coinsPerMeter: 0.4
   coinsPerMeterPerLevel: 0.05
   upgradeBaseCost: 15

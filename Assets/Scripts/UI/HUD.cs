@@ -16,7 +16,13 @@ namespace IdleBike
         Image _draftChipBg;
         Text _buffChip;
         Image _buffChipBg;
+        Text _gradeChip;
+        Image _gradeChipBg;
         Image _bikeBadge;
+        Button _refillBtn;
+
+        static readonly Color UphillColor = new Color(0.85f, 0.4f, 0.25f, 0.9f);
+        static readonly Color DownhillColor = new Color(0.3f, 0.55f, 0.9f, 0.9f);
 
         const float BannerH = 140f;
         const float BarH = 200f;
@@ -27,7 +33,10 @@ namespace IdleBike
             Transform canvas = safeArea; // HUD strips live inside the safe area
 
             // --- Top: coins (left), settings (right) ---
-            var coinIcon = UIFactory.Image(canvas, "CoinIcon", Color.white, PixelSprites.Coin());
+            var coinArt = ArtLibrary.Icon(ArtLibrary.UiIcon.Coin);
+            var coinIcon = UIFactory.Image(canvas, "CoinIcon",
+                coinArt != null ? new Color(1f, 0.85f, 0.3f) : Color.white,
+                coinArt != null ? coinArt : PixelSprites.Coin());
             UIFactory.SetPoint(coinIcon.rectTransform, new Vector2(0f, 1f), new Vector2(36f, -36f), new Vector2(56f, 56f));
             coinIcon.raycastTarget = false;
 
@@ -37,7 +46,9 @@ namespace IdleBike
             var settings = UIFactory.Button(canvas, "SettingsBtn", "", 0, new Color(0f, 0f, 0f, 0.35f),
                 () => _root.OpenSettings());
             UIFactory.SetPoint(settings.GetComponent<RectTransform>(), new Vector2(1f, 1f), new Vector2(-28f, -28f), new Vector2(104f, 104f));
-            var gear = UIFactory.Image(settings.transform, "Icon", UIFactory.TextMain, PixelSprites.IconGear());
+            var gearArt = ArtLibrary.Icon(ArtLibrary.UiIcon.Gear);
+            var gear = UIFactory.Image(settings.transform, "Icon", UIFactory.TextMain,
+                gearArt != null ? gearArt : PixelSprites.IconGear());
             UIFactory.SetPoint(gear.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
             gear.raycastTarget = false;
 
@@ -51,13 +62,19 @@ namespace IdleBike
 
             // --- Status chips ---
             _draftChipBg = UIFactory.Image(canvas, "DraftChip", new Color(0.2f, 0.6f, 0.3f, 0.85f), PixelSprites.White());
-            UIFactory.SetPoint(_draftChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-130f, -305f), new Vector2(230f, 54f));
+            UIFactory.SetPoint(_draftChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-240f, -305f), new Vector2(230f, 54f));
             _draftChipBg.raycastTarget = false; // must not swallow sprint holds
             _draftChip = UIFactory.Text(_draftChipBg.transform, "Label", "DRAFTING", 32, Color.white);
             UIFactory.Fill(_draftChip.rectTransform);
 
+            _gradeChipBg = UIFactory.Image(canvas, "GradeChip", UphillColor, PixelSprites.White());
+            UIFactory.SetPoint(_gradeChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -305f), new Vector2(230f, 54f));
+            _gradeChipBg.raycastTarget = false;
+            _gradeChip = UIFactory.Text(_gradeChipBg.transform, "Label", "UPHILL 5%", 32, Color.white);
+            UIFactory.Fill(_gradeChip.rectTransform);
+
             _buffChipBg = UIFactory.Image(canvas, "BuffChip", new Color(0.95f, 0.6f, 0.15f, 0.9f), PixelSprites.White());
-            UIFactory.SetPoint(_buffChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(130f, -305f), new Vector2(230f, 54f));
+            UIFactory.SetPoint(_buffChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(240f, -305f), new Vector2(230f, 54f));
             _buffChipBg.raycastTarget = false;
             _buffChip = UIFactory.Text(_buffChipBg.transform, "Label", "SPEED x1.5", 32, Color.white);
             UIFactory.Fill(_buffChip.rectTransform);
@@ -80,6 +97,26 @@ namespace IdleBike
             var hint = UIFactory.Text(canvas, "SprintHint", "HOLD SCREEN TO SPRINT", 28, UIFactory.TextDim);
             UIFactory.SetPoint(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, sprintY - 38f), new Vector2(600f, 36f));
 
+            // Rewarded refill (placeholder ad) — shows when the sprint bar runs low
+            _refillBtn = UIFactory.Button(canvas, "RefillBtn", "", 0, new Color(0.95f, 0.6f, 0.15f, 0.95f), () =>
+            {
+                _root.ShowRewardedAd(() =>
+                {
+                    GameState.SprintEnergy = SkillEffects.EffectiveSprintMax;
+                    AudioManager.I.PlayBuff();
+                    Haptics.Medium();
+                });
+            });
+            UIFactory.SetPoint(_refillBtn.GetComponent<RectTransform>(), new Vector2(0.5f, 0f),
+                new Vector2(0f, sprintY + 62f), new Vector2(420f, 64f));
+            var boltArt = ArtLibrary.Icon(ArtLibrary.UiIcon.Bolt);
+            var bolt = UIFactory.Image(_refillBtn.transform, "Icon", Color.white,
+                boltArt != null ? boltArt : PixelSprites.BuffBolt());
+            UIFactory.SetPoint(bolt.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(40f, 40f));
+            bolt.raycastTarget = false;
+            var refillLabel = UIFactory.Text(_refillBtn.transform, "Label", "REFILL SPRINT - FREE (AD)", 28, Color.white);
+            UIFactory.Fill(refillLabel.rectTransform);
+
             // --- Bottom bar: Skills / Bike / Shop ---
             var bar = UIFactory.Image(canvas, "BottomBar", new Color(0.08f, 0.09f, 0.13f, 0.95f), PixelSprites.White());
             bar.rectTransform.anchorMin = new Vector2(0f, 0f);
@@ -88,9 +125,9 @@ namespace IdleBike
             bar.rectTransform.anchoredPosition = new Vector2(0f, BannerH);
             bar.rectTransform.sizeDelta = new Vector2(0f, BarH);
 
-            BuildBarButton(bar.transform, 0, "SKILLS", PixelSprites.IconSkills(), () => _root.OpenSkills());
-            var bikeBtn = BuildBarButton(bar.transform, 1, "BIKE", PixelSprites.IconBike(), () => _root.OpenUpgrades());
-            BuildBarButton(bar.transform, 2, "SHOP", PixelSprites.IconShop(), () => _root.OpenShop());
+            BuildBarButton(bar.transform, 0, "SKILLS", BarIcon(ArtLibrary.UiIcon.Skills, PixelSprites.IconSkills()), () => _root.OpenSkills());
+            var bikeBtn = BuildBarButton(bar.transform, 1, "BIKE", BarIcon(ArtLibrary.UiIcon.Bike, PixelSprites.IconBike()), () => _root.OpenUpgrades());
+            BuildBarButton(bar.transform, 2, "SHOP", BarIcon(ArtLibrary.UiIcon.Shop, PixelSprites.IconShop()), () => _root.OpenShop());
 
             _bikeBadge = UIFactory.Image(bikeBtn.transform, "Badge", UIFactory.Accent, PixelSprites.Coin());
             UIFactory.SetPoint(_bikeBadge.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -12f), new Vector2(40f, 40f));
@@ -107,6 +144,12 @@ namespace IdleBike
             fitter.BannerHeight = BannerH;
             var bannerLabel = UIFactory.Text(banner.transform, "Label", "AD BANNER", 34, new Color(0.45f, 0.45f, 0.5f));
             UIFactory.SetPoint(bannerLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -BannerH * 0.5f), new Vector2(600f, 40f));
+        }
+
+        static Sprite BarIcon(ArtLibrary.UiIcon artIcon, Sprite fallback)
+        {
+            var art = ArtLibrary.Icon(artIcon);
+            return art != null ? art : fallback;
         }
 
         Button BuildBarButton(Transform bar, int index, string label, Sprite icon, System.Action onClick)
@@ -133,7 +176,8 @@ namespace IdleBike
             _distanceText.text = NumberFormat.Distance(GameState.Data.totalDistance);
             _speedText.text = NumberFormat.Speed(GameState.CurrentSpeed);
             _coinsText.text = NumberFormat.Coins(GameState.Data.coins);
-            _sprintFill.fillAmount = GameState.SprintEnergy / Tuning.Balance.sprintMax;
+            float sprintMax = SkillEffects.EffectiveSprintMax;
+            _sprintFill.fillAmount = sprintMax > 0f ? GameState.SprintEnergy / sprintMax : 0f;
             _sprintFill.color = GameState.IsSprinting
                 ? new Color(1f, 0.55f, 0.15f)
                 : new Color(0.95f, 0.8f, 0.2f);
@@ -143,6 +187,18 @@ namespace IdleBike
             _buffChipBg.gameObject.SetActive(buffOn);
             if (buffOn) _buffChip.text = $"SPEED x{Tuning.Balance.buffMultiplier:0.0} {GameState.BuffTimeLeft:0}s";
 
+            var terrain = GameManager.I != null ? GameManager.I.Terrain : null;
+            bool hill = terrain != null && !terrain.IsFlat;
+            _gradeChipBg.gameObject.SetActive(hill);
+            if (hill)
+            {
+                int pct = Mathf.RoundToInt(Mathf.Abs(terrain.CurrentGrade) * 100f);
+                bool up = terrain.IsUphill;
+                _gradeChip.text = (up ? "UPHILL " : "DOWNHILL ") + pct + "%";
+                _gradeChipBg.color = up ? UphillColor : DownhillColor;
+            }
+
+            _refillBtn.gameObject.SetActive(GameState.SprintEnergy < sprintMax * 0.25f && !GameState.IsSprinting);
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
         }
     }

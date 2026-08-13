@@ -46,23 +46,27 @@ namespace IdleBike
             var rig = camGo.AddComponent<CameraRig>();
             rig.Build();
 
-            // World
+            // World: sky layers stay level; the Tilt node rotates with the road grade
             var worldGo = new GameObject("World");
             worldGo.transform.SetParent(root.transform, false);
 
+            var tiltGo = new GameObject("Tilt");
+            tiltGo.transform.SetParent(worldGo.transform, false);
+            manager.WorldTilt = tiltGo.transform;
+
             var parallax = new GameObject("Parallax").AddComponent<ParallaxBackground>();
             parallax.transform.SetParent(worldGo.transform, false);
-            parallax.Build();
+            parallax.Build(tiltGo.transform);
             manager.Parallax = parallax;
 
             var road = new GameObject("Road").AddComponent<RoadScroller>();
-            road.transform.SetParent(worldGo.transform, false);
+            road.transform.SetParent(tiltGo.transform, false);
             road.Build();
             manager.Road = road;
 
             // Player
             var playerGo = new GameObject("Player");
-            playerGo.transform.SetParent(worldGo.transform, false);
+            playerGo.transform.SetParent(tiltGo.transform, false);
             playerGo.transform.localPosition = Vector3.zero;
             var playerVis = playerGo.AddComponent<RiderVisual>();
             playerVis.Init(5);
@@ -71,12 +75,13 @@ namespace IdleBike
 
             // NPCs + buffs
             var npcs = new GameObject("Npcs").AddComponent<NpcManager>();
-            npcs.transform.SetParent(worldGo.transform, false);
+            npcs.transform.SetParent(tiltGo.transform, false);
+            npcs.Terrain = manager.Terrain;
             npcs.Build();
             manager.Npcs = npcs;
 
             var buffs = new GameObject("Buffs").AddComponent<BuffManager>();
-            buffs.transform.SetParent(worldGo.transform, false);
+            buffs.transform.SetParent(tiltGo.transform, false);
             buffs.Build(manager.Sim);
             manager.Buffs = buffs;
             buffs.BuffCollected += () => { AudioManager.I.PlayBuff(); Haptics.Medium(); };

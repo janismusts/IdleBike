@@ -4,9 +4,16 @@ using System.Collections.Generic;
 namespace IdleBike
 {
     [Serializable]
+    public class SkillRankEntry
+    {
+        public string id;
+        public int rank;
+    }
+
+    [Serializable]
     public class SaveData
     {
-        public int version = 1;
+        public int version = 2;
         public double coins;
         public int bikeLevel;
         public double totalDistance;           // meters
@@ -16,6 +23,8 @@ namespace IdleBike
         public List<string> ownedCosmetics = new List<string>();
         public string equippedJersey = "jersey_red";
         public string equippedHelmet = "helmet_white";
+        public string equippedTrail = "trail_none";
+        public List<SkillRankEntry> skillRanks = new List<SkillRankEntry>();
         public long lastSaveUnix;
     }
 

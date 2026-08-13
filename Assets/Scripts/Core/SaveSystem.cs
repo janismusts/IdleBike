@@ -15,7 +15,7 @@ namespace IdleBike
                 if (File.Exists(Path))
                 {
                     var data = JsonUtility.FromJson<SaveData>(File.ReadAllText(Path));
-                    if (data != null) return data;
+                    if (data != null) return Migrate(data);
                 }
             }
             catch (Exception e)
@@ -30,7 +30,20 @@ namespace IdleBike
             }
             fresh.ownedCosmetics.Add("jersey_red");
             fresh.ownedCosmetics.Add("helmet_white");
+            fresh.ownedCosmetics.Add("trail_none");
             return fresh;
+        }
+
+        static SaveData Migrate(SaveData data)
+        {
+            if (data.version < 2)
+            {
+                if (string.IsNullOrEmpty(data.equippedTrail)) data.equippedTrail = "trail_none";
+                if (data.skillRanks == null) data.skillRanks = new System.Collections.Generic.List<SkillRankEntry>();
+                if (!data.ownedCosmetics.Contains("trail_none")) data.ownedCosmetics.Add("trail_none");
+                data.version = 2;
+            }
+            return data;
         }
 
         public static void Save()
@@ -59,6 +72,7 @@ namespace IdleBike
             };
             fresh.ownedCosmetics.Add("jersey_red");
             fresh.ownedCosmetics.Add("helmet_white");
+            fresh.ownedCosmetics.Add("trail_none");
             GameState.Data = fresh;
             GameState.SprintEnergy = Tuning.Balance.sprintMax;
             GameState.BuffTimeLeft = 0f;

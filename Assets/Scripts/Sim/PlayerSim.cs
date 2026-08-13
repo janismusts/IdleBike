@@ -3,15 +3,22 @@ using UnityEngine;
 
 namespace IdleBike
 {
-    /// <summary>Player speed / sprint / drag simulation. Ticked by GameManager.</summary>
+    /// <summary>Player speed / sprint / drag / terrain simulation. Ticked by GameManager.</summary>
     public class PlayerSim
     {
         public event Action SprintStarted;
         public event Action SprintEmptied;
 
+        readonly TerrainSystem _terrain;
+
         // After the bar empties, require a release + re-press before sprinting again
         // (otherwise a continuous hold restarts the sprint every ~1.7s, spamming SFX/haptics).
         bool _lockedUntilRelease;
+
+        public PlayerSim(TerrainSystem terrain)
+        {
+            _terrain = terrain;
+        }
 
         public float CruiseSpeed => BikeDefs.CruiseSpeed(GameState.Data.bikeLevel);
 
@@ -19,6 +26,7 @@ namespace IdleBike
         {
             var b = Tuning.Balance;
             float cruise = BikeDefs.CruiseSpeed(GameState.Data.bikeLevel);
+            float sprintMax = SkillEffects.EffectiveSprintMax;
 
             // Sprint energy
             bool wantSprint = GameState.SprintHeld;
@@ -41,8 +49,9 @@ namespace IdleBike
             }
             else
             {
-                float regen = b.sprintRegenPerSec + (GameState.IsDrafting ? b.sprintRegenDraftBonus : 0f);
-                GameState.SprintEnergy = Mathf.Min(b.sprintMax, GameState.SprintEnergy + regen * dt);
+                float regen = (b.sprintRegenPerSec + (GameState.IsDrafting ? b.sprintRegenDraftBonus : 0f))
+                              * SkillEffects.SprintRegenMult;
+                GameState.SprintEnergy = Mathf.Min(sprintMax, GameState.SprintEnergy + regen * dt);
                 if (wantSprint && !_lockedUntilRelease && GameState.SprintEnergy >= b.sprintMinToStart)
                 {
                     sprinting = true;
@@ -57,9 +66,14 @@ namespace IdleBike
 
             // Target speed
             float target = cruise;
-            if (!GameState.IsDrafting) target *= 1f - b.dragPenalty;
+            if (!GameState.IsDrafting) target *= 1f - SkillEffects.EffectiveDragPenalty;
             if (sprinting) target *= b.sprintMultiplier;
             if (GameState.BuffTimeLeft > 0f) target *= b.buffMultiplier;
+            if (_terrain != null)
+            {
+                target *= _terrain.SpeedMultiplier(true);
+                if (_terrain.IsFlat) target *= 1f + SkillEffects.FlatSpeedBonus;
+            }
 
             // Smooth toward target
             float cur = GameState.CurrentSpeed;
@@ -71,7 +85,7 @@ namespace IdleBike
 
         public void PickUpBuff()
         {
-            GameState.BuffTimeLeft = Tuning.Balance.buffDuration;
+            GameState.BuffTimeLeft = Tuning.Balance.buffDuration * SkillEffects.BuffDurationMult;
         }
     }
 }

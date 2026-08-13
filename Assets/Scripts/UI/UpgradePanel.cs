@@ -52,14 +52,19 @@ namespace IdleBike
             foreach (Transform child in _tierContent) Destroy(child.gameObject);
             int level = GameState.Data.bikeLevel;
             var current = BikeDefs.TierForLevel(level);
-            foreach (var tier in BikeDefs.Tiers)
+            for (int t = 0; t < BikeDefs.Tiers.Length; t++)
             {
+                var tier = BikeDefs.Tiers[t];
                 var row = UIFactory.Image(_tierContent, "Row", UIFactory.RowBg, PixelSprites.White());
                 var rt = row.rectTransform;
                 rt.sizeDelta = new Vector2(0f, 96f);
 
-                var swatch = UIFactory.Image(row.transform, "Swatch", tier.FrameColor, PixelSprites.White());
-                UIFactory.SetPoint(swatch.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f), new Vector2(56f, 56f));
+                var iconArt = ArtLibrary.BikeIcon(t);
+                var swatch = UIFactory.Image(row.transform, "Swatch",
+                    iconArt != null ? Color.white : (Color)tier.FrameColor,
+                    iconArt != null ? iconArt : PixelSprites.White());
+                UIFactory.SetPoint(swatch.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f),
+                    iconArt != null ? new Vector2(72f, 72f) : new Vector2(56f, 56f));
 
                 var name = UIFactory.Text(row.transform, "Name", tier.Name, 38,
                     tier == current ? UIFactory.Accent : UIFactory.TextMain, TextAnchor.MiddleLeft);

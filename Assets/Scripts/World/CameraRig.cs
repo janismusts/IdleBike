@@ -31,9 +31,12 @@ namespace IdleBike
             float size = Mathf.SmoothDamp(Cam.orthographicSize, targetSize, ref _sizeVelocity, v.camSmoothTime);
             Cam.orthographicSize = size;
 
-            // player at x=0; keep them left of center, road in the lower third
+            // Solve camera position so the player (x=0) lands at playerScreenX of the
+            // viewport and the road surface (y=0) at roadScreenY — both designer-tunable.
             float halfW = size * Cam.aspect;
-            transform.position = new Vector3(halfW * v.camXOffsetFactor, size * v.camYOffsetFactor, -10f);
+            float camX = halfW * (1f - 2f * v.playerScreenX);
+            float camY = size * (1f - 2f * v.roadScreenY);
+            transform.position = new Vector3(camX, camY, -10f);
         }
     }
 }

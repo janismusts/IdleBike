@@ -35,6 +35,9 @@ namespace IdleBike
             AddHeader("HELMETS");
             foreach (var c in Cosmetics.All)
                 if (c.Slot == CosmeticSlot.Helmet) AddItem(c);
+            AddHeader("TRAILS");
+            foreach (var c in Cosmetics.All)
+                if (c.Slot == CosmeticSlot.Trail) AddItem(c);
         }
 
         void AddHeader(string label)
