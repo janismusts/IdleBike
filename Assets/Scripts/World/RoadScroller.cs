@@ -19,11 +19,13 @@ namespace IdleBike
         {
             var tileSprite = ArtLibrary.EnvRoad();
             if (tileSprite == null) tileSprite = PixelSprites.RoadTile();
-            _tileWidth = tileSprite.bounds.size.x;
+            float roadScale = Mathf.Max(0.1f, Tuning.Visual.roadScale);
+            _tileWidth = tileSprite.bounds.size.x * roadScale;
             for (int i = 0; i < TileCount; i++)
             {
                 var go = new GameObject("RoadTile");
                 go.transform.SetParent(transform, false);
+                go.transform.localScale = Vector3.one * roadScale;
                 var sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = tileSprite;
                 sr.sortingOrder = -10;

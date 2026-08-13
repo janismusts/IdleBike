@@ -74,51 +74,66 @@ namespace IdleBike
             return frames;
         }
 
-        // ---------- environment (atlas rects measured from the generated sheet) ----------
+        // ---------- environment ----------
+        // The atlas is sliced in the Sprite Editor (environment-atlas_N). We take the
+        // user-authored rects from those slices but re-create the sprites with our own
+        // pivots and PPU so world placement stays consistent.
 
-        public static Sprite EnvRoad() => Atlas("road", 0, 144, 64, 16, new Vector2(0.5f, 1f));
-        public static Sprite EnvHills() => Atlas("hills", 0, 112, 128, 32, new Vector2(0.5f, 0f));
-        public static Sprite EnvMountains() => Atlas("mountains", 128, 96, 128, 48, new Vector2(0.5f, 0f));
+        static Dictionary<string, Sprite> _envSlices;
+
+        static Sprite EnvSlice(int index)
+        {
+            if (_envSlices == null)
+            {
+                _envSlices = new Dictionary<string, Sprite>();
+                foreach (var s in Resources.LoadAll<Sprite>("Art/environment/environment-atlas"))
+                    _envSlices[s.name] = s;
+            }
+            return _envSlices.TryGetValue("environment-atlas_" + index, out var slice) ? slice : null;
+        }
+
+        static Sprite Atlas(string key, int sliceIndex, Vector2 pivot)
+        {
+            key = "env_" + key;
+            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
+            var slice = EnvSlice(sliceIndex);
+            Sprite s = null;
+            if (slice != null)
+                s = Sprite.Create(slice.texture, slice.rect, pivot, Tuning.Visual.envArtPixelsPerUnit);
+            SpriteCache[key] = s;
+            return s;
+        }
+
+        public static Sprite EnvHills() => Atlas("hills", 0, new Vector2(0.5f, 0f));
+        public static Sprite EnvMountains() => Atlas("mountains", 1, new Vector2(0.5f, 0f));
+        public static Sprite EnvRoad() => Atlas("road", 11, new Vector2(0.5f, 1f));
+        public static Sprite EnvFlowers() => Atlas("flowers", 7, new Vector2(0.5f, 0f));
 
         public static Sprite EnvTree(int variant)
         {
             switch (((variant % 3) + 3) % 3)
             {
-                case 0: return Atlas("oak", 1, 47, 46, 48, new Vector2(0.5f, 0f));
-                case 1: return Atlas("poplar", 54, 47, 36, 43, new Vector2(0.5f, 0f));
-                default: return Atlas("pine", 98, 47, 35, 53, new Vector2(0.5f, 0f));
+                case 0: return Atlas("oak", 2, new Vector2(0.5f, 0f));
+                case 1: return Atlas("poplar", 3, new Vector2(0.5f, 0f));
+                default: return Atlas("pine", 4, new Vector2(0.5f, 0f));
             }
         }
 
         public static Sprite EnvBush(int variant)
         {
             return variant % 2 == 0
-                ? Atlas("bush0", 138, 47, 30, 20, new Vector2(0.5f, 0f))
-                : Atlas("bush1", 171, 47, 37, 18, new Vector2(0.5f, 0f));
+                ? Atlas("bush0", 5, new Vector2(0.5f, 0f))
+                : Atlas("bush1", 6, new Vector2(0.5f, 0f));
         }
-
-        public static Sprite EnvFlowers() => Atlas("flowers", 214, 47, 42, 15, new Vector2(0.5f, 0f));
 
         public static Sprite EnvCloud(int variant)
         {
             switch (((variant % 3) + 3) % 3)
             {
-                case 0: return Atlas("cloud0", 0, 25, 32, 15, new Vector2(0.5f, 0.5f));
-                case 1: return Atlas("cloud1", 32, 26, 48, 13, new Vector2(0.5f, 0.5f));
-                default: return Atlas("cloud2", 80, 15, 69, 24, new Vector2(0.5f, 0.5f));
+                case 0: return Atlas("cloud0", 8, new Vector2(0.5f, 0.5f));
+                case 1: return Atlas("cloud1", 9, new Vector2(0.5f, 0.5f));
+                default: return Atlas("cloud2", 10, new Vector2(0.5f, 0.5f));
             }
-        }
-
-        static Sprite Atlas(string key, int x, int y, int w, int h, Vector2 pivot)
-        {
-            key = "env_" + key;
-            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
-            var tex = Tex("Art/environment/environment-atlas");
-            Sprite s = null;
-            if (tex != null)
-                s = Sprite.Create(tex, new Rect(x, y, w, h), pivot, Tuning.Visual.envArtPixelsPerUnit);
-            SpriteCache[key] = s;
-            return s;
         }
 
         // ---------- UI icons ----------

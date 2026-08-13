@@ -63,64 +63,67 @@ namespace IdleBike
             var v = Tuning.Visual;
 
             // Far mountains
-            var mountains = NewLayer("Mountains", 0.08f, 320f, null);
+            var mountains = NewLayer("Mountains", v.mountainParallax, 320f, null);
             var mountainArt = ArtLibrary.EnvMountains();
             if (mountainArt != null)
             {
-                mountains.AddStrip(mountainArt, 0.4f, -40, 2.2f, 6);
+                mountains.AddStrip(mountainArt, v.mountainY, -40, v.mountainScale, Mathf.Max(2, v.mountainTiles));
             }
             else
             {
                 for (int i = 0; i < 5; i++)
-                    mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, 0.4f, -40,
+                    mountains.AddProp(PixelSprites.Mountain(), Rand(i, 0) * 320f - 160f, v.mountainY, -40,
                         Mathf.Lerp(v.mountainScaleMin, v.mountainScaleMax, Rand(i, 1)),
                         new Color(1f, 1f, 1f, 0.9f));
             }
 
             // Clouds
-            var clouds = NewLayer("Clouds", 0.05f, 300f, null);
-            for (int i = 0; i < 7; i++)
+            var clouds = NewLayer("Clouds", v.cloudParallax, 300f, null);
+            for (int i = 0; i < Mathf.Max(1, v.cloudCount); i++)
             {
                 var cloudSprite = ArtLibrary.EnvCloud(i % 3);
                 if (cloudSprite == null) cloudSprite = PixelSprites.Cloud(i % 3);
-                clouds.AddProp(cloudSprite, Rand(i, 2) * 300f - 150f, 5f + Rand(i, 3) * 6f, -50,
-                    1f + Rand(i, 4) * 1.4f);
+                clouds.AddProp(cloudSprite, Rand(i, 2) * 300f - 150f,
+                    Mathf.Lerp(v.cloudMinY, v.cloudMaxY, Rand(i, 3)), -50,
+                    Mathf.Lerp(v.cloudMinScale, v.cloudMaxScale, Rand(i, 4)));
             }
 
             // Rolling hills
-            var hills = NewLayer("Hills", 0.25f, 260f, null);
+            var hills = NewLayer("Hills", v.hillParallax, 260f, null);
             var hillArt = ArtLibrary.EnvHills();
             if (hillArt != null)
             {
-                hills.AddStrip(hillArt, 0.15f, -30, 1.6f, 8);
+                hills.AddStrip(hillArt, v.hillY, -30, v.hillScale, Mathf.Max(2, v.hillTiles));
             }
             else
             {
                 for (int i = 0; i < 6; i++)
-                    hills.AddProp(PixelSprites.Hill(), Rand(i, 5) * 260f - 130f, 0.15f, -30, 1.2f + Rand(i, 6) * 1.4f);
+                    hills.AddProp(PixelSprites.Hill(), Rand(i, 5) * 260f - 130f, v.hillY, -30, 1.2f + Rand(i, 6) * 1.4f);
             }
 
             // Trees + bushes just behind the road — tilted with the grade
-            var trees = NewLayer("Trees", 1f, 200f, tiltParent);
-            for (int i = 0; i < 14; i++)
+            var trees = NewLayer("Trees", v.treeParallax, 200f, tiltParent);
+            for (int i = 0; i < Mathf.Max(1, v.treeCount); i++)
             {
                 if (i % 4 == 3)
                 {
                     var flowers = ArtLibrary.EnvFlowers();
-                    if (flowers != null) { trees.AddProp(flowers, Rand(i, 10) * 200f - 100f, 0.05f, -8); continue; }
+                    if (flowers != null) { trees.AddProp(flowers, Rand(i, 10) * 200f - 100f, v.treeY, -8); continue; }
                 }
                 if (i % 3 == 2)
                 {
                     var bush = ArtLibrary.EnvBush(i);
                     if (bush == null) bush = PixelSprites.Bush();
-                    trees.AddProp(bush, Rand(i, 7) * 200f - 100f, 0.05f, -8);
+                    trees.AddProp(bush, Rand(i, 7) * 200f - 100f, v.treeY, -8);
                 }
                 else
                 {
                     var tree = ArtLibrary.EnvTree(i % 3);
-                    float scale = tree != null ? 0.7f + Rand(i, 9) * 0.4f : 0.9f + Rand(i, 9) * 0.6f;
+                    float scale = tree != null
+                        ? Mathf.Lerp(v.treeMinScale, v.treeMaxScale, Rand(i, 9))
+                        : 0.9f + Rand(i, 9) * 0.6f;
                     if (tree == null) tree = PixelSprites.Tree(i % 3);
-                    trees.AddProp(tree, Rand(i, 8) * 200f - 100f, 0.05f, -9, scale);
+                    trees.AddProp(tree, Rand(i, 8) * 200f - 100f, v.treeY, -9, scale);
                 }
             }
         }

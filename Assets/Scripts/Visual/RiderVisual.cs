@@ -33,6 +33,7 @@ namespace IdleBike
         public void Init(int sortingOrder)
         {
             _sortingOrder = sortingOrder;
+            transform.localScale = Vector3.one * Tuning.Visual.riderScale;
             _sr = gameObject.AddComponent<SpriteRenderer>();
             _sr.sortingOrder = sortingOrder;
 
