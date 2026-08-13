@@ -31,6 +31,10 @@ namespace IdleBike
             _body.text = $"WHILE YOU WERE AWAY ({time})\nYOU KEPT ON RIDING:\n\n{NumberFormat.Distance(m.OfflineMeters)}   |   +{NumberFormat.Coins(m.OfflineCoins)} COINS";
         }
 
+        // Dismissing via the dim scrim or X must not discard the reward —
+        // collect on any close (idempotent: COLLECT already zeroed the fields).
+        public override void OnClosed() => Root.Manager.CollectOffline();
+
         static string FormatTime(double seconds)
         {
             if (seconds >= 3600) return $"{(int)(seconds / 3600)}h {(int)(seconds % 3600 / 60)}m";

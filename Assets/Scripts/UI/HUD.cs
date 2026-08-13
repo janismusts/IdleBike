@@ -21,9 +21,10 @@ namespace IdleBike
         const float BannerH = 140f;
         const float BarH = 200f;
 
-        public void Build(UIRoot root, Transform canvas)
+        public void Build(UIRoot root, Transform canvasTr, RectTransform safeArea, SafeAreaFitter fitter)
         {
             _root = root;
+            Transform canvas = safeArea; // HUD strips live inside the safe area
 
             // --- Top: coins (left), settings (right) ---
             var coinIcon = UIFactory.Image(canvas, "CoinIcon", Color.white, PixelSprites.Coin());
@@ -51,11 +52,13 @@ namespace IdleBike
             // --- Status chips ---
             _draftChipBg = UIFactory.Image(canvas, "DraftChip", new Color(0.2f, 0.6f, 0.3f, 0.85f), PixelSprites.White());
             UIFactory.SetPoint(_draftChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-130f, -305f), new Vector2(230f, 54f));
+            _draftChipBg.raycastTarget = false; // must not swallow sprint holds
             _draftChip = UIFactory.Text(_draftChipBg.transform, "Label", "DRAFTING", 32, Color.white);
             UIFactory.Fill(_draftChip.rectTransform);
 
             _buffChipBg = UIFactory.Image(canvas, "BuffChip", new Color(0.95f, 0.6f, 0.15f, 0.9f), PixelSprites.White());
             UIFactory.SetPoint(_buffChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(130f, -305f), new Vector2(230f, 54f));
+            _buffChipBg.raycastTarget = false;
             _buffChip = UIFactory.Text(_buffChipBg.transform, "Label", "SPEED x1.5", 32, Color.white);
             UIFactory.Fill(_buffChip.rectTransform);
 
@@ -93,14 +96,17 @@ namespace IdleBike
             UIFactory.SetPoint(_bikeBadge.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -12f), new Vector2(40f, 40f));
             _bikeBadge.raycastTarget = false;
 
-            // --- Ad banner placeholder ---
-            var banner = UIFactory.Image(canvas, "AdBanner", new Color(0.16f, 0.16f, 0.18f), PixelSprites.White());
+            // --- Ad banner placeholder (full-bleed: raw bottom edge up to safe-bottom + BannerH) ---
+            var banner = UIFactory.Image(canvasTr, "AdBanner", new Color(0.16f, 0.16f, 0.18f), PixelSprites.White());
             banner.rectTransform.anchorMin = new Vector2(0f, 0f);
             banner.rectTransform.anchorMax = new Vector2(1f, 0f);
             banner.rectTransform.pivot = new Vector2(0.5f, 0f);
             banner.rectTransform.anchoredPosition = Vector2.zero;
             banner.rectTransform.sizeDelta = new Vector2(0f, BannerH);
-            UIFactory.Fill(UIFactory.Text(banner.transform, "Label", "AD BANNER", 34, new Color(0.45f, 0.45f, 0.5f)).rectTransform);
+            fitter.BannerRect = banner.rectTransform;
+            fitter.BannerHeight = BannerH;
+            var bannerLabel = UIFactory.Text(banner.transform, "Label", "AD BANNER", 34, new Color(0.45f, 0.45f, 0.5f));
+            UIFactory.SetPoint(bannerLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -BannerH * 0.5f), new Vector2(600f, 40f));
         }
 
         Button BuildBarButton(Transform bar, int index, string label, Sprite icon, System.Action onClick)

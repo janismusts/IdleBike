@@ -36,9 +36,16 @@ namespace IdleBike
         public float npcSpawnMaxGap = 60f;
         public float npcDespawnBehind = 70f;
         public float npcDespawnAhead = 160f;
-        [Tooltip("NPC speed relative to player cruise speed")]
+        [Tooltip("NPC speed relative to the player's drag-reduced cruise speed (ahead spawns)")]
         public float npcSpeedMinFactor = 0.82f;
         public float npcSpeedMaxFactor = 1.12f;
+        [Tooltip("Chance an NPC spawns behind the player and overtakes (gives draft cover)")]
+        [Range(0f, 1f)] public float npcSpawnBehindChance = 0.35f;
+        [Tooltip("Behind-spawn speed factors (must be >1 so they actually overtake)")]
+        public float npcBehindSpeedMinFactor = 1.05f;
+        public float npcBehindSpeedMaxFactor = 1.30f;
+        [Tooltip("Seconds an NPC matches the player's speed while being drafted")]
+        public float draftPaceSeconds = 8f;
 
         [Header("Speed buffs")]
         public float buffSpawnMinInterval = 18f;

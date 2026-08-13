@@ -13,6 +13,7 @@ namespace IdleBike
         public RoadScroller Road;
         public ParallaxBackground Parallax;
         public RiderVisual PlayerVisual;
+        public UIRoot UI;
 
         // Offline earnings computed on boot, granted when the popup is collected.
         public double OfflineSeconds { get; private set; }
@@ -32,6 +33,11 @@ namespace IdleBike
             GameState.ProgressReset += OnProgressReset;
         }
 
+        /// <summary>
+        /// Consume the time-away window since lastSaveUnix and add it to the pending
+        /// offline reward. Called on boot and on resume from background; accumulates
+        /// so an uncollected popup keeps its value across pauses.
+        /// </summary>
         public void ComputeOffline()
         {
             var b = Tuning.Balance;
@@ -40,9 +46,11 @@ namespace IdleBike
             if (away < b.offlineMinSeconds) return;
             away = System.Math.Min(away, b.offlineMaxHours * 3600.0);
             float cruise = BikeDefs.CruiseSpeed(GameState.Data.bikeLevel) * (1f - b.dragPenalty);
-            OfflineSeconds = away;
-            OfflineMeters = cruise * away * b.offlineRateFactor;
-            OfflineCoins = OfflineMeters * BikeDefs.CoinsPerMeter(GameState.Data.bikeLevel);
+            double meters = cruise * away * b.offlineRateFactor;
+            OfflineSeconds += away;
+            OfflineMeters += meters;
+            OfflineCoins += meters * BikeDefs.CoinsPerMeter(GameState.Data.bikeLevel);
+            SaveSystem.Save(); // stamp lastSaveUnix: the window is consumed now
         }
 
         public void CollectOffline()
@@ -102,7 +110,16 @@ namespace IdleBike
 
         void OnApplicationPause(bool paused)
         {
-            if (paused) SaveSystem.Save();
+            if (paused)
+            {
+                SaveSystem.Save();
+                return;
+            }
+            // resumed from background — mobile apps rarely cold-boot
+            if (GameState.Data == null) return;
+            _saveTimer = 0f;
+            ComputeOffline();
+            if (OfflineCoins >= 1.0 && UI != null) UI.ShowOfflinePopup();
         }
 
         void OnApplicationQuit()

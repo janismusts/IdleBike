@@ -9,6 +9,10 @@ namespace IdleBike
         public event Action SprintStarted;
         public event Action SprintEmptied;
 
+        // After the bar empties, require a release + re-press before sprinting again
+        // (otherwise a continuous hold restarts the sprint every ~1.7s, spamming SFX/haptics).
+        bool _lockedUntilRelease;
+
         public float CruiseSpeed => BikeDefs.CruiseSpeed(GameState.Data.bikeLevel);
 
         public void Tick(float dt)
@@ -18,6 +22,7 @@ namespace IdleBike
 
             // Sprint energy
             bool wantSprint = GameState.SprintHeld;
+            if (!wantSprint) _lockedUntilRelease = false;
             bool sprinting = GameState.IsSprinting;
             if (sprinting)
             {
@@ -27,14 +32,18 @@ namespace IdleBike
                     bool emptied = GameState.SprintEnergy <= 0f;
                     GameState.SprintEnergy = Mathf.Max(0f, GameState.SprintEnergy);
                     sprinting = false;
-                    if (emptied) SprintEmptied?.Invoke();
+                    if (emptied)
+                    {
+                        _lockedUntilRelease = true;
+                        SprintEmptied?.Invoke();
+                    }
                 }
             }
             else
             {
                 float regen = b.sprintRegenPerSec + (GameState.IsDrafting ? b.sprintRegenDraftBonus : 0f);
                 GameState.SprintEnergy = Mathf.Min(b.sprintMax, GameState.SprintEnergy + regen * dt);
-                if (wantSprint && GameState.SprintEnergy >= b.sprintMinToStart)
+                if (wantSprint && !_lockedUntilRelease && GameState.SprintEnergy >= b.sprintMinToStart)
                 {
                     sprinting = true;
                     SprintStarted?.Invoke();

@@ -33,6 +33,10 @@ MonoBehaviour:
   npcDespawnAhead: 160
   npcSpeedMinFactor: 0.82
   npcSpeedMaxFactor: 1.12
+  npcSpawnBehindChance: 0.35
+  npcBehindSpeedMinFactor: 1.05
+  npcBehindSpeedMaxFactor: 1.3
+  draftPaceSeconds: 8
   buffSpawnMinInterval: 18
   buffSpawnMaxInterval: 45
   buffSpawnAheadMin: 10

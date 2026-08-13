@@ -52,13 +52,14 @@ namespace IdleBike
             Tone(0.2f, t => Square(160f, t) * Env(t, 0.2f, 6f) * 0.3f));
         static AudioClip _error;
 
-        /// <summary>Gentle 8-bar chiptune-ish pad loop, seamless.</summary>
+        /// <summary>Gentle 4-bar chiptune-ish pad loop, seamless. 22 kHz keeps boot cost low.</summary>
         public static AudioClip MusicLoop() => Cached(ref _music, "music", () =>
         {
+            const int MusicRate = 22050;
             const float bpm = 88f;
             const float beat = 60f / bpm;
-            float len = beat * 32f; // 8 bars of 4
-            int samples = Mathf.RoundToInt(len * Rate);
+            float len = beat * 16f; // 4 bars of 4
+            int samples = Mathf.RoundToInt(len * MusicRate);
 
             // chord roots (Hz): C  Am  F  G  (x2)
             float[][] chords =
@@ -72,9 +73,9 @@ namespace IdleBike
             var data = new float[samples];
             for (int i = 0; i < samples; i++)
             {
-                float t = (float)i / Rate;
-                int bar = (int)(t / (beat * 4f)) % 8;
-                float[] chord = chords[bar % 4];
+                float t = (float)i / MusicRate;
+                int bar = (int)(t / (beat * 4f)) % 4;
+                float[] chord = chords[bar];
 
                 // soft pad
                 float pad = 0f;
@@ -92,14 +93,14 @@ namespace IdleBike
             }
 
             // short crossfade at the loop point to avoid a click
-            int fade = Rate / 20;
+            int fade = MusicRate / 20;
             for (int i = 0; i < fade; i++)
             {
                 float w = (float)i / fade;
                 data[i] = data[i] * w + data[samples - fade + i] * (1f - w);
             }
 
-            var clip = AudioClip.Create("music", samples, 1, Rate, false);
+            var clip = AudioClip.Create("music", samples, 1, MusicRate, false);
             clip.SetData(data, 0);
             return clip;
         });

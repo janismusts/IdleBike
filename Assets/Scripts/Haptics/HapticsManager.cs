@@ -22,10 +22,13 @@ namespace IdleBike
         static int _sdkInt;
         static bool _initialized;
 
+        static bool _warned;
+
         static void EnsureInit()
         {
             if (_initialized) return;
             _initialized = true;
+            EnsureVibratePermission();
             try
             {
                 using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
@@ -39,6 +42,14 @@ namespace IdleBike
                 Debug.LogWarning($"[IdleBike] Haptics init failed: {e.Message}");
                 _vibrator = null;
             }
+        }
+
+        // Unity only injects android.permission.VIBRATE into the manifest when it sees a
+        // Handheld.Vibrate() reference in compiled code. Our raw JNI Vibrator calls are
+        // invisible to that scan, so keep a never-executed-on-device reference here.
+        static void EnsureVibratePermission()
+        {
+            if (Application.isEditor) Handheld.Vibrate();
         }
 
         static void Vibrate(long ms, int amplitude)
@@ -58,7 +69,14 @@ namespace IdleBike
                     _vibrator.Call("vibrate", ms);
                 }
             }
-            catch (System.Exception) { }
+            catch (System.Exception e)
+            {
+                if (!_warned)
+                {
+                    _warned = true;
+                    Debug.LogWarning($"[IdleBike] Vibrate failed: {e.Message}");
+                }
+            }
         }
 #endif
 

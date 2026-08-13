@@ -20,10 +20,13 @@ namespace IdleBike
 
         UIPanel _current;
         Coroutine _anim;
+        UIPanel _animPanel;
+        bool _animClosing;
 
         public void Build(GameManager manager)
         {
             Manager = manager;
+            manager.UI = this;
             UIFactory.EnsureEventSystem();
             _canvas = UIFactory.CreateCanvas("Canvas", 10, transform);
 
@@ -33,9 +36,17 @@ namespace IdleBike
             UIFactory.Fill(zone.rectTransform);
             zone.gameObject.AddComponent<SprintTouchZone>();
 
-            // HUD (hud creates its own children on the canvas)
+            // Safe-area container for HUD content (notches, home indicator)
+            var safeGo = new GameObject("SafeArea");
+            safeGo.transform.SetParent(_canvas.transform, false);
+            safeGo.layer = LayerMask.NameToLayer("UI");
+            var safeRt = safeGo.AddComponent<RectTransform>();
+            UIFactory.Fill(safeRt);
+            var fitter = safeGo.AddComponent<SafeAreaFitter>();
+
+            // HUD (top/bottom strips inside the safe area; banner full-bleed on the canvas)
             _hud = _canvas.gameObject.AddComponent<HUD>();
-            _hud.Build(this, _canvas.transform);
+            _hud.Build(this, _canvas.transform, safeRt, fitter);
 
             // Panels (above HUD)
             _upgradePanel = NewPanel<UpgradePanel>("UpgradePanel");
@@ -49,7 +60,7 @@ namespace IdleBike
             Fader.FadeIn(Tuning.Anim.startFadeDuration);
 
             if (Manager.OfflineCoins >= 1.0)
-                OpenPanel(_offlinePopup);
+                ShowOfflinePopup();
         }
 
         T NewPanel<T>(string name) where T : UIPanel
@@ -66,34 +77,75 @@ namespace IdleBike
         public void OpenSkills() => TogglePanel(_skillsPanel);
         public void OpenSettings() => TogglePanel(_settingsPanel);
 
+        /// <summary>Open (or refresh) the offline earnings popup.</summary>
+        public void ShowOfflinePopup()
+        {
+            if (_current == _offlinePopup)
+            {
+                _offlinePopup.OnOpened(); // refresh amounts
+                return;
+            }
+            SnapCloseCurrent();
+            OpenPanel(_offlinePopup);
+        }
+
         void TogglePanel(UIPanel panel)
         {
             if (_current == panel) { ClosePanel(); return; }
-            if (_current != null)
-            {
-                var old = _current;
-                _current = null;
-                old.gameObject.SetActive(false);
-                old.OnClosed();
-            }
+            SnapCloseCurrent();
             OpenPanel(panel);
         }
 
         public void OpenPanel(UIPanel panel)
         {
+            FinishAnim();
             _current = panel;
             panel.OnOpened();
-            if (_anim != null) StopCoroutine(_anim);
+            _animPanel = panel;
+            _animClosing = false;
             _anim = StartCoroutine(AnimateOpen(panel));
         }
 
         public void ClosePanel()
         {
             if (_current == null) return;
+            FinishAnim();
             var panel = _current;
             _current = null;
-            if (_anim != null) StopCoroutine(_anim);
+            _animPanel = panel;
+            _animClosing = true;
             _anim = StartCoroutine(AnimateClose(panel));
+        }
+
+        /// <summary>Instantly close whatever is open (no animation), running OnClosed.</summary>
+        void SnapCloseCurrent()
+        {
+            FinishAnim();
+            if (_current == null) return;
+            var old = _current;
+            _current = null;
+            old.gameObject.SetActive(false);
+            old.OnClosed();
+        }
+
+        /// <summary>Snap a running open/close animation to its end state.</summary>
+        void FinishAnim()
+        {
+            if (_anim != null)
+            {
+                StopCoroutine(_anim);
+                _anim = null;
+            }
+            if (_animPanel == null) return;
+            var p = _animPanel;
+            _animPanel = null;
+            p.Group.alpha = 1f;
+            p.transform.localScale = Vector3.one;
+            if (_animClosing)
+            {
+                p.gameObject.SetActive(false);
+                p.OnClosed();
+            }
         }
 
         IEnumerator AnimateOpen(UIPanel panel)
@@ -112,6 +164,8 @@ namespace IdleBike
             }
             panel.Group.alpha = 1f;
             panel.transform.localScale = Vector3.one;
+            _anim = null;
+            _animPanel = null;
         }
 
         IEnumerator AnimateClose(UIPanel panel)
@@ -130,6 +184,8 @@ namespace IdleBike
             panel.gameObject.SetActive(false);
             panel.transform.localScale = Vector3.one;
             panel.Group.alpha = 1f;
+            _anim = null;
+            _animPanel = null;
             panel.OnClosed();
         }
     }

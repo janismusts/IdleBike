@@ -41,6 +41,13 @@ namespace IdleBike
             {
                 var p = _pickups[i];
                 float rel = (float)(p.Dist - playerDist);
+                if (rel <= -2f)
+                {
+                    // far behind without touching it (e.g. offline distance jump) — just remove
+                    Destroy(p.Tr.gameObject);
+                    _pickups.RemoveAt(i);
+                    continue;
+                }
                 if (rel <= 0.5f)
                 {
                     // collected by riding through it
