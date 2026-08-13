@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: ffe03646caf730e43a8a6fc42d0d6653
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3098785642450361025
+    second: bike-upgrade-icons_0
+  - first:
+      213: -1501337030767682517
+    second: bike-upgrade-icons_1
+  - first:
+      213: -9130756258694352014
+    second: bike-upgrade-icons_2
+  - first:
+      213: 334459439484687374
+    second: bike-upgrade-icons_3
+  - first:
+      213: 9202756134483193130
+    second: bike-upgrade-icons_4
+  - first:
+      213: 8928038408049312594
+    second: bike-upgrade-icons_5
+  - first:
+      213: 8976608145032154455
+    second: bike-upgrade-icons_6
+  - first:
+      213: 5764523963594431530
+    second: bike-upgrade-icons_7
+  - first:
+      213: 1675097727673309333
+    second: bike-upgrade-icons_8
+  - first:
+      213: -3966288879499489543
+    second: bike-upgrade-icons_9
+  - first:
+      213: -2228302501448694380
+    second: bike-upgrade-icons_10
+  - first:
+      213: 1637344031967575484
+    second: bike-upgrade-icons_11
+  - first:
+      213: 7876446836283806745
+    second: bike-upgrade-icons_12
+  - first:
+      213: 8901492044786606445
+    second: bike-upgrade-icons_13
+  - first:
+      213: -8668002862913600000
+    second: bike-upgrade-icons_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bike-upgrade-icons_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 12
+        width: 45
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ca955daf19110b20800000000000000
+      internalID: 3098785642450361025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 13
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2cd3f8cced2a2be0800000000000000
+      internalID: -1501337030767682517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 12
+        width: 47
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27339dd3f89094180800000000000000
+      internalID: -9130756258694352014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_3
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 15
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e04d242961d34a400800000000000000
+      internalID: 334459439484687374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_4
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 8
+        width: 58
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2dea6e22f1c6bf70800000000000000
+      internalID: 9202756134483193130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_5
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 7
+        width: 58
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 253c2dc11a3c6eb70800000000000000
+      internalID: 8928038408049312594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_6
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 11
+        width: 58
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d058c3c81539c70800000000000000
+      internalID: 8976608145032154455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_7
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 9
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2cd54dc004bfff40800000000000000
+      internalID: 5764523963594431530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_8
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 12
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 598180e12842f3710800000000000000
+      internalID: 1675097727673309333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_9
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 12
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fec9d44749e4f8c0800000000000000
+      internalID: -3966288879499489543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_10
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 13
+        width: 8
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49549055eaa7311e0800000000000000
+      internalID: -2228302501448694380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_11
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 12
+        width: 48
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd7888d8b309b610800000000000000
+      internalID: 1637344031967575484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_12
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 14
+        width: 6
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91412f89aa2ce4d60800000000000000
+      internalID: 7876446836283806745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_13
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 11
+        width: 51
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61a8744ad3788b70800000000000000
+      internalID: 8901492044786606445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bike-upgrade-icons_14
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 9
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00647fb325115b780800000000000000
+      internalID: -8668002862913600000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      bike-upgrade-icons_0: 3098785642450361025
+      bike-upgrade-icons_1: -1501337030767682517
+      bike-upgrade-icons_10: -2228302501448694380
+      bike-upgrade-icons_11: 1637344031967575484
+      bike-upgrade-icons_12: 7876446836283806745
+      bike-upgrade-icons_13: 8901492044786606445
+      bike-upgrade-icons_14: -8668002862913600000
+      bike-upgrade-icons_2: -9130756258694352014
+      bike-upgrade-icons_3: 334459439484687374
+      bike-upgrade-icons_4: 9202756134483193130
+      bike-upgrade-icons_5: 8928038408049312594
+      bike-upgrade-icons_6: 8976608145032154455
+      bike-upgrade-icons_7: 5764523963594431530
+      bike-upgrade-icons_8: 1675097727673309333
+      bike-upgrade-icons_9: -3966288879499489543
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

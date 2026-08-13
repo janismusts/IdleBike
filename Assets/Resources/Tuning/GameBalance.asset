@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d000d4a9490d71641888a67453c0edbb, type: 3}
+  m_Name: GameBalance
+  m_EditorClassIdentifier:
+  baseSpeed: 2
+  speedPerLevel: 0.07
+  dragPenalty: 0.28
+  sprintMultiplier: 1.6
+  acceleration: 3.5
+  deceleration: 5
+  sprintMax: 100
+  sprintDrainPerSec: 22
+  sprintRegenPerSec: 8
+  sprintRegenDraftBonus: 10
+  sprintMinToStart: 10
+  draftWindowBase: 4
+  draftWindowPerSpeed: 0.25
+  draftMinGap: 0.4
+  npcMaxAlive: 6
+  npcSpawnMinGap: 10
+  npcSpawnMaxGap: 60
+  npcDespawnBehind: 70
+  npcDespawnAhead: 160
+  npcSpeedMinFactor: 0.82
+  npcSpeedMaxFactor: 1.12
+  npcSpawnBehindChance: 0.35
+  npcBehindSpeedMinFactor: 1.05
+  npcBehindSpeedMaxFactor: 1.3
+  draftPaceSeconds: 8
+  buffSpawnMinInterval: 18
+  buffSpawnMaxInterval: 45
+  buffSpawnAheadMin: 10
+  buffSpawnAheadMax: 30
+  buffMultiplier: 1.5
+  buffDuration: 6
+  gradeSegmentLength: 250
+  uphillChance: 0.28
+  downhillChance: 0.16
+  gradeUphillMax: 0.09
+  gradeDownhillMax: 0.06
+  gradeChangePerSec: 0.04
+  uphillSlowFactor: 4
+  uphillMinSpeedMult: 0.45
+  downhillBoostFactor: 2.5
+  downhillMaxSpeedMult: 1.35
+  coinsPerMeter: 0.4
+  coinsPerMeterPerLevel: 0.05
+  upgradeBaseCost: 15
+  upgradeCostGrowth: 1.32
+  offlineRateFactor: 0.5
+  offlineMaxHours: 8
+  offlineMinSeconds: 60
