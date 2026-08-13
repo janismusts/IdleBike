@@ -1,20 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace IdleBike
 {
+    /// <summary>
+    /// Plays generated audio from Resources/Art/Sound when present, synthesized
+    /// placeholders (ProceduralSfx) otherwise.
+    /// </summary>
     public class AudioManager : MonoBehaviour
     {
         public static AudioManager I { get; private set; }
 
+        const string FxPath = "Art/Sound/FX/";
+        const string MusicPath = "Art/Sound/Music/";
+
         AudioSource _music;
         AudioSource _sfx;
+        readonly Dictionary<string, AudioClip> _clips = new Dictionary<string, AudioClip>();
 
         public void Build()
         {
             I = this;
             _music = gameObject.AddComponent<AudioSource>();
             _music.loop = true;
-            _music.clip = ProceduralSfx.MusicLoop();
+            var musicClip = Resources.Load<AudioClip>(MusicPath + "Main Ride Loop");
+            _music.clip = musicClip != null ? musicClip : ProceduralSfx.MusicLoop();
             _music.volume = GameState.Data.musicVolume * Tuning.Audio.musicGain;
             _music.Play();
 
@@ -43,16 +53,32 @@ namespace IdleBike
             }
         }
 
-        public void Play(AudioClip clip)
+        AudioClip Clip(string name, System.Func<AudioClip> fallback)
         {
-            if (_sfx != null && clip != null) _sfx.PlayOneShot(clip);
+            if (_clips.TryGetValue(name, out var c)) return c;
+            c = Resources.Load<AudioClip>(FxPath + name);
+            if (c == null) c = fallback();
+            _clips[name] = c;
+            return c;
         }
 
-        public void PlayClick() => Play(ProceduralSfx.Click());
-        public void PlayCoin() => Play(ProceduralSfx.Coin());
-        public void PlayUpgrade() => Play(ProceduralSfx.Upgrade());
-        public void PlayWhoosh() => Play(ProceduralSfx.Whoosh());
-        public void PlayBuff() => Play(ProceduralSfx.Buff());
-        public void PlayError() => Play(ProceduralSfx.Error());
+        void PlayClip(string name, System.Func<AudioClip> fallback)
+        {
+            if (_sfx == null) return;
+            var clip = Clip(name, fallback);
+            if (clip != null) _sfx.PlayOneShot(clip);
+        }
+
+        public void PlayClick() => PlayClip("ui_click", ProceduralSfx.Click);
+        public void PlayCoin() => PlayClip("coin_pickup", ProceduralSfx.Coin);
+        public void PlayUpgrade() => PlayClip("upgrade_buy", ProceduralSfx.Upgrade);
+        public void PlayFanfare() => PlayClip("new_bike_fanfare", ProceduralSfx.Upgrade);
+        public void PlayWhoosh() => PlayClip("sprint_start", ProceduralSfx.Whoosh);
+        public void PlaySprintEmpty() => PlayClip("sprint_empty", ProceduralSfx.Error);
+        public void PlayBuff() => PlayClip("buff_pickup", ProceduralSfx.Buff);
+        public void PlayBuffEnd() => PlayClip("buff_end", ProceduralSfx.Click);
+        public void PlayDraftEnter() => PlayClip("draft_enter", ProceduralSfx.Whoosh);
+        public void PlayOfflineCollect() => PlayClip("offline_collect", ProceduralSfx.Coin);
+        public void PlayError() => PlayClip("error_denied", ProceduralSfx.Error);
     }
 }

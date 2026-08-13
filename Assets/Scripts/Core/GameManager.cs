@@ -24,6 +24,8 @@ namespace IdleBike
         public double OfflineCoins { get; private set; }
 
         float _saveTimer;
+        bool _wasDrafting;
+        bool _hadBuff;
 
         public void Init()
         {
@@ -33,7 +35,7 @@ namespace IdleBike
             Terrain.Reset();
             Sim = new PlayerSim(Terrain);
             Sim.SprintStarted += () => { AudioManager.I.PlayWhoosh(); Haptics.Light(); };
-            Sim.SprintEmptied += () => Haptics.Medium();
+            Sim.SprintEmptied += () => { AudioManager.I.PlaySprintEmpty(); Haptics.Medium(); };
             GameState.BikeLevelChanged += OnBikeLevelChanged;
             GameState.CosmeticsChanged += ApplyPlayerLook;
             GameState.ProgressReset += OnProgressReset;
@@ -88,6 +90,13 @@ namespace IdleBike
             if (Buffs != null) Buffs.Tick(dt);
             if (Road != null) Road.Tick();
             if (Parallax != null) Parallax.Tick();
+
+            // transition sounds
+            if (GameState.IsDrafting && !_wasDrafting) AudioManager.I.PlayDraftEnter();
+            _wasDrafting = GameState.IsDrafting;
+            bool hasBuff = GameState.BuffTimeLeft > 0f;
+            if (_hadBuff && !hasBuff) AudioManager.I.PlayBuffEnd();
+            _hadBuff = hasBuff;
 
             _saveTimer += dt;
             if (_saveTimer >= GameConfig.AutosaveInterval)

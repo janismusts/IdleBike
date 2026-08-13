@@ -17,7 +17,7 @@ namespace IdleBike
             var collect = UIFactory.Button(Window, "Collect", "COLLECT", 44, UIFactory.Accent, () =>
             {
                 Root.Manager.CollectOffline();
-                AudioManager.I.PlayCoin();
+                AudioManager.I.PlayOfflineCollect();
                 Haptics.Medium();
                 Root.ClosePanel();
             });

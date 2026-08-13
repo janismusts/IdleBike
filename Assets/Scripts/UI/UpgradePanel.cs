@@ -84,7 +84,7 @@ namespace IdleBike
             {
                 if (tierChanged)
                 {
-                    AudioManager.I.PlayUpgrade();
+                    AudioManager.I.PlayFanfare();
                     Haptics.Heavy();
                     BuildTierRows();
                 }
