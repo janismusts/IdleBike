@@ -42,5 +42,14 @@ MonoBehaviour:
   treeMaxScale: 1.1
   roadScale: 1
   riderScale: 1
+  helmetOffset: {x: 0, y: 0}
+  trailOffset: {x: -0.55, y: 0.02}
+  trailScale: 1
+  emoteBubbleOffset: {x: 0.35, y: 2.05}
+  emoteBubbleScale: 1
+  nameTagHeight: 1.75
+  barIconSize: 84
+  hudTopIconSize: 64
+  emotePickerIconSize: 64
   riderArtPixelsPerUnit: 56
   envArtPixelsPerUnit: 16

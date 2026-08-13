@@ -37,15 +37,18 @@ namespace IdleBike
             _sr = gameObject.AddComponent<SpriteRenderer>();
             _sr.sortingOrder = sortingOrder;
 
+            var v = Tuning.Visual;
             var helmetGo = new GameObject("Helmet");
             helmetGo.transform.SetParent(transform, false);
+            helmetGo.transform.localPosition = new Vector3(v.helmetOffset.x, v.helmetOffset.y, 0f);
             _helmetSr = helmetGo.AddComponent<SpriteRenderer>();
             _helmetSr.sortingOrder = sortingOrder + 1;
 
             var trailGo = new GameObject("Trail");
             trailGo.transform.SetParent(transform, false);
             // trail pivot is bottom-right: anchor it a bit behind the bike's rear
-            trailGo.transform.localPosition = new Vector3(-0.55f, 0.02f, 0f);
+            trailGo.transform.localPosition = new Vector3(v.trailOffset.x, v.trailOffset.y, 0f);
+            trailGo.transform.localScale = Vector3.one * v.trailScale;
             _trailSr = trailGo.AddComponent<SpriteRenderer>();
             _trailSr.sortingOrder = sortingOrder - 1;
 

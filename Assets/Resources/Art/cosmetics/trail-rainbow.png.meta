@@ -159,11 +159,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 13
-        y: 12
+        y: 5
         width: 70
-        height: 33
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -177,59 +177,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: trail-rainbow_1
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 26
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56b2399b6398eb990800000000000000
-      internalID: -7368301072196883611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: trail-rainbow_2
-      rect:
-        serializedVersion: 2
-        x: 107
-        y: 10
-        width: 18
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a6fdf417a8d8ef7a0800000000000000
-      internalID: -6341475599545016470
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: trail-rainbow_3
       rect:
         serializedVersion: 2
-        x: 121
+        x: 115
         y: 3
-        width: 59
+        width: 65
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -246,12 +202,12 @@ TextureImporter:
       name: trail-rainbow_4
       rect:
         serializedVersion: 2
-        x: 203
+        x: 210
         y: 3
-        width: 73
+        width: 66
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -268,12 +224,12 @@ TextureImporter:
       name: trail-rainbow_5
       rect:
         serializedVersion: 2
-        x: 299
+        x: 305
         y: 3
-        width: 73
+        width: 66
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -292,10 +248,10 @@ TextureImporter:
         serializedVersion: 2
         x: 399
         y: 3
-        width: 70
+        width: 69
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -317,7 +273,7 @@ TextureImporter:
         width: 71
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -331,37 +287,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: trail-rainbow_8
-      rect:
-        serializedVersion: 2
-        x: 492
-        y: 26
-        width: 12
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54ad8d40b6c7bba20800000000000000
-      internalID: 3079191569322531397
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: trail-rainbow_9
       rect:
         serializedVersion: 2
         x: 590
         y: 3
-        width: 67
+        width: 66
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -375,37 +309,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: trail-rainbow_10
-      rect:
-        serializedVersion: 2
-        x: 590
-        y: 31
-        width: 11
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79f667ee121d2be30800000000000000
-      internalID: 4517903319870893975
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: trail-rainbow_11
       rect:
         serializedVersion: 2
         x: 686
         y: 3
-        width: 68
+        width: 67
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -418,77 +330,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: trail-rainbow_12
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 18
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d21ee393beb45e450800000000000000
-      internalID: 6117379142502506797
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: trail-rainbow_13
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 3
-        width: 63
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1fe775daab34b3130800000000000000
-      internalID: 3547503600535568113
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: trail-rainbow_14
-      rect:
-        serializedVersion: 2
-        x: 115
-        y: 14
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2e54ddd9790fc8ab0800000000000000
-      internalID: -5004360551936211486
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3d4d1d89ce0116640b44b78129949c1f
     internalID: 0
     vertices: []
     indices: 

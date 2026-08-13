@@ -57,7 +57,7 @@ namespace IdleBike
                 // name tag
                 var labelGo = new GameObject("Name");
                 labelGo.transform.SetParent(go.transform, false);
-                labelGo.transform.localPosition = new Vector3(0f, 1.75f, 0f);
+                labelGo.transform.localPosition = new Vector3(0f, Tuning.Visual.nameTagHeight, 0f);
                 labelGo.transform.localScale = Vector3.one * 0.12f;
                 var label = labelGo.AddComponent<TextMesh>();
                 label.font = UIFactory.DefaultFont;

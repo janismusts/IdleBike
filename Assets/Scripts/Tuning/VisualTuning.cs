@@ -57,6 +57,23 @@ namespace IdleBike
         [Tooltip("Extra scale on all riders (player, NPCs, teammates)")]
         public float riderScale = 1f;
 
+        [Header("Rider attachments (local units on the rider)")]
+        [Tooltip("Helmet overlay fine-tune relative to the rider frame")]
+        public Vector2 helmetOffset = Vector2.zero;
+        [Tooltip("Trail effect anchor (behind the rear wheel)")]
+        public Vector2 trailOffset = new Vector2(-0.55f, 0.02f);
+        public float trailScale = 1f;
+        [Tooltip("Emote speech bubble anchor above the head")]
+        public Vector2 emoteBubbleOffset = new Vector2(0.35f, 2.05f);
+        public float emoteBubbleScale = 1f;
+        [Tooltip("Teammate name tag height above the rider")]
+        public float nameTagHeight = 1.75f;
+
+        [Header("UI icon sizes (canvas px)")]
+        public float barIconSize = 84f;
+        public float hudTopIconSize = 64f;
+        public float emotePickerIconSize = 64f;
+
         [Header("Generated art (Resources/Art)")]
         [Tooltip("Rider sheet pixels per world unit (128px frame / 56 ≈ 2.3 m bike)")]
         public float riderArtPixelsPerUnit = 56f;

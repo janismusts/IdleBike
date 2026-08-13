@@ -41,6 +41,7 @@ namespace IdleBike
                 coinArt != null ? new Color(1f, 0.85f, 0.3f) : Color.white,
                 coinArt != null ? coinArt : PixelSprites.Coin());
             UIFactory.SetPoint(coinIcon.rectTransform, new Vector2(0f, 1f), new Vector2(36f, -36f), new Vector2(56f, 56f));
+            coinIcon.preserveAspect = true;
             coinIcon.raycastTarget = false;
 
             _coinsText = UIFactory.Text(canvas, "Coins", "0", 52, UIFactory.TextMain, TextAnchor.MiddleLeft);
@@ -52,7 +53,9 @@ namespace IdleBike
             var gearArt = ArtLibrary.Icon(ArtLibrary.UiIcon.Gear);
             var gear = UIFactory.Image(settings.transform, "Icon", UIFactory.TextMain,
                 gearArt != null ? gearArt : PixelSprites.IconGear());
-            UIFactory.SetPoint(gear.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
+            UIFactory.SetPoint(gear.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero,
+                Vector2.one * Tuning.Visual.hudTopIconSize);
+            gear.preserveAspect = true;
             gear.raycastTarget = false;
 
             // --- Distance + speed ---
@@ -122,6 +125,7 @@ namespace IdleBike
             var bolt = UIFactory.Image(_refillBtn.transform, "Icon", Color.white,
                 boltArt != null ? boltArt : PixelSprites.BuffBolt());
             UIFactory.SetPoint(bolt.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(40f, 40f));
+            bolt.preserveAspect = true;
             bolt.raycastTarget = false;
             var refillLabel = UIFactory.Text(_refillBtn.transform, "Label", "REFILL SPRINT - FREE (AD)", 28, Color.white);
             UIFactory.Fill(refillLabel.rectTransform);
@@ -169,6 +173,7 @@ namespace IdleBike
             var smiley = UIFactory.Image(emoteBtn.transform, "Icon", UIFactory.TextMain,
                 smileyArt != null ? smileyArt : PixelSprites.IconSmiley());
             UIFactory.SetPoint(smiley.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
+            smiley.preserveAspect = true;
             smiley.raycastTarget = false;
 
             _emotePicker = new GameObject("EmotePicker");
@@ -191,7 +196,9 @@ namespace IdleBike
                 UIFactory.SetPoint(rt, new Vector2(0f, 1f), new Vector2(10f + col * 96f, -10f - row * 96f), new Vector2(88f, 88f));
                 rt.pivot = new Vector2(0f, 1f);
                 var icon = UIFactory.Image(b.transform, "Icon", Color.white, art != null ? art : PixelSprites.Emote(idx));
-                UIFactory.SetPoint(icon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
+                UIFactory.SetPoint(icon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero,
+                    Vector2.one * Tuning.Visual.emotePickerIconSize);
+                icon.preserveAspect = true;
                 icon.raycastTarget = false;
             }
             _emotePicker.SetActive(false);
@@ -232,7 +239,9 @@ namespace IdleBike
             rt.offsetMax = new Vector2(-10f, -12f);
 
             var img = UIFactory.Image(btn.transform, "Icon", UIFactory.TextMain, icon);
-            UIFactory.SetPoint(img.rectTransform, new Vector2(0.5f, 0.62f), Vector2.zero, new Vector2(84f, 84f));
+            UIFactory.SetPoint(img.rectTransform, new Vector2(0.5f, 0.62f), Vector2.zero,
+                Vector2.one * Tuning.Visual.barIconSize);
+            img.preserveAspect = true;
             img.raycastTarget = false;
 
             var txt = UIFactory.Text(btn.transform, "Label", label, 32, UIFactory.TextDim);
