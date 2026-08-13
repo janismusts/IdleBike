@@ -232,6 +232,17 @@ namespace IdleBike
             });
         }
 
+        /// <summary>Flat grass-green fill used behind the tree line so slopes never show sky.</summary>
+        public static Sprite GrassFlat()
+        {
+            return Cached("grassflat", () =>
+            {
+                var c = new PixelCanvas(4, 4);
+                c.Rect(0, 0, 4, 4, new Color32(88, 148, 88, 255));
+                return c.ToSprite(4f, new Vector2(0.5f, 1f));
+            });
+        }
+
         public static Sprite Tree(int variant)
         {
             return Cached("tree" + variant, () =>

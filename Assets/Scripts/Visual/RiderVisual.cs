@@ -62,6 +62,22 @@ namespace IdleBike
             _emote.Show(emoteIndex);
         }
 
+        /// <summary>Re-apply VisualTuning to this rider (dev live-tuning).</summary>
+        public void ApplyTuning()
+        {
+            var v = Tuning.Visual;
+            transform.localScale = Vector3.one * v.riderScale;
+            if (_helmetSr != null)
+                _helmetSr.transform.localPosition = new Vector3(v.helmetOffset.x, v.helmetOffset.y, 0f);
+            if (_trailSr != null)
+            {
+                _trailSr.transform.localPosition = new Vector3(v.trailOffset.x, v.trailOffset.y, 0f);
+                _trailSr.transform.localScale = Vector3.one * v.trailScale;
+            }
+            if (_emote != null)
+                _emote.transform.localPosition = new Vector3(v.emoteBubbleOffset.x, v.emoteBubbleOffset.y, 0f);
+        }
+
         public void ApplyLook(int tierIndex, Color32 jersey, CosmeticDef helmet, CosmeticDef trail)
         {
             _tierIndex = Mathf.Clamp(tierIndex, 0, BikeDefs.Tiers.Length - 1);
@@ -87,6 +103,9 @@ namespace IdleBike
         void Update()
         {
             if (_sr == null) return;
+            // dev toggles for checking rider art without cosmetic overlays
+            if (_helmetSr != null) _helmetSr.enabled = _helmetFrames != null && !DebugFlags.HideHelmets;
+            if (_trailSr != null) _trailSr.enabled = _trailFrames != null && !DebugFlags.HideTrails;
             var a = Tuning.Anim;
             float spd = Mathf.Max(0f, AnimSpeed);
             _pedalPhase += spd * a.pedalRate * Time.deltaTime;

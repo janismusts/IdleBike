@@ -57,10 +57,44 @@ namespace IdleBike
     public class ParallaxBackground : MonoBehaviour
     {
         readonly List<ParallaxLayer> _layers = new List<ParallaxLayer>();
+        Transform _tiltParent;
+        Transform _flatGround;
+
+        /// <summary>Tear down and rebuild all layers from current VisualTuning (dev live-tuning).</summary>
+        public void Rebuild()
+        {
+            foreach (var l in _layers) if (l != null) Destroy(l.gameObject);
+            _layers.Clear();
+            if (_flatGround != null) Destroy(_flatGround.gameObject);
+            _flatGround = null;
+            Build(_tiltParent);
+        }
 
         public void Build(Transform tiltParent)
         {
+            _tiltParent = tiltParent;
             var v = Tuning.Visual;
+
+            // Flat ground band behind the tilted road: when the world tilts on a slope,
+            // this is what shows between the road plane and the horizon instead of sky.
+            var band = new GameObject("GroundBand");
+            band.transform.SetParent(transform, false);
+            var bandSr = band.AddComponent<SpriteRenderer>();
+            var grass = ArtLibrary.EnvGrassFill();
+            if (grass != null)
+            {
+                bandSr.sprite = grass;
+                bandSr.drawMode = SpriteDrawMode.Tiled;
+                bandSr.size = new Vector2(400f, 60f);
+            }
+            else
+            {
+                bandSr.sprite = PixelSprites.GrassFlat();
+                band.transform.localScale = new Vector3(400f, 60f, 1f);
+            }
+            bandSr.sortingOrder = -20; // in front of hills, behind trees/road
+            band.transform.localPosition = new Vector3(0f, 0.3f, 0f);
+            _flatGround = band.transform;
 
             // Far mountains
             var mountains = NewLayer("Mountains", v.mountainParallax, 320f, null);

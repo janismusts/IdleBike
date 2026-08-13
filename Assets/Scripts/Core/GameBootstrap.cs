@@ -103,6 +103,14 @@ namespace IdleBike
             var ui = new GameObject("UI").AddComponent<UIRoot>();
             ui.transform.SetParent(root.transform, false);
             ui.Build(manager);
+
+            // Dev tools (editor / development builds only)
+            if (DebugTools.Enabled)
+            {
+                var debug = root.AddComponent<DebugTools>();
+                debug.Init(manager);
+                ui.AttachDebugButton(debug);
+            }
         }
     }
 }

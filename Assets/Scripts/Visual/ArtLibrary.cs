@@ -187,8 +187,36 @@ namespace IdleBike
 
         public static Sprite EnvHills() => Atlas("hills", 0, new Vector2(0.5f, 0f));
         public static Sprite EnvMountains() => Atlas("mountains", 1, new Vector2(0.5f, 0f));
-        public static Sprite EnvRoad() => Atlas("road", 11, new Vector2(0.5f, 1f));
         public static Sprite EnvFlowers() => Atlas("flowers", 7, new Vector2(0.5f, 0f));
+
+        /// <summary>Wide multi-lane road file when present, else the atlas road slice.</summary>
+        public static Sprite EnvRoad()
+        {
+            var wide = StandaloneSprite("Art/environment/environment-road-wide", "env_roadwide",
+                new Vector2(0.5f, 1f));
+            return wide != null ? wide : Atlas("road", 11, new Vector2(0.5f, 1f));
+        }
+
+        /// <summary>Tileable grass ground fill; null until the asset exists (see ART_PROMPTS §8).</summary>
+        public static Sprite EnvGrassFill() =>
+            StandaloneSprite("Art/environment/environment-grass-fill", "env_grassfill", new Vector2(0.5f, 1f));
+
+        /// <summary>Grass surface strip with tufts; null until the asset exists.</summary>
+        public static Sprite EnvGrassStrip() =>
+            StandaloneSprite("Art/environment/environment-grass-strip", "env_grassstrip", new Vector2(0.5f, 0f));
+
+        /// <summary>Whole standalone texture as one sprite (FullRect so it supports tiled draw mode).</summary>
+        static Sprite StandaloneSprite(string path, string key, Vector2 pivot)
+        {
+            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
+            var tex = Tex(path);
+            Sprite s = null;
+            if (tex != null)
+                s = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), pivot,
+                    Tuning.Visual.envArtPixelsPerUnit, 0, SpriteMeshType.FullRect);
+            SpriteCache[key] = s;
+            return s;
+        }
 
         public static Sprite EnvTree(int variant)
         {

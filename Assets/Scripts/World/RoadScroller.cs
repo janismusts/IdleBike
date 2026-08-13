@@ -15,6 +15,18 @@ namespace IdleBike
         readonly List<Transform> _posts = new List<Transform>();
         Transform _ground;
 
+        /// <summary>Tear down and rebuild from current VisualTuning (dev live-tuning).</summary>
+        public void Rebuild()
+        {
+            foreach (var t in _tiles) if (t != null) Destroy(t.gameObject);
+            foreach (var p in _posts) if (p != null) Destroy(p.gameObject);
+            if (_ground != null) Destroy(_ground.gameObject);
+            _tiles.Clear();
+            _posts.Clear();
+            _ground = null;
+            Build();
+        }
+
         public void Build()
         {
             var tileSprite = ArtLibrary.EnvRoad();
@@ -32,14 +44,25 @@ namespace IdleBike
                 _tiles.Add(go.transform);
             }
 
-            // solid ground fill below the road
+            // solid ground fill below the road (grass art when present)
             var g = new GameObject("Ground");
             g.transform.SetParent(transform, false);
             var gsr = g.AddComponent<SpriteRenderer>();
-            gsr.sprite = PixelSprites.Ground();
+            float groundTop = -tileSprite.bounds.size.y * roadScale + 0.05f;
+            var grass = ArtLibrary.EnvGrassFill();
+            if (grass != null)
+            {
+                gsr.sprite = grass;
+                gsr.drawMode = SpriteDrawMode.Tiled;
+                gsr.size = new Vector2(400f, 40f);
+            }
+            else
+            {
+                gsr.sprite = PixelSprites.Ground();
+                g.transform.localScale = new Vector3(400f, 40f, 1f);
+            }
             gsr.sortingOrder = -11;
-            g.transform.localScale = new Vector3(400f, 40f, 1f);
-            g.transform.localPosition = new Vector3(0f, -0.9f, 0f);
+            g.transform.localPosition = new Vector3(0f, groundTop, 0f);
             _ground = g.transform;
 
             // km posts every 100 m
