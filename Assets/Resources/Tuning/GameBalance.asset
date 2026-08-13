@@ -53,6 +53,17 @@ MonoBehaviour:
   uphillMinSpeedMult: 0.45
   downhillBoostFactor: 2.5
   downhillMaxSpeedMult: 1.35
+  teamTogetherRange: 10
+  teamDragReduction: 0.5
+  teamSize: 4
+  giftIntervalHours: 6
+  giftCoinsMinutes: 15
+  giftBuffSeconds: 30
+  sendGiftCooldownHours: 8
+  giftInboxCap: 6
+  emoteDuration: 2.5
+  npcEmoteMinInterval: 15
+  npcEmoteMaxInterval: 45
   coinsPerMeter: 0.4
   coinsPerMeterPerLevel: 0.05
   upgradeBaseCost: 15

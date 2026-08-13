@@ -80,6 +80,14 @@ namespace IdleBike
             npcs.Build();
             manager.Npcs = npcs;
 
+            // Teammates
+            var teamRiders = new GameObject("TeamRiders").AddComponent<TeamRiderManager>();
+            teamRiders.transform.SetParent(tiltGo.transform, false);
+            teamRiders.Terrain = manager.Terrain;
+            teamRiders.Build();
+            manager.TeamRiders = teamRiders;
+            TeamService.GenerateGifts();
+
             var buffs = new GameObject("Buffs").AddComponent<BuffManager>();
             buffs.transform.SetParent(tiltGo.transform, false);
             buffs.Build(manager.Sim);

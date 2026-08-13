@@ -15,6 +15,7 @@ namespace IdleBike
         UpgradePanel _upgradePanel;
         ShopPanel _shopPanel;
         SkillsPanel _skillsPanel;
+        TeamPanel _teamPanel;
         SettingsPanel _settingsPanel;
         OfflinePopup _offlinePopup;
 
@@ -53,6 +54,7 @@ namespace IdleBike
             _upgradePanel = NewPanel<UpgradePanel>("UpgradePanel");
             _shopPanel = NewPanel<ShopPanel>("ShopPanel");
             _skillsPanel = NewPanel<SkillsPanel>("SkillsPanel");
+            _teamPanel = NewPanel<TeamPanel>("TeamPanel");
             _settingsPanel = NewPanel<SettingsPanel>("SettingsPanel");
             _offlinePopup = NewPanel<OfflinePopup>("OfflinePopup");
 
@@ -79,6 +81,7 @@ namespace IdleBike
         public void OpenUpgrades() => TogglePanel(_upgradePanel);
         public void OpenShop() => TogglePanel(_shopPanel);
         public void OpenSkills() => TogglePanel(_skillsPanel);
+        public void OpenTeam() => TogglePanel(_teamPanel);
         public void OpenSettings() => TogglePanel(_settingsPanel);
 
         public void ShowRewardedAd(System.Action onReward) => _rewardedAd.Show(onReward);

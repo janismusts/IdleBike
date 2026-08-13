@@ -173,6 +173,30 @@ namespace IdleBike
             return toggle;
         }
 
+        public static InputField InputField(Transform parent, string name, string placeholderText, int charLimit = 18)
+        {
+            var bg = Image(parent, name, new Color(0f, 0f, 0f, 0.45f), PixelSprites.White());
+            var input = bg.gameObject.AddComponent<InputField>();
+
+            var ph = Text(bg.transform, "Placeholder", placeholderText, 32, new Color(1f, 1f, 1f, 0.35f),
+                TextAnchor.MiddleLeft, FontStyle.Italic);
+            Fill(ph.rectTransform);
+            ph.rectTransform.offsetMin = new Vector2(24f, 0f);
+            ph.rectTransform.offsetMax = new Vector2(-24f, 0f);
+
+            var txt = Text(bg.transform, "Text", "", 32, TextMain, TextAnchor.MiddleLeft);
+            txt.supportRichText = false;
+            Fill(txt.rectTransform);
+            txt.rectTransform.offsetMin = new Vector2(24f, 0f);
+            txt.rectTransform.offsetMax = new Vector2(-24f, 0f);
+
+            input.targetGraphic = bg;
+            input.textComponent = txt;
+            input.placeholder = ph;
+            input.characterLimit = charLimit;
+            return input;
+        }
+
         /// <summary>Vertical scroll view. Returns the content transform to add rows to.</summary>
         public static RectTransform ScrollView(Transform parent, string name, out ScrollRect scrollRect)
         {

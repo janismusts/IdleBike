@@ -18,8 +18,11 @@ namespace IdleBike
         Image _buffChipBg;
         Text _gradeChip;
         Image _gradeChipBg;
+        Image _teamChipBg;
         Image _bikeBadge;
         Button _refillBtn;
+        GameObject _emotePicker;
+        float _emoteCooldown;
 
         static readonly Color UphillColor = new Color(0.85f, 0.4f, 0.25f, 0.9f);
         static readonly Color DownhillColor = new Color(0.3f, 0.55f, 0.9f, 0.9f);
@@ -62,22 +65,28 @@ namespace IdleBike
 
             // --- Status chips ---
             _draftChipBg = UIFactory.Image(canvas, "DraftChip", new Color(0.2f, 0.6f, 0.3f, 0.85f), PixelSprites.White());
-            UIFactory.SetPoint(_draftChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-240f, -305f), new Vector2(230f, 54f));
+            UIFactory.SetPoint(_draftChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-360f, -305f), new Vector2(230f, 54f));
             _draftChipBg.raycastTarget = false; // must not swallow sprint holds
             _draftChip = UIFactory.Text(_draftChipBg.transform, "Label", "DRAFTING", 32, Color.white);
             UIFactory.Fill(_draftChip.rectTransform);
 
             _gradeChipBg = UIFactory.Image(canvas, "GradeChip", UphillColor, PixelSprites.White());
-            UIFactory.SetPoint(_gradeChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -305f), new Vector2(230f, 54f));
+            UIFactory.SetPoint(_gradeChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(-120f, -305f), new Vector2(230f, 54f));
             _gradeChipBg.raycastTarget = false;
             _gradeChip = UIFactory.Text(_gradeChipBg.transform, "Label", "UPHILL 5%", 32, Color.white);
             UIFactory.Fill(_gradeChip.rectTransform);
 
             _buffChipBg = UIFactory.Image(canvas, "BuffChip", new Color(0.95f, 0.6f, 0.15f, 0.9f), PixelSprites.White());
-            UIFactory.SetPoint(_buffChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(240f, -305f), new Vector2(230f, 54f));
+            UIFactory.SetPoint(_buffChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(120f, -305f), new Vector2(230f, 54f));
             _buffChipBg.raycastTarget = false;
             _buffChip = UIFactory.Text(_buffChipBg.transform, "Label", "SPEED x1.5", 32, Color.white);
             UIFactory.Fill(_buffChip.rectTransform);
+
+            _teamChipBg = UIFactory.Image(canvas, "TeamChip", new Color(0.25f, 0.5f, 0.75f, 0.9f), PixelSprites.White());
+            UIFactory.SetPoint(_teamChipBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(360f, -305f), new Vector2(230f, 54f));
+            _teamChipBg.raycastTarget = false;
+            var teamChipLabel = UIFactory.Text(_teamChipBg.transform, "Label", "TEAM RIDE", 32, Color.white);
+            UIFactory.Fill(teamChipLabel.rectTransform);
 
             // --- Sprint bar ---
             float sprintY = BannerH + BarH + 40f;
@@ -117,6 +126,8 @@ namespace IdleBike
             var refillLabel = UIFactory.Text(_refillBtn.transform, "Label", "REFILL SPRINT - FREE (AD)", 28, Color.white);
             UIFactory.Fill(refillLabel.rectTransform);
 
+            BuildEmoteUi(canvas, sprintY);
+
             // --- Bottom bar: Skills / Bike / Shop ---
             var bar = UIFactory.Image(canvas, "BottomBar", new Color(0.08f, 0.09f, 0.13f, 0.95f), PixelSprites.White());
             bar.rectTransform.anchorMin = new Vector2(0f, 0f);
@@ -128,6 +139,8 @@ namespace IdleBike
             BuildBarButton(bar.transform, 0, "SKILLS", BarIcon(ArtLibrary.UiIcon.Skills, PixelSprites.IconSkills()), () => _root.OpenSkills());
             var bikeBtn = BuildBarButton(bar.transform, 1, "BIKE", BarIcon(ArtLibrary.UiIcon.Bike, PixelSprites.IconBike()), () => _root.OpenUpgrades());
             BuildBarButton(bar.transform, 2, "SHOP", BarIcon(ArtLibrary.UiIcon.Shop, PixelSprites.IconShop()), () => _root.OpenShop());
+            var teamArt = ArtLibrary.Social(ArtLibrary.SocialIcon.Team);
+            BuildBarButton(bar.transform, 3, "TEAM", teamArt != null ? teamArt : PixelSprites.IconTeam(), () => _root.OpenTeam());
 
             _bikeBadge = UIFactory.Image(bikeBtn.transform, "Badge", UIFactory.Accent, PixelSprites.Coin());
             UIFactory.SetPoint(_bikeBadge.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -12f), new Vector2(40f, 40f));
@@ -146,6 +159,63 @@ namespace IdleBike
             UIFactory.SetPoint(bannerLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -BannerH * 0.5f), new Vector2(600f, 40f));
         }
 
+        // --- Emotes: button next to the sprint bar + a 6x2 picker grid ---
+        void BuildEmoteUi(Transform canvas, float sprintY)
+        {
+            var smileyArt = ArtLibrary.Social(ArtLibrary.SocialIcon.Smiley);
+            var emoteBtn = UIFactory.Button(canvas, "EmoteBtn", "", 0, new Color(0f, 0f, 0f, 0.45f), ToggleEmotePicker);
+            UIFactory.SetPoint(emoteBtn.GetComponent<RectTransform>(), new Vector2(1f, 0f),
+                new Vector2(-24f, sprintY - 18f), new Vector2(104f, 88f));
+            var smiley = UIFactory.Image(emoteBtn.transform, "Icon", UIFactory.TextMain,
+                smileyArt != null ? smileyArt : PixelSprites.IconSmiley());
+            UIFactory.SetPoint(smiley.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
+            smiley.raycastTarget = false;
+
+            _emotePicker = new GameObject("EmotePicker");
+            _emotePicker.transform.SetParent(canvas, false);
+            _emotePicker.layer = LayerMask.NameToLayer("UI");
+            var pickerBg = _emotePicker.AddComponent<Image>();
+            pickerBg.sprite = PixelSprites.White();
+            pickerBg.color = new Color(0.08f, 0.09f, 0.13f, 0.97f);
+            UIFactory.SetPoint(pickerBg.rectTransform, new Vector2(1f, 0f),
+                new Vector2(-24f, sprintY + 84f), new Vector2(590f, 208f));
+
+            for (int i = 0; i < Emotes.Count; i++)
+            {
+                int idx = i;
+                var art = ArtLibrary.Emote(idx);
+                var b = UIFactory.Button(_emotePicker.transform, "Emote" + idx, "", 0,
+                    new Color(1f, 1f, 1f, 0.06f), () => OnEmotePicked(idx));
+                var rt = b.GetComponent<RectTransform>();
+                int col = idx % 6, row = idx / 6;
+                UIFactory.SetPoint(rt, new Vector2(0f, 1f), new Vector2(10f + col * 96f, -10f - row * 96f), new Vector2(88f, 88f));
+                rt.pivot = new Vector2(0f, 1f);
+                var icon = UIFactory.Image(b.transform, "Icon", Color.white, art != null ? art : PixelSprites.Emote(idx));
+                UIFactory.SetPoint(icon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
+                icon.raycastTarget = false;
+            }
+            _emotePicker.SetActive(false);
+        }
+
+        void ToggleEmotePicker()
+        {
+            _emotePicker.SetActive(!_emotePicker.activeSelf);
+        }
+
+        void OnEmotePicked(int index)
+        {
+            _emotePicker.SetActive(false);
+            if (_emoteCooldown > 0f) return;
+            _emoteCooldown = 1.2f;
+            var manager = GameManager.I;
+            if (manager != null && manager.PlayerVisual != null)
+            {
+                manager.PlayerVisual.ShowEmote(index);
+                AudioManager.I.PlayEmotePop();
+            }
+            // later: broadcast to nearby players via the server
+        }
+
         static Sprite BarIcon(ArtLibrary.UiIcon artIcon, Sprite fallback)
         {
             var art = ArtLibrary.Icon(artIcon);
@@ -156,8 +226,8 @@ namespace IdleBike
         {
             var btn = UIFactory.Button(bar, label + "Btn", "", 0, new Color(1f, 1f, 1f, 0.05f), onClick);
             var rt = btn.GetComponent<RectTransform>();
-            rt.anchorMin = new Vector2(index / 3f, 0f);
-            rt.anchorMax = new Vector2((index + 1) / 3f, 1f);
+            rt.anchorMin = new Vector2(index / 4f, 0f);
+            rt.anchorMax = new Vector2((index + 1) / 4f, 1f);
             rt.offsetMin = new Vector2(10f, 12f);
             rt.offsetMax = new Vector2(-10f, -12f);
 
@@ -198,6 +268,8 @@ namespace IdleBike
                 _gradeChipBg.color = up ? UphillColor : DownhillColor;
             }
 
+            _teamChipBg.gameObject.SetActive(GameState.TeamNearby);
+            if (_emoteCooldown > 0f) _emoteCooldown -= Time.unscaledDeltaTime;
             _refillBtn.gameObject.SetActive(GameState.SprintEnergy < sprintMax * 0.25f && !GameState.IsSprinting);
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
         }

@@ -11,9 +11,17 @@ namespace IdleBike
     }
 
     [Serializable]
+    public class GiftEntry
+    {
+        public string fromName;
+        public int type;         // 0 = coins, 1 = sprint refill, 2 = speed buff
+        public long sentUnix;
+    }
+
+    [Serializable]
     public class SaveData
     {
-        public int version = 2;
+        public int version = 3;
         public double coins;
         public int bikeLevel;
         public double totalDistance;           // meters
@@ -25,6 +33,15 @@ namespace IdleBike
         public string equippedHelmet = "helmet_white";
         public string equippedTrail = "trail_none";
         public List<SkillRankEntry> skillRanks = new List<SkillRankEntry>();
+
+        // Team (local for now; server-synced later)
+        public bool inTeam;
+        public string teamName = "";
+        public string teamTag = "";
+        public List<GiftEntry> giftInbox = new List<GiftEntry>();
+        public long lastGiftGenUnix;
+        public long lastGiftSentUnix;
+
         public long lastSaveUnix;
     }
 
@@ -39,6 +56,7 @@ namespace IdleBike
         public static bool SprintHeld;
         public static bool IsSprinting;
         public static bool IsDrafting;
+        public static bool TeamNearby;   // a teammate is riding close — shared drag protection
         public static float BuffTimeLeft;
 
         public static event Action CoinsChanged;

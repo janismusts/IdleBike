@@ -10,6 +10,7 @@ namespace IdleBike
         public PlayerSim Sim { get; private set; }
         public TerrainSystem Terrain { get; private set; }
         public NpcManager Npcs;
+        public TeamRiderManager TeamRiders;
         public BuffManager Buffs;
         public RoadScroller Road;
         public ParallaxBackground Parallax;
@@ -87,6 +88,7 @@ namespace IdleBike
                 WorldTilt.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan(Terrain.CurrentGrade) * Mathf.Rad2Deg);
             if (PlayerVisual != null) PlayerVisual.AnimSpeed = GameState.CurrentSpeed;
             if (Npcs != null) Npcs.Tick(dt);
+            if (TeamRiders != null) TeamRiders.Tick(dt); // after NPCs: may extend IsDrafting
             if (Buffs != null) Buffs.Tick(dt);
             if (Road != null) Road.Tick();
             if (Parallax != null) Parallax.Tick();
@@ -125,9 +127,11 @@ namespace IdleBike
         void OnProgressReset()
         {
             SkillSystem.Rebuild();
+            TeamService.ResetLocal();
             Terrain.Reset();
             ApplyPlayerLook();
             if (Npcs != null) Npcs.Clear();
+            if (TeamRiders != null) TeamRiders.Rebuild();
             if (Buffs != null) Buffs.Clear();
         }
 
@@ -142,6 +146,7 @@ namespace IdleBike
             if (GameState.Data == null) return;
             _saveTimer = 0f;
             ComputeOffline();
+            TeamService.GenerateGifts();
             if (OfflineCoins >= 1.0 && UI != null) UI.ShowOfflinePopup();
         }
 

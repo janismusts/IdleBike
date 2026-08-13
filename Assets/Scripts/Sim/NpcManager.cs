@@ -17,6 +17,7 @@ namespace IdleBike
             public double Dist;       // absolute track distance, meters
             public float Speed;       // m/s
             public float PaceLeft;    // seconds of "match player speed" left while drafted
+            public float EmoteTimer;
             public RiderVisual Visual;
         }
 
@@ -94,7 +95,28 @@ namespace IdleBike
                 var lp = n.Visual.transform.localPosition;
                 n.Visual.transform.localPosition = new Vector3(rel, lp.y, 0f);
                 n.Visual.AnimSpeed = speed;
+
+                // occasional emotes while near the player
+                if (Mathf.Abs(rel) < 30f)
+                {
+                    n.EmoteTimer -= dt;
+                    if (n.EmoteTimer <= 0f)
+                    {
+                        n.EmoteTimer = Random.Range(b.npcEmoteMinInterval, b.npcEmoteMaxInterval);
+                        n.Visual.ShowEmote(PickEmote(i == draftIdx, n.Speed));
+                    }
+                }
             }
+        }
+
+        static int PickEmote(bool beingDrafted, float npcSpeed)
+        {
+            if (beingDrafted)
+                return Random.value < 0.5f ? 5 : 8;               // sweat / muscle — pulling the train
+            if (npcSpeed > GameState.CurrentSpeed * 1.05f)
+                return Random.value < 0.5f ? 7 : 6;               // rocket / cheeky turtle when passing
+            int[] casual = { 0, 1, 2, 3, 9, 11 };                 // wave, thumbs, heart, laugh, zzz, fire
+            return casual[Random.Range(0, casual.Length)];
         }
 
         void Spawn(double playerDist)
@@ -132,6 +154,7 @@ namespace IdleBike
                 Dist = atDist,
                 Speed = EffectiveCruise() * factor,
                 PaceLeft = b.draftPaceSeconds,
+                EmoteTimer = Random.Range(b.npcEmoteMinInterval, b.npcEmoteMaxInterval),
                 Visual = vis,
             });
         }

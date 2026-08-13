@@ -143,6 +143,36 @@ namespace IdleBike
             return s;
         }
 
+        /// <summary>32x32 emote icon (index matches Emotes.All); null if art missing.</summary>
+        public static Sprite Emote(int index)
+        {
+            string key = "emote_" + index;
+            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
+            var tex = Tex("Art/social/emotes");
+            Sprite s = null;
+            if (tex != null && tex.width >= (index + 1) * UiIconSize)
+                s = Sprite.Create(tex, new Rect(index * UiIconSize, 0, UiIconSize, UiIconSize),
+                    new Vector2(0.5f, 0.5f), UiIconSize);
+            SpriteCache[key] = s;
+            return s;
+        }
+
+        public enum SocialIcon { Team = 0, Gift = 1, Smiley = 2, Send = 3 }
+
+        /// <summary>32x32 white social icon (tint via Image.color); null if art missing.</summary>
+        public static Sprite Social(SocialIcon icon)
+        {
+            string key = "social_" + (int)icon;
+            if (SpriteCache.TryGetValue(key, out var cached)) return cached;
+            var tex = Tex("Art/social/social-icons");
+            Sprite s = null;
+            if (tex != null && tex.width >= ((int)icon + 1) * UiIconSize)
+                s = Sprite.Create(tex, new Rect((int)icon * UiIconSize, 0, UiIconSize, UiIconSize),
+                    new Vector2(0.5f, 0.5f), UiIconSize);
+            SpriteCache[key] = s;
+            return s;
+        }
+
         /// <summary>64x64 bike icon for a tier (garage/upgrade UI); null if art missing.</summary>
         public static Sprite BikeIcon(int tierIndex)
         {

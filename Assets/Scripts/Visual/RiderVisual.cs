@@ -24,12 +24,15 @@ namespace IdleBike
         float _pedalPhase;
         float _bobPhase;
         int _lastFrame = -1;
+        EmoteBubble _emote;
+        int _sortingOrder;
 
         /// <summary>Speed used to drive the pedaling animation (m/s).</summary>
         public float AnimSpeed;
 
         public void Init(int sortingOrder)
         {
+            _sortingOrder = sortingOrder;
             _sr = gameObject.AddComponent<SpriteRenderer>();
             _sr.sortingOrder = sortingOrder;
 
@@ -46,6 +49,13 @@ namespace IdleBike
             _trailSr.sortingOrder = sortingOrder - 1;
 
             _bobPhase = Random.value * 10f;
+        }
+
+        /// <summary>Show an emote speech bubble above this rider's head.</summary>
+        public void ShowEmote(int emoteIndex)
+        {
+            if (_emote == null) _emote = EmoteBubble.Attach(transform, _sortingOrder + 40);
+            _emote.Show(emoteIndex);
         }
 
         public void ApplyLook(int tierIndex, Color32 jersey, CosmeticDef helmet, CosmeticDef trail)
