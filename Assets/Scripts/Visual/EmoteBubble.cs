@@ -34,9 +34,21 @@ namespace IdleBike
         public void Show(int emoteIndex)
         {
             var art = ArtLibrary.Emote(emoteIndex);
-            _icon.sprite = art != null ? art : PixelSprites.Emote(emoteIndex);
-            // both art (32px@32ppu) and placeholder (14px@14ppu) are 1 unit — fit the bubble body
-            _icon.transform.localScale = Vector3.one * 0.5f;
+            if (art != null)
+            {
+                // generated emotes already include the speech bubble
+                _bubble.enabled = false;
+                _icon.sprite = art;
+                _icon.transform.localPosition = new Vector3(0.15f, 0.25f, 0f);
+                _icon.transform.localScale = Vector3.one * 1.15f;
+            }
+            else
+            {
+                _bubble.enabled = true;
+                _icon.sprite = PixelSprites.Emote(emoteIndex);
+                _icon.transform.localPosition = new Vector3(0.25f, 0.62f, 0f);
+                _icon.transform.localScale = Vector3.one * 0.5f;
+            }
 
             gameObject.SetActive(true);
             if (_routine != null) StopCoroutine(_routine);
