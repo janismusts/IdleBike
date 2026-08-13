@@ -436,6 +436,176 @@ namespace IdleBike
             });
         }
 
+        // ---------- Social: speech bubble + emote placeholders ----------
+
+        public static Sprite SpeechBubble()
+        {
+            return Cached("bubble", () =>
+            {
+                var c = new PixelCanvas(30, 26);
+                var fill = new Color32(250, 250, 252, 255);
+                var line = new Color32(40, 40, 50, 255);
+                c.Rect(2, 8, 26, 14, fill);
+                c.Rect(3, 7, 24, 16, fill);
+                c.Rect(4, 6, 22, 18, fill);
+                // outline
+                c.Line(3, 22, 26, 22, line); c.Line(3, 7, 26, 7, line);
+                c.Line(2, 8, 2, 21, line); c.Line(27, 8, 27, 21, line);
+                c.Set(3, 21, line); c.Set(26, 21, line); c.Set(3, 8, line); c.Set(26, 8, line);
+                // tail (bottom-left, pointing down at the rider)
+                c.Line(8, 7, 8, 2, line);
+                c.Line(12, 7, 9, 2, line);
+                c.Rect(9, 4, 2, 3, fill);
+                c.Set(9, 3, fill);
+                return c.ToSprite(24f, new Vector2(0.3f, 0f));
+            });
+        }
+
+        /// <summary>Placeholder pixel emote (index matches Emotes.All). Real art via prompts.</summary>
+        public static Sprite Emote(int index)
+        {
+            return Cached("emote" + index, () =>
+            {
+                var c = new PixelCanvas(14, 14);
+                var skin = new Color32(235, 188, 150, 255);
+                var yellow = new Color32(250, 210, 60, 255);
+                var dark = new Color32(45, 40, 45, 255);
+                switch (((index % 12) + 12) % 12)
+                {
+                    case 0: // wave — hand
+                        c.Rect(4, 2, 6, 7, skin);
+                        for (int f = 0; f < 4; f++) c.Rect(3 + f * 2, 9, 1, 3 + (f % 2), skin);
+                        c.Rect(9, 8, 2, 3, skin);
+                        break;
+                    case 1: // thumbs up
+                        c.Rect(4, 2, 7, 6, skin);
+                        c.Rect(5, 8, 2, 4, skin);
+                        c.Rect(7, 10, 2, 2, skin);
+                        break;
+                    case 2: // heart
+                        c.Disc(4, 9, 2, new Color32(220, 60, 70, 255));
+                        c.Disc(9, 9, 2, new Color32(220, 60, 70, 255));
+                        for (int y = 8; y >= 2; y--) c.Rect(2 + (8 - y), y, 10 - 2 * (8 - y), 1, new Color32(220, 60, 70, 255));
+                        break;
+                    case 3: // laugh
+                        c.Disc(7, 7, 6, yellow);
+                        c.Line(4, 9, 5, 10, dark); c.Line(9, 10, 10, 9, dark);
+                        c.Rect(4, 4, 6, 2, dark);
+                        c.Rect(5, 3, 4, 1, new Color32(240, 120, 120, 255));
+                        break;
+                    case 4: // angry
+                        c.Disc(7, 7, 6, new Color32(230, 90, 70, 255));
+                        c.Line(3, 10, 6, 8, dark); c.Line(8, 8, 11, 10, dark);
+                        c.Rect(5, 3, 5, 1, dark);
+                        break;
+                    case 5: // sweat
+                        c.Disc(7, 6, 5, yellow);
+                        c.Set(4, 7, dark); c.Set(9, 7, dark);
+                        c.Rect(5, 4, 4, 1, dark);
+                        c.Disc(12, 10, 1, new Color32(90, 160, 240, 255));
+                        c.Set(12, 12, new Color32(90, 160, 240, 255));
+                        break;
+                    case 6: // turtle
+                        c.Disc(7, 6, 4, new Color32(70, 140, 70, 255));   // shell
+                        c.Disc(7, 7, 3, new Color32(50, 110, 55, 255));
+                        c.Rect(11, 5, 2, 2, new Color32(120, 190, 100, 255)); // head
+                        c.Rect(3, 3, 2, 1, new Color32(120, 190, 100, 255));  // tail
+                        c.Rect(5, 2, 1, 1, new Color32(120, 190, 100, 255));
+                        c.Rect(9, 2, 1, 1, new Color32(120, 190, 100, 255));
+                        break;
+                    case 7: // rocket
+                        c.Rect(6, 4, 3, 7, new Color32(200, 205, 215, 255));
+                        c.Set(7, 12, new Color32(220, 70, 60, 255));
+                        c.Rect(6, 11, 3, 1, new Color32(220, 70, 60, 255));
+                        c.Rect(5, 4, 1, 2, new Color32(220, 70, 60, 255));
+                        c.Rect(9, 4, 1, 2, new Color32(220, 70, 60, 255));
+                        c.Rect(6, 1, 3, 2, new Color32(255, 170, 60, 255));
+                        c.Set(7, 0, new Color32(255, 220, 90, 255));
+                        break;
+                    case 8: // muscle — flexed arm
+                        c.Rect(2, 3, 5, 3, skin);
+                        c.Disc(8, 7, 3, skin);
+                        c.Rect(8, 9, 3, 3, skin);
+                        break;
+                    case 9: // zzz
+                        DrawZ(c, 1, 1, 4, new Color32(120, 160, 240, 255));
+                        DrawZ(c, 5, 5, 4, new Color32(140, 175, 245, 255));
+                        DrawZ(c, 9, 9, 4, new Color32(165, 195, 250, 255));
+                        break;
+                    case 10: // trophy
+                        var gold = new Color32(240, 195, 60, 255);
+                        c.Rect(4, 7, 7, 5, gold);
+                        c.Rect(3, 10, 9, 2, gold);
+                        c.Set(2, 10, gold); c.Set(12, 10, gold);
+                        c.Rect(6, 4, 3, 3, gold);
+                        c.Rect(4, 2, 7, 2, new Color32(190, 140, 35, 255));
+                        break;
+                    default: // fire
+                        c.Disc(7, 4, 4, new Color32(255, 140, 40, 255));
+                        c.Disc(7, 4, 2, new Color32(255, 220, 90, 255));
+                        c.Line(7, 8, 5, 12, new Color32(255, 140, 40, 255));
+                        c.Line(8, 8, 9, 11, new Color32(255, 170, 60, 255));
+                        break;
+                }
+                return c.ToSprite(14f, new Vector2(0.5f, 0.5f));
+            });
+
+            void DrawZ(PixelCanvas cv, int x, int y, int size, Color32 col)
+            {
+                cv.Rect(x, y + size - 1, size, 1, col);
+                cv.Rect(x, y, size, 1, col);
+                cv.Line(x + size - 1, y + size - 1, x, y, col);
+            }
+        }
+
+        public static Sprite IconTeam()
+        {
+            return Cached("icon_team", () =>
+            {
+                var c = new PixelCanvas(16, 16);
+                var w = new Color32(255, 255, 255, 255);
+                c.Disc(5, 10, 2, w);
+                c.Disc(11, 10, 2, w);
+                c.Rect(2, 3, 6, 5, w);
+                c.Rect(8, 3, 6, 5, w);
+                c.Rect(7, 2, 2, 4, new Color32(0, 0, 0, 0));
+                return c.ToSprite(16f, new Vector2(0.5f, 0.5f));
+            });
+        }
+
+        public static Sprite IconGift()
+        {
+            return Cached("icon_gift", () =>
+            {
+                var c = new PixelCanvas(16, 16);
+                var w = new Color32(255, 255, 255, 255);
+                c.Rect(3, 2, 10, 7, w);
+                c.Rect(2, 9, 12, 3, w);
+                c.Rect(7, 2, 2, 10, new Color32(0, 0, 0, 0));
+                c.Rect(7, 2, 2, 10, new Color32(255, 255, 255, 90));
+                c.Disc(5, 13, 2, w);
+                c.Disc(11, 13, 2, w);
+                c.Disc(5, 13, 1, new Color32(0, 0, 0, 0));
+                c.Disc(11, 13, 1, new Color32(0, 0, 0, 0));
+                return c.ToSprite(16f, new Vector2(0.5f, 0.5f));
+            });
+        }
+
+        public static Sprite IconSmiley()
+        {
+            return Cached("icon_smiley", () =>
+            {
+                var c = new PixelCanvas(16, 16);
+                var w = new Color32(255, 255, 255, 255);
+                c.Circle(8, 8, 6, w);
+                c.Set(6, 10, w); c.Set(10, 10, w);
+                c.Line(5, 6, 7, 5, w);
+                c.Line(7, 5, 9, 5, w);
+                c.Line(9, 5, 11, 6, w);
+                return c.ToSprite(16f, new Vector2(0.5f, 0.5f));
+            });
+        }
+
         static Sprite Cached(string key, System.Func<Sprite> make)
         {
             if (Cache.TryGetValue(key, out var s)) return s;

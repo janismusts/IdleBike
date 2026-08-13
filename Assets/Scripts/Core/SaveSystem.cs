@@ -43,6 +43,13 @@ namespace IdleBike
                 if (!data.ownedCosmetics.Contains("trail_none")) data.ownedCosmetics.Add("trail_none");
                 data.version = 2;
             }
+            if (data.version < 3)
+            {
+                if (data.teamName == null) data.teamName = "";
+                if (data.teamTag == null) data.teamTag = "";
+                if (data.giftInbox == null) data.giftInbox = new System.Collections.Generic.List<GiftEntry>();
+                data.version = 3;
+            }
             return data;
         }
 

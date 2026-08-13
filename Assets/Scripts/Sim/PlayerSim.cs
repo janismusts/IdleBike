@@ -66,7 +66,13 @@ namespace IdleBike
 
             // Target speed
             float target = cruise;
-            if (!GameState.IsDrafting) target *= 1f - SkillEffects.EffectiveDragPenalty;
+            if (!GameState.IsDrafting)
+            {
+                float drag = SkillEffects.EffectiveDragPenalty;
+                // riding together with the team shelters everyone from the wind
+                if (GameState.TeamNearby) drag *= 1f - b.teamDragReduction;
+                target *= 1f - drag;
+            }
             if (sprinting) target *= b.sprintMultiplier;
             if (GameState.BuffTimeLeft > 0f) target *= b.buffMultiplier;
             if (_terrain != null)

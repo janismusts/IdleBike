@@ -72,6 +72,25 @@ namespace IdleBike
         public float downhillBoostFactor = 2.5f;
         public float downhillMaxSpeedMult = 1.35f;
 
+        [Header("Team / social")]
+        [Tooltip("A teammate within this many meters counts as riding together")]
+        public float teamTogetherRange = 10f;
+        [Tooltip("Drag penalty reduction while the team rides together (0.5 = half drag)")]
+        [Range(0f, 1f)] public float teamDragReduction = 0.5f;
+        public int teamSize = 4;
+        [Tooltip("How often a teammate sends a gift (hours, simulated locally for now)")]
+        public float giftIntervalHours = 6f;
+        [Tooltip("Coins gift is worth this many minutes of cruise income")]
+        public float giftCoinsMinutes = 15f;
+        public float giftBuffSeconds = 30f;
+        public float sendGiftCooldownHours = 8f;
+        public int giftInboxCap = 6;
+
+        [Header("Emotes")]
+        public float emoteDuration = 2.5f;
+        public float npcEmoteMinInterval = 15f;
+        public float npcEmoteMaxInterval = 45f;
+
         [Header("Economy")]
         public double coinsPerMeter = 0.4;
         [Tooltip("+X% coins per bike level")]

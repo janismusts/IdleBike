@@ -80,5 +80,9 @@ namespace IdleBike
         public void PlayDraftEnter() => PlayClip("draft_enter", ProceduralSfx.Whoosh);
         public void PlayOfflineCollect() => PlayClip("offline_collect", ProceduralSfx.Coin);
         public void PlayError() => PlayClip("error_denied", ProceduralSfx.Error);
+        public void PlayEmotePop() => PlayClip("emote_pop", ProceduralSfx.Click);
+        public void PlayGiftReceive() => PlayClip("gift_receive", ProceduralSfx.Coin);
+        public void PlayGiftSend() => PlayClip("gift_send", ProceduralSfx.Click);
+        public void PlayTeamJoin() => PlayClip("team_join", ProceduralSfx.Upgrade);
     }
 }
