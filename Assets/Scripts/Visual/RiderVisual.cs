@@ -70,8 +70,6 @@ namespace IdleBike
         {
             var v = Tuning.Visual;
             transform.localScale = Vector3.one * v.riderScale;
-            if (_helmetSr != null)
-                _helmetSr.transform.localPosition = new Vector3(v.helmetOffset.x, v.helmetOffset.y, 0f);
             if (_trailSr != null)
             {
                 _trailSr.transform.localPosition = new Vector3(v.trailOffset.x, v.trailOffset.y, 0f);
@@ -79,6 +77,23 @@ namespace IdleBike
             }
             if (_emote != null)
                 _emote.transform.localPosition = new Vector3(v.emoteBubbleOffset.x, v.emoteBubbleOffset.y, 0f);
+            _lastFrame = -1; // force Refresh so the helmet re-places with new offset/scale
+        }
+
+        /// <summary>
+        /// Set the helmet frame, scaled around the helmet's own center so helmetScale
+        /// doesn't drag it away from the head (its pivot is the sheet-space ground point).
+        /// </summary>
+        void PlaceHelmet(Sprite s)
+        {
+            var v = Tuning.Visual;
+            _helmetSr.sprite = s;
+            float k = v.helmetScale;
+            Vector2 centerLocal = (new Vector2(s.rect.width, s.rect.height) * 0.5f - s.pivot) / s.pixelsPerUnit;
+            _helmetSr.transform.localPosition = new Vector3(
+                v.helmetOffset.x + (1f - k) * centerLocal.x,
+                v.helmetOffset.y + (1f - k) * centerLocal.y, 0f);
+            _helmetSr.transform.localScale = Vector3.one * k;
         }
 
         public void ApplyLook(int tierIndex, Color32 jersey, CosmeticDef helmet, CosmeticDef trail)
@@ -106,8 +121,9 @@ namespace IdleBike
         void Update()
         {
             if (_sr == null) return;
-            // dev toggles for checking rider art without cosmetic overlays
-            if (_helmetSr != null) _helmetSr.enabled = _helmetFrames != null && !DebugFlags.HideHelmets;
+            // tuning + dev toggles for cosmetic overlays
+            if (_helmetSr != null)
+                _helmetSr.enabled = _helmetFrames != null && Tuning.Visual.showHelmets && !DebugFlags.HideHelmets;
             if (_trailSr != null) _trailSr.enabled = _trailFrames != null && !DebugFlags.HideTrails;
             var a = Tuning.Anim;
             float spd = Mathf.Max(0f, AnimSpeed);
@@ -137,7 +153,7 @@ namespace IdleBike
             if (_artFrames != null)
             {
                 _sr.sprite = _artFrames[frame];
-                if (_helmetFrames != null) _helmetSr.sprite = _helmetFrames[frame];
+                if (_helmetFrames != null) PlaceHelmet(_helmetFrames[frame]);
                 if (_trailFrames != null) _trailSr.sprite = _trailFrames[frame];
             }
             else

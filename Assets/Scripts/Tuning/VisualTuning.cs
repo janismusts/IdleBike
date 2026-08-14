@@ -58,6 +58,10 @@ namespace IdleBike
         public float riderScale = 1f;
 
         [Header("Rider attachments (local units on the rider)")]
+        [Tooltip("Master switch for helmet overlays")]
+        public bool showHelmets = true;
+        [Tooltip("Helmet overlay scale (around the helmet's own center)")]
+        public float helmetScale = 1f;
         [Tooltip("Helmet overlay fine-tune relative to the rider frame")]
         public Vector2 helmetOffset = Vector2.zero;
         [Tooltip("Trail effect anchor (behind the rear wheel)")]

@@ -42,6 +42,8 @@ MonoBehaviour:
   treeMaxScale: 1.1
   roadScale: 1
   riderScale: 1
+  showHelmets: 1
+  helmetScale: 1
   helmetOffset: {x: 0, y: 0}
   trailOffset: {x: -0.55, y: 0.02}
   trailScale: 1
