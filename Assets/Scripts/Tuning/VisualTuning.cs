@@ -78,6 +78,10 @@ namespace IdleBike
         public float hudTopIconSize = 64f;
         public float emotePickerIconSize = 64f;
 
+        [Header("Dev")]
+        [Tooltip("Show the DEV button (editor/development builds only)")]
+        public bool showDevButton = true;
+
         [Header("Generated art (Resources/Art)")]
         [Tooltip("Rider sheet pixels per world unit (128px frame / 56 ≈ 2.3 m bike)")]
         public float riderArtPixelsPerUnit = 56f;

@@ -52,7 +52,8 @@ namespace IdleBike
                 float regen = (b.sprintRegenPerSec + (GameState.IsDrafting ? b.sprintRegenDraftBonus : 0f))
                               * SkillEffects.SprintRegenMult;
                 GameState.SprintEnergy = Mathf.Min(sprintMax, GameState.SprintEnergy + regen * dt);
-                if (wantSprint && !_lockedUntilRelease && GameState.SprintEnergy >= b.sprintMinToStart)
+                // sprint only starts on a FULL bar
+                if (wantSprint && !_lockedUntilRelease && GameState.SprintEnergy >= sprintMax - 0.01f)
                 {
                     sprinting = true;
                     SprintStarted?.Invoke();

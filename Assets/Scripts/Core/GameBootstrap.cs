@@ -112,7 +112,7 @@ namespace IdleBike
             {
                 var debug = root.AddComponent<DebugTools>();
                 debug.Init(manager);
-                ui.AttachDebugButton(debug);
+                debug.DevButton = ui.AttachDebugButton(debug);
             }
         }
     }

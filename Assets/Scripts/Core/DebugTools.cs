@@ -24,6 +24,9 @@ namespace IdleBike
         string _visualSnapshot;
         string _audioSnapshot;
 
+        /// <summary>Set by GameBootstrap; visibility follows VisualTuning.showDevButton.</summary>
+        public GameObject DevButton;
+
         public void Init(GameManager manager)
         {
             _manager = manager;
@@ -33,6 +36,9 @@ namespace IdleBike
 
         void Update()
         {
+            if (DevButton != null && DevButton.activeSelf != Tuning.Visual.showDevButton)
+                DevButton.SetActive(Tuning.Visual.showDevButton);
+
             if (!DebugFlags.LiveTuning || _manager == null) return;
             _timer += Time.unscaledDeltaTime;
             if (_timer < 0.5f) return;

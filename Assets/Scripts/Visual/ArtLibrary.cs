@@ -271,6 +271,10 @@ namespace IdleBike
         public static Sprite BikeIcon(int tierIndex) =>
             IconAt("Art/ui/bike-upgrade-icons", tierIndex, "bikeicon_" + tierIndex);
 
+        /// <summary>Sprint button art: 0 ready, 1 active, 2 disabled; null until the asset exists.</summary>
+        public static Sprite SprintButton(int state) =>
+            IconAt("Art/ui/sprint-button", state, "sprintbtn_" + state);
+
         // ---------- helpers ----------
 
         /// <summary>Copy the texture with near-white pixels multiplied by the tint (jersey coloring).</summary>

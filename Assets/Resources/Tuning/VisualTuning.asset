@@ -53,5 +53,6 @@ MonoBehaviour:
   barIconSize: 84
   hudTopIconSize: 64
   emotePickerIconSize: 64
+  showDevButton: 1
   riderArtPixelsPerUnit: 56
   envArtPixelsPerUnit: 16

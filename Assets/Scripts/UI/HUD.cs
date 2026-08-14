@@ -23,6 +23,9 @@ namespace IdleBike
         Button _refillBtn;
         Image _sprintBtnBg;
         Text _sprintBtnLabel;
+        Sprite _sprintBtnReady;
+        Sprite _sprintBtnActive;
+        Sprite _sprintBtnTired;
         GameObject _emotePicker;
         float _emoteCooldown;
 
@@ -115,6 +118,9 @@ namespace IdleBike
             _sprintBtnBg = UIFactory.Image(canvas, "SprintBtn", new Color(0.95f, 0.8f, 0.2f, 0.95f), PixelSprites.White());
             UIFactory.SetPoint(_sprintBtnBg.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, sprintY + 70f), new Vector2(250f, 160f));
             _sprintBtnBg.gameObject.AddComponent<SprintHoldButton>();
+            _sprintBtnReady = ArtLibrary.SprintButton(0);
+            _sprintBtnActive = ArtLibrary.SprintButton(1);
+            _sprintBtnTired = ArtLibrary.SprintButton(2);
             _sprintBtnLabel = UIFactory.Text(_sprintBtnBg.transform, "Label", "SPRINT", 40, new Color(0.15f, 0.12f, 0.05f));
             UIFactory.Fill(_sprintBtnLabel.rectTransform);
             var holdHint = UIFactory.Text(_sprintBtnBg.transform, "Hint", "HOLD", 22, new Color(0.15f, 0.12f, 0.05f, 0.7f));
@@ -293,22 +299,36 @@ namespace IdleBike
             _refillBtn.gameObject.SetActive(GameState.SprintEnergy < sprintMax * 0.25f && !GameState.IsSprinting);
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
 
-            // sprint button state: gray when too empty to start, orange while sprinting
+            // sprint button: only a FULL bar can start a sprint
+            bool hasArt = _sprintBtnReady != null;
             if (GameState.IsSprinting)
             {
-                _sprintBtnBg.color = new Color(1f, 0.55f, 0.15f, 0.95f);
-                _sprintBtnLabel.text = "SPRINTING";
+                SetSprintButton(_sprintBtnActive, new Color(1f, 0.55f, 0.15f, 0.95f), "SPRINTING", hasArt);
             }
-            else if (GameState.SprintEnergy < Tuning.Balance.sprintMinToStart)
+            else if (GameState.SprintEnergy < sprintMax - 0.01f)
             {
-                _sprintBtnBg.color = new Color(0.35f, 0.36f, 0.4f, 0.95f);
-                _sprintBtnLabel.text = "TIRED...";
+                int pct = Mathf.FloorToInt(GameState.SprintEnergy / sprintMax * 100f);
+                SetSprintButton(_sprintBtnTired, new Color(0.35f, 0.36f, 0.4f, 0.95f), "CHARGING " + pct + "%", hasArt);
             }
             else
             {
-                _sprintBtnBg.color = new Color(0.95f, 0.8f, 0.2f, 0.95f);
-                _sprintBtnLabel.text = "SPRINT";
+                SetSprintButton(_sprintBtnReady, new Color(0.95f, 0.8f, 0.2f, 0.95f), "SPRINT", hasArt);
             }
+        }
+
+        void SetSprintButton(Sprite artSprite, Color fallbackColor, string label, bool hasArt)
+        {
+            if (hasArt && artSprite != null)
+            {
+                _sprintBtnBg.sprite = artSprite;
+                _sprintBtnBg.color = Color.white;
+            }
+            else
+            {
+                _sprintBtnBg.sprite = PixelSprites.White();
+                _sprintBtnBg.color = fallbackColor;
+            }
+            _sprintBtnLabel.text = label;
         }
     }
 }

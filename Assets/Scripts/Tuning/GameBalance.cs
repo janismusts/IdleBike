@@ -15,20 +15,19 @@ namespace IdleBike
         public float acceleration = 3.5f;
         public float deceleration = 5.0f;
 
-        [Header("Sprint energy")]
+        [Header("Sprint energy (sprint can only start on a FULL bar)")]
         public float sprintMax = 100f;
         public float sprintDrainPerSec = 22f;
         [Tooltip("Slow base refill — drafting is the fast way back")]
         public float sprintRegenPerSec = 4f;
         [Tooltip("Extra regen while drafting")]
         public float sprintRegenDraftBonus = 12f;
-        [Tooltip("Can't start sprinting below this")]
-        public float sprintMinToStart = 10f;
 
         [Header("Drafting")]
-        public float draftWindowBase = 4f;
-        [Tooltip("Draft window grows with speed (m per m/s)")]
-        public float draftWindowPerSpeed = 0.25f;
+        [Tooltip("Max distance behind another rider (m) where the draft works")]
+        public float draftDistance = 5f;
+        [Tooltip("Extra draft distance per m/s of current speed (0 = fixed distance)")]
+        public float draftDistancePerSpeed = 0.15f;
         public float draftMinGap = 0.4f;
 
         [Header("Lanes (vertical position on the road)")]

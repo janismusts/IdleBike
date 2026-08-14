@@ -22,9 +22,8 @@ MonoBehaviour:
   sprintDrainPerSec: 22
   sprintRegenPerSec: 4
   sprintRegenDraftBonus: 12
-  sprintMinToStart: 10
-  draftWindowBase: 4
-  draftWindowPerSpeed: 0.25
+  draftDistance: 5
+  draftDistancePerSpeed: 0.15
   draftMinGap: 0.4
   laneMargin: 0.3
   laneTolerance: 0.45

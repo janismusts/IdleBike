@@ -96,12 +96,14 @@ namespace IdleBike
         }
 
         /// <summary>Small always-on-top DEV button (editor / development builds only).</summary>
-        public void AttachDebugButton(DebugTools tools)
+        public GameObject AttachDebugButton(DebugTools tools)
         {
             var btn = UIFactory.Button(_canvas.transform, "DevBtn", "DEV", 26,
                 new Color(0.55f, 0.25f, 0.6f, 0.85f), () => OpenDebug(tools));
             UIFactory.SetPoint(btn.GetComponent<RectTransform>(), new Vector2(0f, 1f),
                 new Vector2(24f, -120f), new Vector2(110f, 56f));
+            btn.gameObject.SetActive(Tuning.Visual.showDevButton);
+            return btn.gameObject;
         }
 
         /// <summary>Open (or refresh) the offline earnings popup.</summary>

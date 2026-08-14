@@ -98,7 +98,7 @@ namespace IdleBike
 
             bool together = false;
             bool teamDraft = false;
-            float draftWindow = (b.draftWindowBase + playerSpeed * b.draftWindowPerSpeed)
+            float draftWindow = (b.draftDistance + playerSpeed * b.draftDistancePerSpeed)
                                 * SkillEffects.DraftWindowMult;
 
             foreach (var r in _riders)

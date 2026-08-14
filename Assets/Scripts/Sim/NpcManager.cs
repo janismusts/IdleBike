@@ -55,8 +55,8 @@ namespace IdleBike
                 _nextSpawnAt = playerDist + Random.Range(b.npcSpawnMinGap, b.npcSpawnMaxGap);
             }
 
-            // pick the draft target: nearest NPC ahead within the window AND in the player's lane
-            float draftWindow = (b.draftWindowBase + GameState.CurrentSpeed * b.draftWindowPerSpeed)
+            // pick the draft target: nearest NPC ahead within the draft distance AND in the player's lane
+            float draftWindow = (b.draftDistance + GameState.CurrentSpeed * b.draftDistancePerSpeed)
                                 * SkillEffects.DraftWindowMult;
             int draftIdx = -1;
             float bestRel = float.MaxValue;
