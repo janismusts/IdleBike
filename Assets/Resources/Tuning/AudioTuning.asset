@@ -11,21 +11,21 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57071b63fcfa7fd4ca81c514504af430, type: 3}
   m_Name: AudioTuning
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   defaultMusicVolume: 0.6
   defaultSfxVolume: 0.8
   musicGain: 1
   sfxGain: 1
-  uiClick: 1
-  coinPickup: 1
+  uiClick: 0.217
+  coinPickup: 0.342
   upgradeBuy: 1
   newBikeFanfare: 1
-  sprintStart: 1
+  sprintStart: 0.683
   sprintEmpty: 1
-  buffPickup: 1
+  buffPickup: 0.25
   buffEnd: 1
   draftEnter: 1
-  offlineCollect: 1
+  offlineCollect: 0.675
   errorDenied: 1
   emotePop: 1
   giftReceive: 1

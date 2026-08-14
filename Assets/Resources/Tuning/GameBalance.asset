@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d000d4a9490d71641888a67453c0edbb, type: 3}
   m_Name: GameBalance
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   baseSpeed: 2
   speedPerLevel: 0.07
   dragPenalty: 0.28
@@ -20,9 +20,9 @@ MonoBehaviour:
   deceleration: 5
   sprintMax: 100
   sprintDrainPerSec: 22
-  sprintRegenPerSec: 4
+  sprintRegenPerSec: 1
   sprintRegenDraftBonus: 12
-  draftDistance: 5
+  draftDistance: 1.42
   draftDistancePerSpeed: 0.15
   draftMinGap: 0.4
   laneMargin: 0.3

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e1bd5e8738c1224bb9901fb52703787, type: 3}
   m_Name: VisualTuning
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   camMinSize: 7.5
   camMaxSize: 26
   camSizePerSpeed: 0.35
@@ -42,7 +42,7 @@ MonoBehaviour:
   treeMaxScale: 1.1
   roadScale: 1
   riderScale: 1
-  showHelmets: 1
+  showHelmets: 0
   helmetScale: 1
   helmetOffset: {x: 0, y: 0}
   trailOffset: {x: -0.55, y: 0.02}
@@ -53,6 +53,6 @@ MonoBehaviour:
   barIconSize: 84
   hudTopIconSize: 64
   emotePickerIconSize: 64
-  showDevButton: 1
+  showDevButton: 0
   riderArtPixelsPerUnit: 56
   envArtPixelsPerUnit: 16

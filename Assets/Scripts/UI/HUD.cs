@@ -117,6 +117,7 @@ namespace IdleBike
             // --- Dedicated hold-to-sprint button (right thumb zone) ---
             _sprintBtnBg = UIFactory.Image(canvas, "SprintBtn", new Color(0.95f, 0.8f, 0.2f, 0.95f), PixelSprites.White());
             UIFactory.SetPoint(_sprintBtnBg.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, sprintY + 70f), new Vector2(250f, 160f));
+            _sprintBtnBg.preserveAspect = true;
             _sprintBtnBg.gameObject.AddComponent<SprintHoldButton>();
             _sprintBtnReady = ArtLibrary.SprintButton(0);
             _sprintBtnActive = ArtLibrary.SprintButton(1);
