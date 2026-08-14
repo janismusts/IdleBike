@@ -106,7 +106,7 @@ namespace IdleBike
             _sprintFill.fillMethod = Image.FillMethod.Horizontal;
             _sprintFill.raycastTarget = false;
 
-            var hint = UIFactory.Text(canvas, "SprintHint", "HOLD SCREEN TO SPRINT", 28, UIFactory.TextDim);
+            var hint = UIFactory.Text(canvas, "SprintHint", "HOLD TO SPRINT  |  DRAG UP/DOWN TO STEER", 28, UIFactory.TextDim);
             UIFactory.SetPoint(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, sprintY - 38f), new Vector2(600f, 36f));
 
             // Rewarded refill (placeholder ad) — shows when the sprint bar runs low

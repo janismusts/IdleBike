@@ -30,6 +30,16 @@ namespace IdleBike
         public float draftWindowPerSpeed = 0.25f;
         public float draftMinGap = 0.4f;
 
+        [Header("Lanes (vertical position on the road)")]
+        [Tooltip("Keep riders this far from the road edges")]
+        public float laneMargin = 0.3f;
+        [Tooltip("Max vertical distance to count as the same lane (draft, pickups)")]
+        public float laneTolerance = 0.45f;
+        [Tooltip("How fast the player moves vertically (units/s)")]
+        public float laneMoveSpeed = 3f;
+        [Tooltip("Drag steering sensitivity multiplier")]
+        public float laneDragSensitivity = 1.3f;
+
         [Header("NPC riders")]
         public int npcMaxAlive = 6;
         public float npcSpawnMinGap = 10f;

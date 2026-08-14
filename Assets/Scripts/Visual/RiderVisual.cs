@@ -30,6 +30,9 @@ namespace IdleBike
         /// <summary>Speed used to drive the pedaling animation (m/s).</summary>
         public float AnimSpeed;
 
+        /// <summary>Lane y on the road; the bob animation oscillates around this.</summary>
+        public float BaseY;
+
         public void Init(int sortingOrder)
         {
             _sortingOrder = sortingOrder;
@@ -58,7 +61,7 @@ namespace IdleBike
         /// <summary>Show an emote speech bubble above this rider's head.</summary>
         public void ShowEmote(int emoteIndex)
         {
-            if (_emote == null) _emote = EmoteBubble.Attach(transform, _sortingOrder + 40);
+            if (_emote == null) _emote = EmoteBubble.Attach(transform, 200); // always above riders
             _emote.Show(emoteIndex);
         }
 
@@ -111,7 +114,14 @@ namespace IdleBike
             _pedalPhase += spd * a.pedalRate * Time.deltaTime;
             _bobPhase += Time.deltaTime * (a.bobBaseFrequency + spd * a.bobFrequencyPerSpeed);
             var lp = transform.localPosition;
-            transform.localPosition = new Vector3(lp.x, Mathf.Sin(_bobPhase) * a.bobAmplitude, lp.z);
+            transform.localPosition = new Vector3(lp.x, BaseY + Mathf.Sin(_bobPhase) * a.bobAmplitude, lp.z);
+
+            // lower on the road renders in front
+            int order = Lanes.SortOrder(BaseY, _sortingOrder);
+            _sr.sortingOrder = order;
+            if (_helmetSr != null) _helmetSr.sortingOrder = order + 1;
+            if (_trailSr != null) _trailSr.sortingOrder = order - 1;
+
             Refresh();
         }
 

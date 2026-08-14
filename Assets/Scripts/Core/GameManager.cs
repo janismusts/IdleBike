@@ -86,7 +86,16 @@ namespace IdleBike
 
             if (WorldTilt != null)
                 WorldTilt.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan(Terrain.CurrentGrade) * Mathf.Rad2Deg);
-            if (PlayerVisual != null) PlayerVisual.AnimSpeed = GameState.CurrentSpeed;
+
+            // lane steering: glide toward where the player dragged
+            GameState.PlayerLaneTarget = Lanes.Clamp(GameState.PlayerLaneTarget);
+            GameState.PlayerLaneY = Mathf.MoveTowards(GameState.PlayerLaneY, GameState.PlayerLaneTarget,
+                Tuning.Balance.laneMoveSpeed * dt);
+            if (PlayerVisual != null)
+            {
+                PlayerVisual.BaseY = GameState.PlayerLaneY;
+                PlayerVisual.AnimSpeed = GameState.CurrentSpeed;
+            }
             if (Npcs != null) Npcs.Tick(dt);
             if (TeamRiders != null) TeamRiders.Tick(dt); // after NPCs: may extend IsDrafting
             if (Buffs != null) Buffs.Tick(dt);
@@ -129,6 +138,8 @@ namespace IdleBike
             SkillSystem.Rebuild();
             TeamService.ResetLocal();
             Terrain.Reset();
+            GameState.PlayerLaneY = Lanes.MidY;
+            GameState.PlayerLaneTarget = Lanes.MidY;
             ApplyPlayerLook();
             if (Npcs != null) Npcs.Clear();
             if (TeamRiders != null) TeamRiders.Rebuild();

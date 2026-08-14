@@ -12,6 +12,7 @@ namespace IdleBike
         class Pickup
         {
             public double Dist;
+            public float LaneY;
             public Transform Tr;
         }
 
@@ -48,9 +49,9 @@ namespace IdleBike
                     _pickups.RemoveAt(i);
                     continue;
                 }
-                if (rel <= 0.5f)
+                if (rel <= 0.5f && Lanes.SameLane(GameState.PlayerLaneY, p.LaneY))
                 {
-                    // collected by riding through it
+                    // collected by riding through it in the same lane
                     _sim.PickUpBuff();
                     BuffCollected?.Invoke();
                     Destroy(p.Tr.gameObject);
@@ -58,18 +59,19 @@ namespace IdleBike
                     continue;
                 }
                 p.Tr.localPosition = new Vector3(rel,
-                    0.15f + Mathf.Sin(Time.time * Tuning.Anim.buffBobFrequency + i) * Tuning.Anim.buffBobAmplitude, 0f);
+                    p.LaneY + 0.1f + Mathf.Sin(Time.time * Tuning.Anim.buffBobFrequency + i) * Tuning.Anim.buffBobAmplitude, 0f);
             }
         }
 
         void Spawn(double atDist)
         {
+            float laneY = Lanes.RandomLane();
             var go = new GameObject("SpeedBuff");
             go.transform.SetParent(transform, false);
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = PixelSprites.BuffBolt();
-            sr.sortingOrder = 6;
-            _pickups.Add(new Pickup { Dist = atDist, Tr = go.transform });
+            sr.sortingOrder = Lanes.SortOrder(laneY, -2); // just behind riders in the same lane
+            _pickups.Add(new Pickup { Dist = atDist, LaneY = laneY, Tr = go.transform });
         }
 
         public void Clear()

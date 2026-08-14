@@ -16,6 +16,7 @@ namespace IdleBike
         {
             public double Dist;       // absolute track distance, meters
             public float Speed;       // m/s
+            public float LaneY;       // vertical position on the road
             public float PaceLeft;    // seconds of "match player speed" left while drafted
             public float EmoteTimer;
             public RiderVisual Visual;
@@ -54,7 +55,7 @@ namespace IdleBike
                 _nextSpawnAt = playerDist + Random.Range(b.npcSpawnMinGap, b.npcSpawnMaxGap);
             }
 
-            // pick the draft target: nearest NPC ahead within the window
+            // pick the draft target: nearest NPC ahead within the window AND in the player's lane
             float draftWindow = (b.draftWindowBase + GameState.CurrentSpeed * b.draftWindowPerSpeed)
                                 * SkillEffects.DraftWindowMult;
             int draftIdx = -1;
@@ -62,7 +63,8 @@ namespace IdleBike
             for (int i = 0; i < _npcs.Count; i++)
             {
                 float rel = (float)(_npcs[i].Dist - playerDist);
-                if (rel > b.draftMinGap && rel <= draftWindow && rel < bestRel)
+                if (rel > b.draftMinGap && rel <= draftWindow && rel < bestRel
+                    && Lanes.SameLane(GameState.PlayerLaneY, _npcs[i].LaneY))
                 {
                     bestRel = rel;
                     draftIdx = i;
@@ -91,9 +93,10 @@ namespace IdleBike
                     _npcs.RemoveAt(i);
                     continue;
                 }
-                // keep y — RiderVisual's bob animation owns it
+                // x only — RiderVisual's bob animation owns y (around BaseY)
                 var lp = n.Visual.transform.localPosition;
                 n.Visual.transform.localPosition = new Vector3(rel, lp.y, 0f);
+                n.Visual.BaseY = n.LaneY;
                 n.Visual.AnimSpeed = speed;
 
                 // occasional emotes while near the player
@@ -153,6 +156,7 @@ namespace IdleBike
             {
                 Dist = atDist,
                 Speed = EffectiveCruise() * factor,
+                LaneY = Lanes.RandomLane(),
                 PaceLeft = b.draftPaceSeconds,
                 EmoteTimer = Random.Range(b.npcEmoteMinInterval, b.npcEmoteMaxInterval),
                 Visual = vis,

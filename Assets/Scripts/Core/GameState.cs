@@ -58,6 +58,8 @@ namespace IdleBike
         public static bool IsDrafting;
         public static bool TeamNearby;   // a teammate is riding close — shared drag protection
         public static float BuffTimeLeft;
+        public static float PlayerLaneY;       // vertical position on the road (negative = down)
+        public static float PlayerLaneTarget;  // where the player is steering toward
 
         public static event Action CoinsChanged;
         public static event Action BikeLevelChanged;

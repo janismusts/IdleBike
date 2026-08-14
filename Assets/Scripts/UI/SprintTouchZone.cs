@@ -6,10 +6,11 @@ namespace IdleBike
 {
     /// <summary>
     /// Invisible full-screen touch zone behind the HUD. Holding it makes the player
-    /// sprint; any UI element on top naturally blocks it. Tracks pointers per id so
-    /// multi-touch (a second finger tapping and lifting) doesn't cancel the hold.
+    /// sprint; dragging up/down steers the player's lane position on the road. Any UI
+    /// element on top naturally blocks it. Tracks pointers per id so multi-touch
+    /// (a second finger tapping and lifting) doesn't cancel the hold.
     /// </summary>
-    public class SprintTouchZone : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class SprintTouchZone : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         readonly HashSet<int> _pointers = new HashSet<int>();
 
@@ -23,6 +24,16 @@ namespace IdleBike
         {
             _pointers.Remove(eventData.pointerId);
             Sync();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            var cam = CameraRig.Main;
+            if (cam == null || Screen.height <= 0) return;
+            // screen px -> world units at the current zoom
+            float worldPerPx = 2f * cam.orthographicSize / Screen.height;
+            float delta = eventData.delta.y * worldPerPx * Tuning.Balance.laneDragSensitivity;
+            GameState.PlayerLaneTarget = Lanes.Clamp(GameState.PlayerLaneTarget + delta);
         }
 
         void Sync() => GameState.SprintHeld = _pointers.Count > 0;

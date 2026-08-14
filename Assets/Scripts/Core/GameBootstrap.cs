@@ -64,12 +64,15 @@ namespace IdleBike
             road.Build();
             manager.Road = road;
 
-            // Player
+            // Player (starts mid-road; drag up/down steers the lane)
             var playerGo = new GameObject("Player");
             playerGo.transform.SetParent(tiltGo.transform, false);
             playerGo.transform.localPosition = Vector3.zero;
             var playerVis = playerGo.AddComponent<RiderVisual>();
             playerVis.Init(5);
+            GameState.PlayerLaneY = Lanes.MidY;
+            GameState.PlayerLaneTarget = Lanes.MidY;
+            playerVis.BaseY = GameState.PlayerLaneY;
             manager.PlayerVisual = playerVis;
             manager.ApplyPlayerLook();
 

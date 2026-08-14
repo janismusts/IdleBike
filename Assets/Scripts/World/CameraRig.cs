@@ -6,12 +6,14 @@ namespace IdleBike
     public class CameraRig : MonoBehaviour
     {
         public Camera Cam { get; private set; }
+        public static Camera Main { get; private set; }
         float _sizeVelocity;
 
         public void Build()
         {
             var v = Tuning.Visual;
             Cam = gameObject.AddComponent<Camera>();
+            Main = Cam;
             Cam.orthographic = true;
             Cam.orthographicSize = v.camMinSize;
             Cam.backgroundColor = v.skyColor;

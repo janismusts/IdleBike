@@ -26,6 +26,10 @@ MonoBehaviour:
   draftWindowBase: 4
   draftWindowPerSpeed: 0.25
   draftMinGap: 0.4
+  laneMargin: 0.3
+  laneTolerance: 0.45
+  laneMoveSpeed: 3
+  laneDragSensitivity: 1.3
   npcMaxAlive: 6
   npcSpawnMinGap: 10
   npcSpawnMaxGap: 60
