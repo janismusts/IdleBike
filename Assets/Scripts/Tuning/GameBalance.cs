@@ -18,9 +18,10 @@ namespace IdleBike
         [Header("Sprint energy")]
         public float sprintMax = 100f;
         public float sprintDrainPerSec = 22f;
-        public float sprintRegenPerSec = 8f;
+        [Tooltip("Slow base refill — drafting is the fast way back")]
+        public float sprintRegenPerSec = 4f;
         [Tooltip("Extra regen while drafting")]
-        public float sprintRegenDraftBonus = 10f;
+        public float sprintRegenDraftBonus = 12f;
         [Tooltip("Can't start sprinting below this")]
         public float sprintMinToStart = 10f;
 

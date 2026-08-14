@@ -20,8 +20,8 @@ MonoBehaviour:
   deceleration: 5
   sprintMax: 100
   sprintDrainPerSec: 22
-  sprintRegenPerSec: 8
-  sprintRegenDraftBonus: 10
+  sprintRegenPerSec: 4
+  sprintRegenDraftBonus: 12
   sprintMinToStart: 10
   draftWindowBase: 4
   draftWindowPerSpeed: 0.25

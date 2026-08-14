@@ -21,6 +21,8 @@ namespace IdleBike
         Image _teamChipBg;
         Image _bikeBadge;
         Button _refillBtn;
+        Image _sprintBtnBg;
+        Text _sprintBtnLabel;
         GameObject _emotePicker;
         float _emoteCooldown;
 
@@ -106,8 +108,17 @@ namespace IdleBike
             _sprintFill.fillMethod = Image.FillMethod.Horizontal;
             _sprintFill.raycastTarget = false;
 
-            var hint = UIFactory.Text(canvas, "SprintHint", "HOLD TO SPRINT  |  DRAG UP/DOWN TO STEER", 28, UIFactory.TextDim);
+            var hint = UIFactory.Text(canvas, "SprintHint", "DRAG UP/DOWN TO STEER", 28, UIFactory.TextDim);
             UIFactory.SetPoint(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, sprintY - 38f), new Vector2(600f, 36f));
+
+            // --- Dedicated hold-to-sprint button (right thumb zone) ---
+            _sprintBtnBg = UIFactory.Image(canvas, "SprintBtn", new Color(0.95f, 0.8f, 0.2f, 0.95f), PixelSprites.White());
+            UIFactory.SetPoint(_sprintBtnBg.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, sprintY + 70f), new Vector2(250f, 160f));
+            _sprintBtnBg.gameObject.AddComponent<SprintHoldButton>();
+            _sprintBtnLabel = UIFactory.Text(_sprintBtnBg.transform, "Label", "SPRINT", 40, new Color(0.15f, 0.12f, 0.05f));
+            UIFactory.Fill(_sprintBtnLabel.rectTransform);
+            var holdHint = UIFactory.Text(_sprintBtnBg.transform, "Hint", "HOLD", 22, new Color(0.15f, 0.12f, 0.05f, 0.7f));
+            UIFactory.SetPoint(holdHint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(200f, 26f));
 
             // Rewarded refill (placeholder ad) — shows when the sprint bar runs low
             _refillBtn = UIFactory.Button(canvas, "RefillBtn", "", 0, new Color(0.95f, 0.6f, 0.15f, 0.95f), () =>
@@ -168,8 +179,8 @@ namespace IdleBike
         {
             var smileyArt = ArtLibrary.Social(ArtLibrary.SocialIcon.Smiley);
             var emoteBtn = UIFactory.Button(canvas, "EmoteBtn", "", 0, new Color(0f, 0f, 0f, 0.45f), ToggleEmotePicker);
-            UIFactory.SetPoint(emoteBtn.GetComponent<RectTransform>(), new Vector2(1f, 0f),
-                new Vector2(-24f, sprintY - 18f), new Vector2(104f, 88f));
+            UIFactory.SetPoint(emoteBtn.GetComponent<RectTransform>(), new Vector2(0f, 0f),
+                new Vector2(24f, sprintY + 70f), new Vector2(104f, 88f));
             var smiley = UIFactory.Image(emoteBtn.transform, "Icon", UIFactory.TextMain,
                 smileyArt != null ? smileyArt : PixelSprites.IconSmiley());
             UIFactory.SetPoint(smiley.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
@@ -182,8 +193,8 @@ namespace IdleBike
             var pickerBg = _emotePicker.AddComponent<Image>();
             pickerBg.sprite = PixelSprites.White();
             pickerBg.color = new Color(0.08f, 0.09f, 0.13f, 0.97f);
-            UIFactory.SetPoint(pickerBg.rectTransform, new Vector2(1f, 0f),
-                new Vector2(-24f, sprintY + 84f), new Vector2(590f, 208f));
+            UIFactory.SetPoint(pickerBg.rectTransform, new Vector2(0f, 0f),
+                new Vector2(24f, sprintY + 172f), new Vector2(590f, 208f));
 
             for (int i = 0; i < Emotes.Count; i++)
             {
@@ -281,6 +292,23 @@ namespace IdleBike
             if (_emoteCooldown > 0f) _emoteCooldown -= Time.unscaledDeltaTime;
             _refillBtn.gameObject.SetActive(GameState.SprintEnergy < sprintMax * 0.25f && !GameState.IsSprinting);
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
+
+            // sprint button state: gray when too empty to start, orange while sprinting
+            if (GameState.IsSprinting)
+            {
+                _sprintBtnBg.color = new Color(1f, 0.55f, 0.15f, 0.95f);
+                _sprintBtnLabel.text = "SPRINTING";
+            }
+            else if (GameState.SprintEnergy < Tuning.Balance.sprintMinToStart)
+            {
+                _sprintBtnBg.color = new Color(0.35f, 0.36f, 0.4f, 0.95f);
+                _sprintBtnLabel.text = "TIRED...";
+            }
+            else
+            {
+                _sprintBtnBg.color = new Color(0.95f, 0.8f, 0.2f, 0.95f);
+                _sprintBtnLabel.text = "SPRINT";
+            }
         }
     }
 }

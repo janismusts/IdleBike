@@ -33,11 +33,11 @@ namespace IdleBike
             UIFactory.EnsureEventSystem();
             _canvas = UIFactory.CreateCanvas("Canvas", 10, transform);
 
-            // Sprint zone (behind everything else on the canvas)
-            var zone = UIFactory.Image(_canvas.transform, "SprintZone", new Color(0f, 0f, 0f, 0f));
+            // Steering zone (behind everything else on the canvas): drag up/down moves the rider
+            var zone = UIFactory.Image(_canvas.transform, "SteerZone", new Color(0f, 0f, 0f, 0f));
             zone.raycastTarget = true;
             UIFactory.Fill(zone.rectTransform);
-            zone.gameObject.AddComponent<SprintTouchZone>();
+            zone.gameObject.AddComponent<SteerTouchZone>();
 
             // Safe-area container for HUD content (notches, home indicator)
             var safeGo = new GameObject("SafeArea");
