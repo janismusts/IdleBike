@@ -62,27 +62,28 @@ namespace IdleBike
             return c;
         }
 
-        void PlayClip(string name, System.Func<AudioClip> fallback)
+        void PlayClip(string name, System.Func<AudioClip> fallback, float perSoundVolume)
         {
             if (_sfx == null) return;
             var clip = Clip(name, fallback);
-            if (clip != null) _sfx.PlayOneShot(clip);
+            if (clip != null) _sfx.PlayOneShot(clip, Mathf.Clamp(perSoundVolume, 0f, 2f));
         }
 
-        public void PlayClick() => PlayClip("ui_click", ProceduralSfx.Click);
-        public void PlayCoin() => PlayClip("coin_pickup", ProceduralSfx.Coin);
-        public void PlayUpgrade() => PlayClip("upgrade_buy", ProceduralSfx.Upgrade);
-        public void PlayFanfare() => PlayClip("new_bike_fanfare", ProceduralSfx.Upgrade);
-        public void PlayWhoosh() => PlayClip("sprint_start", ProceduralSfx.Whoosh);
-        public void PlaySprintEmpty() => PlayClip("sprint_empty", ProceduralSfx.Error);
-        public void PlayBuff() => PlayClip("buff_pickup", ProceduralSfx.Buff);
-        public void PlayBuffEnd() => PlayClip("buff_end", ProceduralSfx.Click);
-        public void PlayDraftEnter() => PlayClip("draft_enter", ProceduralSfx.Whoosh);
-        public void PlayOfflineCollect() => PlayClip("offline_collect", ProceduralSfx.Coin);
-        public void PlayError() => PlayClip("error_denied", ProceduralSfx.Error);
-        public void PlayEmotePop() => PlayClip("emote_pop", ProceduralSfx.Click);
-        public void PlayGiftReceive() => PlayClip("gift_receive", ProceduralSfx.Coin);
-        public void PlayGiftSend() => PlayClip("gift_send", ProceduralSfx.Click);
-        public void PlayTeamJoin() => PlayClip("team_join", ProceduralSfx.Upgrade);
+        // per-sound volumes read live from AudioTuning on every play
+        public void PlayClick() => PlayClip("ui_click", ProceduralSfx.Click, Tuning.Audio.uiClick);
+        public void PlayCoin() => PlayClip("coin_pickup", ProceduralSfx.Coin, Tuning.Audio.coinPickup);
+        public void PlayUpgrade() => PlayClip("upgrade_buy", ProceduralSfx.Upgrade, Tuning.Audio.upgradeBuy);
+        public void PlayFanfare() => PlayClip("new_bike_fanfare", ProceduralSfx.Upgrade, Tuning.Audio.newBikeFanfare);
+        public void PlayWhoosh() => PlayClip("sprint_start", ProceduralSfx.Whoosh, Tuning.Audio.sprintStart);
+        public void PlaySprintEmpty() => PlayClip("sprint_empty", ProceduralSfx.Error, Tuning.Audio.sprintEmpty);
+        public void PlayBuff() => PlayClip("buff_pickup", ProceduralSfx.Buff, Tuning.Audio.buffPickup);
+        public void PlayBuffEnd() => PlayClip("buff_end", ProceduralSfx.Click, Tuning.Audio.buffEnd);
+        public void PlayDraftEnter() => PlayClip("draft_enter", ProceduralSfx.Whoosh, Tuning.Audio.draftEnter);
+        public void PlayOfflineCollect() => PlayClip("offline_collect", ProceduralSfx.Coin, Tuning.Audio.offlineCollect);
+        public void PlayError() => PlayClip("error_denied", ProceduralSfx.Error, Tuning.Audio.errorDenied);
+        public void PlayEmotePop() => PlayClip("emote_pop", ProceduralSfx.Click, Tuning.Audio.emotePop);
+        public void PlayGiftReceive() => PlayClip("gift_receive", ProceduralSfx.Coin, Tuning.Audio.giftReceive);
+        public void PlayGiftSend() => PlayClip("gift_send", ProceduralSfx.Click, Tuning.Audio.giftSend);
+        public void PlayTeamJoin() => PlayClip("team_join", ProceduralSfx.Upgrade, Tuning.Audio.teamJoin);
     }
 }

@@ -16,3 +16,18 @@ MonoBehaviour:
   defaultSfxVolume: 0.8
   musicGain: 1
   sfxGain: 1
+  uiClick: 1
+  coinPickup: 1
+  upgradeBuy: 1
+  newBikeFanfare: 1
+  sprintStart: 1
+  sprintEmpty: 1
+  buffPickup: 1
+  buffEnd: 1
+  draftEnter: 1
+  offlineCollect: 1
+  errorDenied: 1
+  emotePop: 1
+  giftReceive: 1
+  giftSend: 1
+  teamJoin: 1
