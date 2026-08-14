@@ -15,20 +15,30 @@ namespace IdleBike
         public float acceleration = 3.5f;
         public float deceleration = 5.0f;
 
-        [Header("Sprint energy")]
+        [Header("Sprint energy (sprint can only start on a FULL bar)")]
         public float sprintMax = 100f;
         public float sprintDrainPerSec = 22f;
-        public float sprintRegenPerSec = 8f;
+        [Tooltip("Slow base refill — drafting is the fast way back")]
+        public float sprintRegenPerSec = 4f;
         [Tooltip("Extra regen while drafting")]
-        public float sprintRegenDraftBonus = 10f;
-        [Tooltip("Can't start sprinting below this")]
-        public float sprintMinToStart = 10f;
+        public float sprintRegenDraftBonus = 12f;
 
         [Header("Drafting")]
-        public float draftWindowBase = 4f;
-        [Tooltip("Draft window grows with speed (m per m/s)")]
-        public float draftWindowPerSpeed = 0.25f;
+        [Tooltip("Max distance behind another rider (m) where the draft works")]
+        public float draftDistance = 5f;
+        [Tooltip("Extra draft distance per m/s of current speed (0 = fixed distance)")]
+        public float draftDistancePerSpeed = 0.15f;
         public float draftMinGap = 0.4f;
+
+        [Header("Lanes (vertical position on the road)")]
+        [Tooltip("Keep riders this far from the road edges")]
+        public float laneMargin = 0.3f;
+        [Tooltip("Max vertical distance to count as the same lane (draft, pickups)")]
+        public float laneTolerance = 0.45f;
+        [Tooltip("How fast the player moves vertically (units/s)")]
+        public float laneMoveSpeed = 3f;
+        [Tooltip("Drag steering sensitivity multiplier")]
+        public float laneDragSensitivity = 1.3f;
 
         [Header("NPC riders")]
         public int npcMaxAlive = 6;

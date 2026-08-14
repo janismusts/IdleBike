@@ -11,33 +11,78 @@ namespace IdleBike
     {
         const int TileCount = 40;
         float _tileWidth;
+        float _stripWidth;
         readonly List<Transform> _tiles = new List<Transform>();
+        readonly List<Transform> _grassStrips = new List<Transform>();
         readonly List<Transform> _posts = new List<Transform>();
         Transform _ground;
+
+        /// <summary>Tear down and rebuild from current VisualTuning (dev live-tuning).</summary>
+        public void Rebuild()
+        {
+            foreach (var t in _tiles) if (t != null) Destroy(t.gameObject);
+            foreach (var s in _grassStrips) if (s != null) Destroy(s.gameObject);
+            foreach (var p in _posts) if (p != null) Destroy(p.gameObject);
+            if (_ground != null) Destroy(_ground.gameObject);
+            _tiles.Clear();
+            _grassStrips.Clear();
+            _posts.Clear();
+            _ground = null;
+            Build();
+        }
 
         public void Build()
         {
             var tileSprite = ArtLibrary.EnvRoad();
             if (tileSprite == null) tileSprite = PixelSprites.RoadTile();
-            _tileWidth = tileSprite.bounds.size.x;
+            float roadScale = Mathf.Max(0.1f, Tuning.Visual.roadScale);
+            _tileWidth = tileSprite.bounds.size.x * roadScale;
             for (int i = 0; i < TileCount; i++)
             {
                 var go = new GameObject("RoadTile");
                 go.transform.SetParent(transform, false);
+                go.transform.localScale = Vector3.one * roadScale;
                 var sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = tileSprite;
                 sr.sortingOrder = -10;
                 _tiles.Add(go.transform);
             }
 
-            // solid ground fill below the road
+            // grass edge strip along the road's top edge (behind riders, in front of trees)
+            var strip = ArtLibrary.EnvGrassStrip();
+            if (strip != null)
+            {
+                _stripWidth = strip.bounds.size.x;
+                for (int i = 0; i < TileCount; i++)
+                {
+                    var sgo = new GameObject("GrassStrip");
+                    sgo.transform.SetParent(transform, false);
+                    var ssr = sgo.AddComponent<SpriteRenderer>();
+                    ssr.sprite = strip;
+                    ssr.sortingOrder = -7;
+                    _grassStrips.Add(sgo.transform);
+                }
+            }
+
+            // solid ground fill below the road (grass art when present)
             var g = new GameObject("Ground");
             g.transform.SetParent(transform, false);
             var gsr = g.AddComponent<SpriteRenderer>();
-            gsr.sprite = PixelSprites.Ground();
+            float groundTop = -tileSprite.bounds.size.y * roadScale + 0.05f;
+            var grass = ArtLibrary.EnvGrassFill();
+            if (grass != null)
+            {
+                gsr.sprite = grass;
+                gsr.drawMode = SpriteDrawMode.Tiled;
+                gsr.size = new Vector2(400f, 40f);
+            }
+            else
+            {
+                gsr.sprite = PixelSprites.Ground();
+                g.transform.localScale = new Vector3(400f, 40f, 1f);
+            }
             gsr.sortingOrder = -11;
-            g.transform.localScale = new Vector3(400f, 40f, 1f);
-            g.transform.localPosition = new Vector3(0f, -0.9f, 0f);
+            g.transform.localPosition = new Vector3(0f, groundTop, 0f);
             _ground = g.transform;
 
             // km posts every 100 m
@@ -59,6 +104,14 @@ namespace IdleBike
             float startX = -_tileWidth * (TileCount / 2);
             for (int i = 0; i < _tiles.Count; i++)
                 _tiles[i].localPosition = new Vector3(startX + i * _tileWidth - offset, 0f, 0f);
+
+            if (_grassStrips.Count > 0)
+            {
+                float stripOffset = (float)(dist % _stripWidth);
+                float stripStartX = -_stripWidth * (TileCount / 2);
+                for (int i = 0; i < _grassStrips.Count; i++)
+                    _grassStrips[i].localPosition = new Vector3(stripStartX + i * _stripWidth - stripOffset, 0f, 0f);
+            }
 
             // posts at multiples of 100 m near the player
             double basePost = System.Math.Floor(dist / 100.0) * 100.0;

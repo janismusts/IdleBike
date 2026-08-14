@@ -143,12 +143,12 @@ TextureImporter:
       name: rusty-trike-ride_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 5
-        width: 114
-        height: 86
+        x: 8
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,12 +165,12 @@ TextureImporter:
       name: rusty-trike-ride_1
       rect:
         serializedVersion: 2
-        x: 135
-        y: 5
-        width: 114
-        height: 86
+        x: 136
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,12 +187,12 @@ TextureImporter:
       name: rusty-trike-ride_2
       rect:
         serializedVersion: 2
-        x: 263
-        y: 5
-        width: 114
-        height: 86
+        x: 264
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,37 +206,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rusty-trike-ride_3
-      rect:
-        serializedVersion: 2
-        x: 391
-        y: 8
-        width: 6
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c404dd438f28ac7b0800000000000000
-      internalID: -5203202416922771380
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: rusty-trike-ride_4
       rect:
         serializedVersion: 2
-        x: 397
-        y: 5
-        width: 108
-        height: 86
+        x: 398
+        y: 6
+        width: 106
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,37 +228,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rusty-trike-ride_5
-      rect:
-        serializedVersion: 2
-        x: 519
-        y: 11
-        width: 6
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 89b3c304bcce00730800000000000000
-      internalID: 3963428029786241944
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: rusty-trike-ride_6
       rect:
         serializedVersion: 2
-        x: 529
-        y: 5
-        width: 104
-        height: 86
+        x: 530
+        y: 6
+        width: 102
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -297,12 +253,12 @@ TextureImporter:
       name: rusty-trike-ride_7
       rect:
         serializedVersion: 2
-        x: 647
-        y: 5
-        width: 114
-        height: 86
+        x: 648
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -319,12 +275,12 @@ TextureImporter:
       name: rusty-trike-ride_8
       rect:
         serializedVersion: 2
-        x: 775
-        y: 5
-        width: 114
-        height: 86
+        x: 776
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -341,12 +297,12 @@ TextureImporter:
       name: rusty-trike-ride_9
       rect:
         serializedVersion: 2
-        x: 903
-        y: 5
-        width: 114
-        height: 86
+        x: 904
+        y: 6
+        width: 112
+        height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -363,7 +319,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 933a500289e52a0488d4ffede16cbcc9
     internalID: 0
     vertices: []
     indices: 
@@ -371,10 +327,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       rusty-trike-ride_0: -5448300717421467473
       rusty-trike-ride_1: -8593090876500720974
+      rusty-trike-ride_10: -1032979258
       rusty-trike-ride_2: 6812847084929618989
       rusty-trike-ride_3: -5203202416922771380
       rusty-trike-ride_4: -2320049365763246026

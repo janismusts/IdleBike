@@ -90,6 +90,7 @@ namespace IdleBike
                     var row = AddRow(96f);
                     var icon = UIFactory.Image(row.transform, "Icon", UIFactory.Accent, GiftIcon());
                     UIFactory.SetPoint(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(24f, 0f), new Vector2(56f, 56f));
+                    icon.preserveAspect = true;
                     var name = UIFactory.Text(row.transform, "Name", TeamService.GiftLabel(g.type), 30, UIFactory.TextMain, TextAnchor.MiddleLeft);
                     UIFactory.SetPoint(name.rectTransform, new Vector2(0f, 0.5f), new Vector2(104f, 14f), new Vector2(420f, 40f));
                     var from = UIFactory.Text(row.transform, "From", "FROM " + g.fromName.ToUpperInvariant(), 24, UIFactory.TextDim, TextAnchor.MiddleLeft);

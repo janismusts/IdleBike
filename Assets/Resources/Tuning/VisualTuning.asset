@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e1bd5e8738c1224bb9901fb52703787, type: 3}
   m_Name: VisualTuning
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   camMinSize: 7.5
   camMaxSize: 26
   camSizePerSpeed: 0.35
@@ -19,7 +19,40 @@ MonoBehaviour:
   playerScreenX: 0.35
   roadScreenY: 0.34
   skyColor: {r: 0.52, g: 0.78, b: 0.92, a: 1}
+  mountainParallax: 0.08
+  mountainY: 0.4
+  mountainScale: 2.2
+  mountainTiles: 6
   mountainScaleMin: 1.5
   mountainScaleMax: 2.5
+  cloudParallax: 0.05
+  cloudCount: 7
+  cloudMinY: 5
+  cloudMaxY: 11
+  cloudMinScale: 1
+  cloudMaxScale: 2.4
+  hillParallax: 0.25
+  hillY: 0.15
+  hillScale: 1.6
+  hillTiles: 8
+  treeParallax: 1
+  treeCount: 14
+  treeY: 0.05
+  treeMinScale: 0.7
+  treeMaxScale: 1.1
+  roadScale: 1
+  riderScale: 1
+  showHelmets: 0
+  helmetScale: 1
+  helmetOffset: {x: 0, y: 0}
+  trailOffset: {x: -0.55, y: 0.02}
+  trailScale: 1
+  emoteBubbleOffset: {x: 0.35, y: 2.05}
+  emoteBubbleScale: 1
+  nameTagHeight: 1.75
+  barIconSize: 84
+  hudTopIconSize: 64
+  emotePickerIconSize: 64
+  showDevButton: 0
   riderArtPixelsPerUnit: 56
   envArtPixelsPerUnit: 16

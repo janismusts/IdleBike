@@ -5,11 +5,10 @@ using UnityEngine.EventSystems;
 namespace IdleBike
 {
     /// <summary>
-    /// Invisible full-screen touch zone behind the HUD. Holding it makes the player
-    /// sprint; any UI element on top naturally blocks it. Tracks pointers per id so
-    /// multi-touch (a second finger tapping and lifting) doesn't cancel the hold.
+    /// Dedicated hold-to-sprint button. Tracks pointers per id so a second finger
+    /// lifting elsewhere doesn't cancel the hold; never leaves the sprint stuck on.
     /// </summary>
-    public class SprintTouchZone : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class SprintHoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         readonly HashSet<int> _pointers = new HashSet<int>();
 
@@ -33,8 +32,6 @@ namespace IdleBike
             GameState.SprintHeld = false;
         }
 
-        // Touches can be cancelled without a pointer-up (incoming call, app switch,
-        // notification shade) — never leave the sprint stuck on.
         void OnDisable() => ReleaseAll();
         void OnApplicationPause(bool paused) { if (paused) ReleaseAll(); }
         void OnApplicationFocus(bool focused) { if (!focused) ReleaseAll(); }

@@ -65,6 +65,7 @@ namespace IdleBike
                     iconArt != null ? iconArt : PixelSprites.White());
                 UIFactory.SetPoint(swatch.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f),
                     iconArt != null ? new Vector2(72f, 72f) : new Vector2(56f, 56f));
+                swatch.preserveAspect = iconArt != null;
 
                 var name = UIFactory.Text(row.transform, "Name", tier.Name, 38,
                     tier == current ? UIFactory.Accent : UIFactory.TextMain, TextAnchor.MiddleLeft);

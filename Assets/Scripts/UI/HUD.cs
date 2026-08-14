@@ -21,6 +21,11 @@ namespace IdleBike
         Image _teamChipBg;
         Image _bikeBadge;
         Button _refillBtn;
+        Image _sprintBtnBg;
+        Text _sprintBtnLabel;
+        Sprite _sprintBtnReady;
+        Sprite _sprintBtnActive;
+        Sprite _sprintBtnTired;
         GameObject _emotePicker;
         float _emoteCooldown;
 
@@ -41,6 +46,7 @@ namespace IdleBike
                 coinArt != null ? new Color(1f, 0.85f, 0.3f) : Color.white,
                 coinArt != null ? coinArt : PixelSprites.Coin());
             UIFactory.SetPoint(coinIcon.rectTransform, new Vector2(0f, 1f), new Vector2(36f, -36f), new Vector2(56f, 56f));
+            coinIcon.preserveAspect = true;
             coinIcon.raycastTarget = false;
 
             _coinsText = UIFactory.Text(canvas, "Coins", "0", 52, UIFactory.TextMain, TextAnchor.MiddleLeft);
@@ -52,7 +58,9 @@ namespace IdleBike
             var gearArt = ArtLibrary.Icon(ArtLibrary.UiIcon.Gear);
             var gear = UIFactory.Image(settings.transform, "Icon", UIFactory.TextMain,
                 gearArt != null ? gearArt : PixelSprites.IconGear());
-            UIFactory.SetPoint(gear.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
+            UIFactory.SetPoint(gear.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero,
+                Vector2.one * Tuning.Visual.hudTopIconSize);
+            gear.preserveAspect = true;
             gear.raycastTarget = false;
 
             // --- Distance + speed ---
@@ -103,8 +111,21 @@ namespace IdleBike
             _sprintFill.fillMethod = Image.FillMethod.Horizontal;
             _sprintFill.raycastTarget = false;
 
-            var hint = UIFactory.Text(canvas, "SprintHint", "HOLD SCREEN TO SPRINT", 28, UIFactory.TextDim);
+            var hint = UIFactory.Text(canvas, "SprintHint", "DRAG UP/DOWN TO STEER", 28, UIFactory.TextDim);
             UIFactory.SetPoint(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, sprintY - 38f), new Vector2(600f, 36f));
+
+            // --- Dedicated hold-to-sprint button (right thumb zone) ---
+            _sprintBtnBg = UIFactory.Image(canvas, "SprintBtn", new Color(0.95f, 0.8f, 0.2f, 0.95f), PixelSprites.White());
+            UIFactory.SetPoint(_sprintBtnBg.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, sprintY + 70f), new Vector2(250f, 160f));
+            _sprintBtnBg.preserveAspect = true;
+            _sprintBtnBg.gameObject.AddComponent<SprintHoldButton>();
+            _sprintBtnReady = ArtLibrary.SprintButton(0);
+            _sprintBtnActive = ArtLibrary.SprintButton(1);
+            _sprintBtnTired = ArtLibrary.SprintButton(2);
+            _sprintBtnLabel = UIFactory.Text(_sprintBtnBg.transform, "Label", "SPRINT", 40, new Color(0.15f, 0.12f, 0.05f));
+            UIFactory.Fill(_sprintBtnLabel.rectTransform);
+            var holdHint = UIFactory.Text(_sprintBtnBg.transform, "Hint", "HOLD", 22, new Color(0.15f, 0.12f, 0.05f, 0.7f));
+            UIFactory.SetPoint(holdHint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(200f, 26f));
 
             // Rewarded refill (placeholder ad) — shows when the sprint bar runs low
             _refillBtn = UIFactory.Button(canvas, "RefillBtn", "", 0, new Color(0.95f, 0.6f, 0.15f, 0.95f), () =>
@@ -122,6 +143,7 @@ namespace IdleBike
             var bolt = UIFactory.Image(_refillBtn.transform, "Icon", Color.white,
                 boltArt != null ? boltArt : PixelSprites.BuffBolt());
             UIFactory.SetPoint(bolt.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(40f, 40f));
+            bolt.preserveAspect = true;
             bolt.raycastTarget = false;
             var refillLabel = UIFactory.Text(_refillBtn.transform, "Label", "REFILL SPRINT - FREE (AD)", 28, Color.white);
             UIFactory.Fill(refillLabel.rectTransform);
@@ -164,11 +186,12 @@ namespace IdleBike
         {
             var smileyArt = ArtLibrary.Social(ArtLibrary.SocialIcon.Smiley);
             var emoteBtn = UIFactory.Button(canvas, "EmoteBtn", "", 0, new Color(0f, 0f, 0f, 0.45f), ToggleEmotePicker);
-            UIFactory.SetPoint(emoteBtn.GetComponent<RectTransform>(), new Vector2(1f, 0f),
-                new Vector2(-24f, sprintY - 18f), new Vector2(104f, 88f));
+            UIFactory.SetPoint(emoteBtn.GetComponent<RectTransform>(), new Vector2(0f, 0f),
+                new Vector2(24f, sprintY + 70f), new Vector2(104f, 88f));
             var smiley = UIFactory.Image(emoteBtn.transform, "Icon", UIFactory.TextMain,
                 smileyArt != null ? smileyArt : PixelSprites.IconSmiley());
             UIFactory.SetPoint(smiley.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
+            smiley.preserveAspect = true;
             smiley.raycastTarget = false;
 
             _emotePicker = new GameObject("EmotePicker");
@@ -177,8 +200,8 @@ namespace IdleBike
             var pickerBg = _emotePicker.AddComponent<Image>();
             pickerBg.sprite = PixelSprites.White();
             pickerBg.color = new Color(0.08f, 0.09f, 0.13f, 0.97f);
-            UIFactory.SetPoint(pickerBg.rectTransform, new Vector2(1f, 0f),
-                new Vector2(-24f, sprintY + 84f), new Vector2(590f, 208f));
+            UIFactory.SetPoint(pickerBg.rectTransform, new Vector2(0f, 0f),
+                new Vector2(24f, sprintY + 172f), new Vector2(590f, 208f));
 
             for (int i = 0; i < Emotes.Count; i++)
             {
@@ -191,7 +214,9 @@ namespace IdleBike
                 UIFactory.SetPoint(rt, new Vector2(0f, 1f), new Vector2(10f + col * 96f, -10f - row * 96f), new Vector2(88f, 88f));
                 rt.pivot = new Vector2(0f, 1f);
                 var icon = UIFactory.Image(b.transform, "Icon", Color.white, art != null ? art : PixelSprites.Emote(idx));
-                UIFactory.SetPoint(icon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(64f, 64f));
+                UIFactory.SetPoint(icon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero,
+                    Vector2.one * Tuning.Visual.emotePickerIconSize);
+                icon.preserveAspect = true;
                 icon.raycastTarget = false;
             }
             _emotePicker.SetActive(false);
@@ -232,7 +257,9 @@ namespace IdleBike
             rt.offsetMax = new Vector2(-10f, -12f);
 
             var img = UIFactory.Image(btn.transform, "Icon", UIFactory.TextMain, icon);
-            UIFactory.SetPoint(img.rectTransform, new Vector2(0.5f, 0.62f), Vector2.zero, new Vector2(84f, 84f));
+            UIFactory.SetPoint(img.rectTransform, new Vector2(0.5f, 0.62f), Vector2.zero,
+                Vector2.one * Tuning.Visual.barIconSize);
+            img.preserveAspect = true;
             img.raycastTarget = false;
 
             var txt = UIFactory.Text(btn.transform, "Label", label, 32, UIFactory.TextDim);
@@ -272,6 +299,37 @@ namespace IdleBike
             if (_emoteCooldown > 0f) _emoteCooldown -= Time.unscaledDeltaTime;
             _refillBtn.gameObject.SetActive(GameState.SprintEnergy < sprintMax * 0.25f && !GameState.IsSprinting);
             _bikeBadge.gameObject.SetActive(Upgrades.CanAfford);
+
+            // sprint button: only a FULL bar can start a sprint
+            bool hasArt = _sprintBtnReady != null;
+            if (GameState.IsSprinting)
+            {
+                SetSprintButton(_sprintBtnActive, new Color(1f, 0.55f, 0.15f, 0.95f), "SPRINTING", hasArt);
+            }
+            else if (GameState.SprintEnergy < sprintMax - 0.01f)
+            {
+                int pct = Mathf.FloorToInt(GameState.SprintEnergy / sprintMax * 100f);
+                SetSprintButton(_sprintBtnTired, new Color(0.35f, 0.36f, 0.4f, 0.95f), "CHARGING " + pct + "%", hasArt);
+            }
+            else
+            {
+                SetSprintButton(_sprintBtnReady, new Color(0.95f, 0.8f, 0.2f, 0.95f), "SPRINT", hasArt);
+            }
+        }
+
+        void SetSprintButton(Sprite artSprite, Color fallbackColor, string label, bool hasArt)
+        {
+            if (hasArt && artSprite != null)
+            {
+                _sprintBtnBg.sprite = artSprite;
+                _sprintBtnBg.color = Color.white;
+            }
+            else
+            {
+                _sprintBtnBg.sprite = PixelSprites.White();
+                _sprintBtnBg.color = fallbackColor;
+            }
+            _sprintBtnLabel.text = label;
         }
     }
 }

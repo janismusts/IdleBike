@@ -12,9 +12,10 @@ namespace IdleBike
 
         public static EmoteBubble Attach(Transform rider, int sortingOrder)
         {
+            var v = Tuning.Visual;
             var go = new GameObject("EmoteBubble");
             go.transform.SetParent(rider, false);
-            go.transform.localPosition = new Vector3(0.35f, 2.05f, 0f);
+            go.transform.localPosition = new Vector3(v.emoteBubbleOffset.x, v.emoteBubbleOffset.y, 0f);
             var b = go.AddComponent<EmoteBubble>();
 
             b._bubble = go.AddComponent<SpriteRenderer>();
@@ -58,6 +59,7 @@ namespace IdleBike
         IEnumerator Play()
         {
             float hold = Tuning.Balance.emoteDuration;
+            float baseScale = Tuning.Visual.emoteBubbleScale;
             SetAlpha(1f);
 
             // pop in with a small overshoot
@@ -67,10 +69,10 @@ namespace IdleBike
             {
                 t += Time.deltaTime;
                 float k = Mathf.Clamp01(t / popDur);
-                transform.localScale = Vector3.one * Mathf.Lerp(0.2f, 1.08f, k);
+                transform.localScale = Vector3.one * (baseScale * Mathf.Lerp(0.2f, 1.08f, k));
                 yield return null;
             }
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one * baseScale;
 
             yield return new WaitForSeconds(hold);
 

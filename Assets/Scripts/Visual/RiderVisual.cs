@@ -30,21 +30,28 @@ namespace IdleBike
         /// <summary>Speed used to drive the pedaling animation (m/s).</summary>
         public float AnimSpeed;
 
+        /// <summary>Lane y on the road; the bob animation oscillates around this.</summary>
+        public float BaseY;
+
         public void Init(int sortingOrder)
         {
             _sortingOrder = sortingOrder;
+            transform.localScale = Vector3.one * Tuning.Visual.riderScale;
             _sr = gameObject.AddComponent<SpriteRenderer>();
             _sr.sortingOrder = sortingOrder;
 
+            var v = Tuning.Visual;
             var helmetGo = new GameObject("Helmet");
             helmetGo.transform.SetParent(transform, false);
+            helmetGo.transform.localPosition = new Vector3(v.helmetOffset.x, v.helmetOffset.y, 0f);
             _helmetSr = helmetGo.AddComponent<SpriteRenderer>();
             _helmetSr.sortingOrder = sortingOrder + 1;
 
             var trailGo = new GameObject("Trail");
             trailGo.transform.SetParent(transform, false);
             // trail pivot is bottom-right: anchor it a bit behind the bike's rear
-            trailGo.transform.localPosition = new Vector3(-0.55f, 0.02f, 0f);
+            trailGo.transform.localPosition = new Vector3(v.trailOffset.x, v.trailOffset.y, 0f);
+            trailGo.transform.localScale = Vector3.one * v.trailScale;
             _trailSr = trailGo.AddComponent<SpriteRenderer>();
             _trailSr.sortingOrder = sortingOrder - 1;
 
@@ -54,8 +61,39 @@ namespace IdleBike
         /// <summary>Show an emote speech bubble above this rider's head.</summary>
         public void ShowEmote(int emoteIndex)
         {
-            if (_emote == null) _emote = EmoteBubble.Attach(transform, _sortingOrder + 40);
+            if (_emote == null) _emote = EmoteBubble.Attach(transform, 200); // always above riders
             _emote.Show(emoteIndex);
+        }
+
+        /// <summary>Re-apply VisualTuning to this rider (dev live-tuning).</summary>
+        public void ApplyTuning()
+        {
+            var v = Tuning.Visual;
+            transform.localScale = Vector3.one * v.riderScale;
+            if (_trailSr != null)
+            {
+                _trailSr.transform.localPosition = new Vector3(v.trailOffset.x, v.trailOffset.y, 0f);
+                _trailSr.transform.localScale = Vector3.one * v.trailScale;
+            }
+            if (_emote != null)
+                _emote.transform.localPosition = new Vector3(v.emoteBubbleOffset.x, v.emoteBubbleOffset.y, 0f);
+            _lastFrame = -1; // force Refresh so the helmet re-places with new offset/scale
+        }
+
+        /// <summary>
+        /// Set the helmet frame, scaled around the helmet's own center so helmetScale
+        /// doesn't drag it away from the head (its pivot is the sheet-space ground point).
+        /// </summary>
+        void PlaceHelmet(Sprite s)
+        {
+            var v = Tuning.Visual;
+            _helmetSr.sprite = s;
+            float k = v.helmetScale;
+            Vector2 centerLocal = (new Vector2(s.rect.width, s.rect.height) * 0.5f - s.pivot) / s.pixelsPerUnit;
+            _helmetSr.transform.localPosition = new Vector3(
+                v.helmetOffset.x + (1f - k) * centerLocal.x,
+                v.helmetOffset.y + (1f - k) * centerLocal.y, 0f);
+            _helmetSr.transform.localScale = Vector3.one * k;
         }
 
         public void ApplyLook(int tierIndex, Color32 jersey, CosmeticDef helmet, CosmeticDef trail)
@@ -83,12 +121,23 @@ namespace IdleBike
         void Update()
         {
             if (_sr == null) return;
+            // tuning + dev toggles for cosmetic overlays
+            if (_helmetSr != null)
+                _helmetSr.enabled = _helmetFrames != null && Tuning.Visual.showHelmets && !DebugFlags.HideHelmets;
+            if (_trailSr != null) _trailSr.enabled = _trailFrames != null && !DebugFlags.HideTrails;
             var a = Tuning.Anim;
             float spd = Mathf.Max(0f, AnimSpeed);
             _pedalPhase += spd * a.pedalRate * Time.deltaTime;
             _bobPhase += Time.deltaTime * (a.bobBaseFrequency + spd * a.bobFrequencyPerSpeed);
             var lp = transform.localPosition;
-            transform.localPosition = new Vector3(lp.x, Mathf.Sin(_bobPhase) * a.bobAmplitude, lp.z);
+            transform.localPosition = new Vector3(lp.x, BaseY + Mathf.Sin(_bobPhase) * a.bobAmplitude, lp.z);
+
+            // lower on the road renders in front
+            int order = Lanes.SortOrder(BaseY, _sortingOrder);
+            _sr.sortingOrder = order;
+            if (_helmetSr != null) _helmetSr.sortingOrder = order + 1;
+            if (_trailSr != null) _trailSr.sortingOrder = order - 1;
+
             Refresh();
         }
 
@@ -104,7 +153,7 @@ namespace IdleBike
             if (_artFrames != null)
             {
                 _sr.sprite = _artFrames[frame];
-                if (_helmetFrames != null) _helmetSr.sprite = _helmetFrames[frame];
+                if (_helmetFrames != null) PlaceHelmet(_helmetFrames[frame]);
                 if (_trailFrames != null) _trailSr.sprite = _trailFrames[frame];
             }
             else

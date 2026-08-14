@@ -14,6 +14,7 @@ namespace IdleBike
         {
             public Teammate Mate;
             public double Dist;
+            public float LaneY;
             public RiderVisual Visual;
             public TextMesh Label;
             public float EmoteTimer;
@@ -57,7 +58,7 @@ namespace IdleBike
                 // name tag
                 var labelGo = new GameObject("Name");
                 labelGo.transform.SetParent(go.transform, false);
-                labelGo.transform.localPosition = new Vector3(0f, 1.75f, 0f);
+                labelGo.transform.localPosition = new Vector3(0f, Tuning.Visual.nameTagHeight, 0f);
                 labelGo.transform.localScale = Vector3.one * 0.12f;
                 var label = labelGo.AddComponent<TextMesh>();
                 label.font = UIFactory.DefaultFont;
@@ -74,6 +75,7 @@ namespace IdleBike
                 {
                     Mate = mate,
                     Dist = GameState.Data.totalDistance + mate.PreferredOffset,
+                    LaneY = Lanes.RandomLane(),
                     Visual = vis,
                     Label = label,
                     EmoteTimer = Random.Range(b.npcEmoteMinInterval, b.npcEmoteMaxInterval),
@@ -96,7 +98,7 @@ namespace IdleBike
 
             bool together = false;
             bool teamDraft = false;
-            float draftWindow = (b.draftWindowBase + playerSpeed * b.draftWindowPerSpeed)
+            float draftWindow = (b.draftDistance + playerSpeed * b.draftDistancePerSpeed)
                                 * SkillEffects.DraftWindowMult;
 
             foreach (var r in _riders)
@@ -110,10 +112,12 @@ namespace IdleBike
                 rel = (float)(r.Dist - playerDist);
                 var lp = r.Visual.transform.localPosition;
                 r.Visual.transform.localPosition = new Vector3(rel, lp.y, 0f);
+                r.Visual.BaseY = r.LaneY;
                 r.Visual.AnimSpeed = speed;
 
                 if (Mathf.Abs(rel) <= b.teamTogetherRange) together = true;
-                if (rel > b.draftMinGap && rel <= draftWindow) teamDraft = true;
+                if (rel > b.draftMinGap && rel <= draftWindow
+                    && Lanes.SameLane(GameState.PlayerLaneY, r.LaneY)) teamDraft = true;
 
                 // teammates cheer once in a while
                 r.EmoteTimer -= dt;

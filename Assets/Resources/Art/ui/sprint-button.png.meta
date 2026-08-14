@@ -1,22 +1,16 @@
 fileFormatVersion: 2
-guid: 8001e939aabecef439b09e7817ca66f6
+guid: da967219877f65e4fb64f7e4a60c94b8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2720553482718404114
-    second: social-icons_0
+      213: -6996434548867063242
+    second: sprint-button_0
   - first:
-      213: -8658565512578160655
-    second: social-icons_1
+      213: 8258814823836694252
+    second: sprint-button_1
   - first:
-      213: 6327250438546993663
-    second: social-icons_2
-  - first:
-      213: -3441075671567868479
-    second: social-icons_3
-  - first:
-      213: 3981585836251562480
-    second: social-icons_4
+      213: -3298144651503967296
+    second: sprint-button_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -125,89 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: social-icons_0
+      name: sprint-button_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 7
-        width: 28
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 21ed1e97af851c520800000000000000
-      internalID: 2720553482718404114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_2
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 5
-        width: 20
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff1378a20c8eec750800000000000000
-      internalID: 6327250438546993663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_3
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 2
-        width: 28
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1cd55f688e7de30d0800000000000000
-      internalID: -3441075671567868479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_4
-      rect:
-        serializedVersion: 2
-        x: 98
+        x: 3
         y: 3
-        width: 28
-        height: 27
+        width: 122
+        height: 74
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0f14084093f614730800000000000000
-      internalID: 3981585836251562480
+      spriteID: 6322284b8dba7ee90800000000000000
+      internalID: -6996434548867063242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprint-button_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 3
+        width: 122
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce6348043543d9270800000000000000
+      internalID: 8258814823836694252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprint-button_2
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 3
+        width: 122
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c3604de9e2aa32d0800000000000000
+      internalID: -3298144651503967296
       vertices: []
       indices: 
       edges: []
@@ -216,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cc51760ac5ccdf740ab13bcea75c897e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -226,11 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      social-icons_0: 2720553482718404114
-      social-icons_1: -8658565512578160655
-      social-icons_2: 6327250438546993663
-      social-icons_3: -3441075671567868479
-      social-icons_4: 3981585836251562480
+      sprint-button_0: -6996434548867063242
+      sprint-button_1: 8258814823836694252
+      sprint-button_2: -3298144651503967296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

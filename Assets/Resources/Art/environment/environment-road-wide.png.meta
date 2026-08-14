@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 8001e939aabecef439b09e7817ca66f6
+guid: e941334efe177b74da394df3aa8ff0d2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2720553482718404114
-    second: social-icons_0
-  - first:
-      213: -8658565512578160655
-    second: social-icons_1
-  - first:
-      213: 6327250438546993663
-    second: social-icons_2
-  - first:
-      213: -3441075671567868479
-    second: social-icons_3
-  - first:
-      213: 3981585836251562480
-    second: social-icons_4
+      213: 6219281604298525894
+    second: environment-road-wide_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -125,89 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: social-icons_0
+      name: environment-road-wide_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 7
-        width: 28
-        height: 19
+        x: 0
+        y: 0
+        width: 64
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21ed1e97af851c520800000000000000
-      internalID: 2720553482718404114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_2
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 5
-        width: 20
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff1378a20c8eec750800000000000000
-      internalID: 6327250438546993663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_3
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 2
-        width: 28
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1cd55f688e7de30d0800000000000000
-      internalID: -3441075671567868479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: social-icons_4
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 3
-        width: 28
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f14084093f614730800000000000000
-      internalID: 3981585836251562480
+      spriteID: 6ccc55efaa35f4650800000000000000
+      internalID: 6219281604298525894
       vertices: []
       indices: 
       edges: []
@@ -216,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cc51760ac5ccdf740ab13bcea75c897e
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -226,11 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      social-icons_0: 2720553482718404114
-      social-icons_1: -8658565512578160655
-      social-icons_2: 6327250438546993663
-      social-icons_3: -3441075671567868479
-      social-icons_4: 3981585836251562480
+      environment-road-wide_0: 6219281604298525894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
